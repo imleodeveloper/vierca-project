@@ -18,12 +18,20 @@ export function HeroSection() {
                 <br />
                 R$ 91,58/mês
               </div>
-              <Button
-                asChild
-                className="bg-[#1e90ff] hover:bg-[#022041] text-white px-8 py-3 text-lg"
-              >
-                <Link href="/precos">Outros planos</Link>
-              </Button>
+              <div className="flex items-center gap-5">
+                <Button
+                  asChild
+                  className="bg-[#1e90ff] hover:bg-[#022041] text-white px-8 py-3 text-lg"
+                >
+                  <Link href="/chatbots">Planos Chatbots</Link>
+                </Button>
+                <Button
+                  asChild
+                  className="bg-[#1e90ff] hover:bg-[#022041] text-white px-8 py-3 text-lg"
+                >
+                  <Link href="/sites">Planos sites</Link>
+                </Button>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

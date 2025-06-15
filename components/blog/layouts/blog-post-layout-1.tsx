@@ -1,21 +1,21 @@
-import Link from "next/link"
-import { Calendar, User, Clock, ArrowLeft, Share2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import Link from "next/link";
+import { Calendar, User, Clock, ArrowLeft, Share2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 interface BlogPost {
-  title: string
-  excerpt: string
-  author: string
-  date: string
-  readTime: string
-  category: string
-  image: string
-  content: string
+  title: string;
+  excerpt: string;
+  author: string;
+  date: string;
+  readTime: string;
+  category: string;
+  image: string;
+  content: string;
 }
 
 interface BlogPostLayout1Props {
-  post: BlogPost
+  post: BlogPost;
 }
 
 export function BlogPostLayout1({ post }: BlogPostLayout1Props) {
@@ -40,9 +40,15 @@ export function BlogPostLayout1({ post }: BlogPostLayout1Props) {
       <div className="gradient-bg py-16 text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <Badge className="mb-4 bg-white/20 text-white border-white/30">{post.category}</Badge>
-            <h1 className="text-4xl lg:text-5xl font-black mb-6 text-white leading-tight">{post.title}</h1>
-            <p className="text-xl text-white/90 mb-8 leading-relaxed">{post.excerpt}</p>
+            <Badge className="mb-4 bg-white/20 text-white border-white/30">
+              {post.category}
+            </Badge>
+            <h1 className="text-4xl lg:text-5xl font-black mb-6 text-white leading-tight">
+              {post.title}
+            </h1>
+            <p className="text-xl text-white/90 mb-8 leading-relaxed">
+              {post.excerpt}
+            </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8">
               <div className="flex items-center space-x-2">
@@ -68,14 +74,21 @@ export function BlogPostLayout1({ post }: BlogPostLayout1Props) {
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-8">
-            <Button asChild variant="outline" className="border-[#1e90ff] text-[#1e90ff]">
+            <Button
+              asChild
+              variant="outline"
+              className="border-[#1e90ff] text-[#1e90ff]"
+            >
               <Link href="/blog">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Voltar ao Blog
               </Link>
             </Button>
 
-            <Button variant="outline" className="border-[#1e90ff] text-[#1e90ff]">
+            <Button
+              variant="outline"
+              className="border-[#1e90ff] text-[#1e90ff]"
+            >
               <Share2 className="h-4 w-4 mr-2" />
               Compartilhar
             </Button>
@@ -94,16 +107,22 @@ export function BlogPostLayout1({ post }: BlogPostLayout1Props) {
 
           {/* Call to Action */}
           <div className="mt-12 p-8 bg-gradient-to-r from-[#1e90ff] to-[#022041] rounded-lg text-white text-center">
-            <h3 className="text-2xl font-bold mb-4 text-white">Pronto para implementar um chatbot em seu site?</h3>
+            <h3 className="text-2xl font-bold mb-4 text-white">
+              Pronto para implementar um chatbot em seu site?
+            </h3>
             <p className="text-white/90 mb-6">
-              Nossa equipe especializada pode ajudar você a criar a solução perfeita para seu negócio.
+              Nossa equipe especializada pode ajudar você a criar a solução
+              perfeita para seu negócio.
             </p>
-            <Button asChild className="bg-white text-[#022041] hover:bg-gray-100">
+            <Button
+              asChild
+              className="bg-white text-[#022041] hover:bg-gray-100"
+            >
               <Link href="/contato">Falar com Especialista</Link>
             </Button>
           </div>
         </div>
       </div>
     </article>
-  )
+  );
 }

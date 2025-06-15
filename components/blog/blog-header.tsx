@@ -1,26 +1,32 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Search, ChevronDown } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { useState } from "react";
+import { Search, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const categories = [
   "Todos os blogs",
   "Chatbot",
-  "Desenvolvimento de Sites Codificado",
+  "Desenvolvimento de Sites Codificados",
   "Desenvolvimento de Sites NoCode",
   "E-commerce",
   "SEO",
+  "Linguagens de Programação",
   "Design",
   "Tutoriais",
   "Dicas",
-]
+];
 
 export function BlogHeader() {
-  const [activeCategory, setActiveCategory] = useState("Todos os blogs")
-  const [searchQuery, setSearchQuery] = useState("")
+  const [activeCategory, setActiveCategory] = useState("Todos os blogs");
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <section className="gradient-bg py-8">
@@ -38,14 +44,17 @@ export function BlogHeader() {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
           </div>
 
-          <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+          <Button
+            variant="outline"
+            className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+          >
             Visualizar todos os blogs
           </Button>
         </div>
 
         {/* Categories */}
         <div className="flex flex-wrap gap-2 md:gap-4">
-          {categories.slice(0, 8).map((category) => (
+          {categories.slice(0, 7).map((category) => (
             <Button
               key={category}
               variant={activeCategory === category ? "secondary" : "ghost"}
@@ -53,7 +62,7 @@ export function BlogHeader() {
               className={`text-sm ${
                 activeCategory === category
                   ? "bg-white text-[#022041] hover:bg-white/90"
-                  : "text-white hover:bg-white/10"
+                  : "text-white hover:bg-white/10 hover:text-white/100"
               }`}
             >
               {category}
@@ -68,8 +77,11 @@ export function BlogHeader() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              {categories.slice(8).map((category) => (
-                <DropdownMenuItem key={category} onClick={() => setActiveCategory(category)}>
+              {categories.slice(7).map((category) => (
+                <DropdownMenuItem
+                  key={category}
+                  onClick={() => setActiveCategory(category)}
+                >
                   {category}
                 </DropdownMenuItem>
               ))}
@@ -78,5 +90,5 @@ export function BlogHeader() {
         </div>
       </div>
     </section>
-  )
+  );
 }

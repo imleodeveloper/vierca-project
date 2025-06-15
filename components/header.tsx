@@ -40,7 +40,23 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center space-x-1 text-[#022041] hover:text-[#1e90ff] transition-colors">
+              <DropdownMenuTrigger
+                className="flex items-center space-x-1
+                        text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer tracking-wide
+                        relative
+                        px-2 py-1
+                        before:absolute after:absolute
+                        before:bottom-0 after:bottom-0
+                        before:left-0 after:right-0
+                        before:h-0.5 after:h-0.5
+                        before:bg-black after:bg-black
+                        before:w-0 after:w-0
+                        hover:before:w-1/2 hover:after:w-1/2
+                        before:transition-all after:transition-all
+                        before:duration-300 after:duration-300
+                        before:content-[''] after:content-['']
+                    "
+              >
                 <span>Explorar</span>
                 <ChevronDown className="h-4 w-4" />
               </DropdownMenuTrigger>
@@ -48,7 +64,21 @@ export function Header() {
                 <DropdownMenuItem asChild>
                   <Link
                     href="/sobre"
-                    className="text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer"
+                    className="
+                        text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer tracking-wide
+                        relative
+                        px-2 py-1
+                        before:absolute after:absolute
+                        before:bottom-0 after:bottom-0
+                        before:left-0 after:right-0
+                        before:h-0.5 after:h-0.5
+                        before:bg-black after:bg-black
+                        before:w-0 after:w-0
+                        hover:before:w-1/2 hover:after:w-1/2
+                        before:transition-all after:transition-all
+                        before:duration-300 after:duration-300
+                        before:content-[''] after:content-['']
+                    "
                   >
                     Sobre a VierCa
                   </Link>
@@ -56,7 +86,21 @@ export function Header() {
                 <DropdownMenuItem asChild>
                   <Link
                     href="/blog"
-                    className="text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer"
+                    className="
+                        text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer tracking-wide
+                        relative
+                        px-2 py-1
+                        before:absolute after:absolute
+                        before:bottom-0 after:bottom-0
+                        before:left-0 after:right-0
+                        before:h-0.5 after:h-0.5
+                        before:bg-black after:bg-black
+                        before:w-0 after:w-0
+                        hover:before:w-1/2 hover:after:w-1/2
+                        before:transition-all after:transition-all
+                        before:duration-300 after:duration-300
+                        before:content-[''] after:content-['']
+                    "
                   >
                     Blog
                   </Link>
@@ -66,27 +110,85 @@ export function Header() {
 
             <Link
               href="/chatbots"
-              className="text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer"
+              className="
+                        text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer tracking-wide
+                        relative
+                        px-2 py-1
+                        before:absolute after:absolute
+                        before:bottom-0 after:bottom-0
+                        before:left-0 after:right-0
+                        before:h-0.5 after:h-0.5
+                        before:bg-black after:bg-black
+                        before:w-0 after:w-0
+                        hover:before:w-1/2 hover:after:w-1/2
+                        before:transition-all after:transition-all
+                        before:duration-300 after:duration-300
+                        before:content-[''] after:content-['']
+                    "
             >
               Chatbots
             </Link>
 
             <Link
               href="/sites"
-              className="text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer "
+              className="
+                        text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer tracking-wide
+                        relative
+                        px-2 py-1
+                        before:absolute after:absolute
+                        before:bottom-0 after:bottom-0
+                        before:left-0 after:right-0
+                        before:h-0.5 after:h-0.5
+                        before:bg-black after:bg-black
+                        before:w-0 after:w-0
+                        hover:before:w-1/2 hover:after:w-1/2
+                        before:transition-all after:transition-all
+                        before:duration-300 after:duration-300
+                        before:content-[''] after:content-['']
+                    "
             >
               Sites
             </Link>
 
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center space-x-1 text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer">
+              <DropdownMenuTrigger
+                className="flex items-center space-x-1
+                        text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer tracking-wide
+                        relative
+                        px-2 py-1
+                        before:absolute after:absolute
+                        before:bottom-0 after:bottom-0
+                        before:left-0 after:right-0
+                        before:h-0.5 after:h-0.5
+                        before:bg-black after:bg-black
+                        before:w-0 after:w-0
+                        hover:before:w-1/2 hover:after:w-1/2
+                        before:transition-all after:transition-all
+                        before:duration-300 after:duration-300
+                        before:content-[''] after:content-['']
+                    "
+              >
                 <span>Serviços</span>
                 <ChevronDown className="h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem asChild>
                   <Link
-                    className="text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer"
+                    className="
+                        text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer tracking-wide
+                        relative
+                        px-2 py-1
+                        before:absolute after:absolute
+                        before:bottom-0 after:bottom-0
+                        before:left-0 after:right-0
+                        before:h-0.5 after:h-0.5
+                        before:bg-black after:bg-black
+                        before:w-0 after:w-0
+                        hover:before:w-1/2 hover:after:w-1/2
+                        before:transition-all after:transition-all
+                        before:duration-300 after:duration-300
+                        before:content-[''] after:content-['']
+                    "
                     href="/servicos/chatbot"
                   >
                     Chatbot
@@ -94,7 +196,21 @@ export function Header() {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link
-                    className="text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer"
+                    className="
+                        text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer tracking-wide
+                        relative
+                        px-2 py-1
+                        before:absolute after:absolute
+                        before:bottom-0 after:bottom-0
+                        before:left-0 after:right-0
+                        before:h-0.5 after:h-0.5
+                        before:bg-black after:bg-black
+                        before:w-0 after:w-0
+                        hover:before:w-1/2 hover:after:w-1/2
+                        before:transition-all after:transition-all
+                        before:duration-300 after:duration-300
+                        before:content-[''] after:content-['']
+                    "
                     href="/servicos/implementacao-chatbot"
                   >
                     Implementação de Chatbot
@@ -102,7 +218,21 @@ export function Header() {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link
-                    className="text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer"
+                    className="
+                        text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer tracking-wide
+                        relative
+                        px-2 py-1
+                        before:absolute after:absolute
+                        before:bottom-0 after:bottom-0
+                        before:left-0 after:right-0
+                        before:h-0.5 after:h-0.5
+                        before:bg-black after:bg-black
+                        before:w-0 after:w-0
+                        hover:before:w-1/2 hover:after:w-1/2
+                        before:transition-all after:transition-all
+                        before:duration-300 after:duration-300
+                        before:content-[''] after:content-['']
+                    "
                     href="/servicos/sites-wordpress"
                   >
                     Sites em WordPress
@@ -110,7 +240,21 @@ export function Header() {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link
-                    className="text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer"
+                    className="
+                        text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer tracking-wide
+                        relative
+                        px-2 py-1
+                        before:absolute after:absolute
+                        before:bottom-0 after:bottom-0
+                        before:left-0 after:right-0
+                        before:h-0.5 after:h-0.5
+                        before:bg-black after:bg-black
+                        before:w-0 after:w-0
+                        hover:before:w-1/2 hover:after:w-1/2
+                        before:transition-all after:transition-all
+                        before:duration-300 after:duration-300
+                        before:content-[''] after:content-['']
+                    "
                     href="/servicos/landing-page"
                   >
                     Landing Page
@@ -118,7 +262,21 @@ export function Header() {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link
-                    className="text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer"
+                    className="
+                        text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer tracking-wide
+                        relative
+                        px-2 py-1
+                        before:absolute after:absolute
+                        before:bottom-0 after:bottom-0
+                        before:left-0 after:right-0
+                        before:h-0.5 after:h-0.5
+                        before:bg-black after:bg-black
+                        before:w-0 after:w-0
+                        hover:before:w-1/2 hover:after:w-1/2
+                        before:transition-all after:transition-all
+                        before:duration-300 after:duration-300
+                        before:content-[''] after:content-['']
+                    "
                     href="/servicos/e-commerce"
                   >
                     E-Commerce
@@ -126,7 +284,21 @@ export function Header() {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link
-                    className="text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer"
+                    className="
+                        text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer tracking-wide
+                        relative
+                        px-2 py-1
+                        before:absolute after:absolute
+                        before:bottom-0 after:bottom-0
+                        before:left-0 after:right-0
+                        before:h-0.5 after:h-0.5
+                        before:bg-black after:bg-black
+                        before:w-0 after:w-0
+                        hover:before:w-1/2 hover:after:w-1/2
+                        before:transition-all after:transition-all
+                        before:duration-300 after:duration-300
+                        before:content-[''] after:content-['']
+                    "
                     href="/servicos/hospedagem"
                   >
                     Onde Hospedamos?
@@ -137,7 +309,21 @@ export function Header() {
 
             <Link
               href="/contato"
-              className="text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer"
+              className="
+                        text-[#022041] hover:text-[#1e90ff] transition-colors cursor-pointer tracking-wide
+                        relative
+                        px-2 py-1
+                        before:absolute after:absolute
+                        before:bottom-0 after:bottom-0
+                        before:left-0 after:right-0
+                        before:h-0.5 after:h-0.5
+                        before:bg-black after:bg-black
+                        before:w-0 after:w-0
+                        hover:before:w-1/2 hover:after:w-1/2
+                        before:transition-all after:transition-all
+                        before:duration-300 after:duration-300
+                        before:content-[''] after:content-['']
+                    "
             >
               Contato
             </Link>
