@@ -18,7 +18,7 @@ export function HeroSection() {
                 <br />
                 R$ 91,58/mês
               </div>
-              <div className="flex items-center gap-5">
+              <div className="flex items-center gap-5 flex-wrap">
                 <Button
                   asChild
                   className="bg-[#1e90ff] hover:bg-[#022041] text-white px-8 py-3 text-lg"

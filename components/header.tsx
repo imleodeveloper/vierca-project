@@ -27,12 +27,14 @@ export function Header() {
     <header className="bg-white shadow-sm border-b">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
+          <Link
+            href="/"
+            className="flex items-center space-x-2 w-20 h-20 relative"
+          >
             <Image
-              src="/android-chrome-512x512.png"
+              src="/VierCa.png"
               alt="VierCa Logo"
-              width={40}
-              height={40}
+              fill
               className="rounded-lg"
             />
           </Link>
@@ -332,7 +334,7 @@ export function Header() {
           {/* Language Selector and Login */}
           <div className="hidden md:flex items-center space-x-4">
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center space-x-2 text-[#022041] hover:text-[#1e90ff] transition-colors">
+              <DropdownMenuTrigger className="hidden flex items-center space-x-2 text-[#022041] hover:text-[#1e90ff] transition-colors">
                 <Image
                   src="/brazil-flag.jpg"
                   alt="Brasil"
@@ -348,7 +350,7 @@ export function Header() {
                   <DropdownMenuItem
                     key={lang.code}
                     onClick={() => setCurrentLang(lang)}
-                    className="flex items-center space-x-2"
+                    className="hidden flex items-center space-x-2"
                   >
                     <span>{lang.flag}</span>
                     <span>{lang.name}</span>
@@ -360,7 +362,7 @@ export function Header() {
             <Button
               asChild
               variant="outline"
-              className="border-[#022041] text-[#022041] hover:bg-[#022041] hover:text-white"
+              className="hidden border-[#022041] text-[#022041] hover:bg-[#022041] hover:text-white"
             >
               <Link href="/login">Entrar</Link>
             </Button>
@@ -470,7 +472,7 @@ export function Header() {
               <Button
                 asChild
                 variant="outline"
-                className="w-fit border-[#022041] text-[#022041]"
+                className="hidden w-fit border-[#022041] text-[#022041]"
               >
                 <Link href="/login">Entrar</Link>
               </Button>
@@ -478,7 +480,7 @@ export function Header() {
           </nav>
         )}
       </div>
-      <div className="md:hidden flex justify-center pb-4">
+      <div className="hidden md:hidden flex justify-center pb-4">
         <DropdownMenu>
           <DropdownMenuTrigger className="flex items-center space-x-2 text-[#022041] hover:text-[#1e90ff] transition-colors">
             <Image

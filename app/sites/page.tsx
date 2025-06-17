@@ -1,6 +1,5 @@
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { PlansSection } from "@/components/home/plans-section";
 import { PaymentTermsSection } from "@/components/home/payment-terms-section";
 import { SiteTypesSection } from "@/components/chatbots/site-types-section";
 import { ExpandedPlansSection } from "@/components/chatbots/expanded-plans-section";
