@@ -1,6 +1,7 @@
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { BlogPostLayout3 } from "@/components/blog/layouts/blog-post-layout-3"
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { BlogPostLayout3 } from "@/components/blog/layouts/blog-post-layout-3";
+import { BlogPostLayout2 } from "@/components/blog/layouts/blog-post-layout-2";
 
 export default function EcommerceConversoesPage() {
   const postData = {
@@ -12,6 +13,80 @@ export default function EcommerceConversoesPage() {
     readTime: "7 min",
     category: "E-commerce",
     image: "🛒",
+    subtitles: `
+        <a 
+          href="#wordpress" 
+          className="block text-gray-600 hover:text-[#1e90ff]"
+        >
+          A Importância do UX no E-commerce
+        </a>
+        <a 
+          href="#customizado" 
+          className="block text-gray-600 hover:text-[#1e90ff]"
+        >
+          Otimização da Página Inicial
+        </a>
+        <a 
+          href="#quando-wordpress" 
+          className="block text-gray-600 hover:text-[#1e90ff]"
+        >
+          Páginas de Produto Otimizadas
+        </a>
+        <a 
+          href="#quando-customizado" 
+          className="block text-gray-600 hover:text-[#1e90ff]"
+        >
+          Processo de Checkout Otimizado
+        </a>
+        <a 
+          href="#custos" 
+          className="block text-gray-600 hover:text-[#1e90ff]"
+        >
+          Design Responsivo e Mobile-First
+        </a>
+        <a 
+          href="#custos" 
+          className="block text-gray-600 hover:text-[#1e90ff]"
+        >
+          Elementos de Confiança
+        </a>
+        <a 
+          href="#custos" 
+          className="block text-gray-600 hover:text-[#1e90ff]"
+        >
+          Personalização e Recomendações
+        </a>
+        <a 
+          href="#custos" 
+          className="block text-gray-600 hover:text-[#1e90ff]"
+        >
+          Performance e Velocidade
+        </a>
+        <a 
+          href="#custos" 
+          className="block text-gray-600 hover:text-[#1e90ff]"
+        >
+          Testes A/B e Otimização Contínua
+        </a>
+        <a 
+          href="#custos" 
+          className="block text-gray-600 hover:text-[#1e90ff]"
+        >
+          Ferramentas Recomendadas
+        </a>
+        <a 
+          href="#custos" 
+          className="block text-gray-600 hover:text-[#1e90ff]"
+        >
+          Casos de Sucesso
+        </a>
+        <a 
+          href="#custos" 
+          className="block text-gray-600 hover:text-[#1e90ff]"
+        >
+          Conclusão
+        </a>
+      `,
     content: `
       <p>A experiência do usuário (UX) é o fator mais importante para o sucesso de um e-commerce. Pequenas melhorias na interface podem resultar em aumentos significativos nas conversões. Neste artigo, compartilhamos estratégias comprovadas para otimizar sua loja virtual.</p>
 
@@ -239,7 +314,7 @@ export default function EcommerceConversoesPage() {
 
       <p>Quer otimizar seu e-commerce para aumentar vendas? <a href="/contato" class="text-blue-600 hover:underline">Fale conosco</a> e vamos analisar seu projeto!</p>
     `,
-  }
+  };
 
   return (
     <div className="min-h-screen">
@@ -247,5 +322,5 @@ export default function EcommerceConversoesPage() {
       <BlogPostLayout3 post={postData} />
       <Footer />
     </div>
-  )
+  );
 }
