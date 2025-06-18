@@ -3,6 +3,7 @@ import { Footer } from "@/components/footer";
 import { PaymentTermsSection } from "@/components/home/payment-terms-section";
 import { SiteTypesSection } from "@/components/chatbots/site-types-section";
 import { ExpandedPlansSection } from "@/components/chatbots/expanded-plans-section";
+import { RecentProjects } from "@/components/sites/recent-projects";
 
 export default function PricingPage() {
   return (
@@ -43,6 +44,7 @@ export default function PricingPage() {
         <SiteTypesSection />
         <ExpandedPlansSection />
         <PaymentTermsSection />
+        <RecentProjects />
 
         {/* FAQ Section */}
         <section className="py-20 bg-gray-50">
