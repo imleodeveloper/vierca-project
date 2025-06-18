@@ -4,58 +4,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const planCategories = [
-  "Implementação Chatbot",
-  "Chatbot Anual",
-  "Chatbot Mensal",
-  "Site com Chatbot",
-];
+const planCategories = ["Chatbot Anual", "Chatbot Mensal", "Site com Chatbot"];
 
 export function PlansSection() {
-  const [activeCategory, setActiveCategory] = useState("Implementação Chatbot");
-
-  const implementationPlans = [
-    {
-      name: "Tradicional",
-      popular: true,
-      description: "Um chatbot para um site",
-      subtitle:
-        "Ideal para sites pessoais, institucionais ou pequenos negócios que precisam automatizar atendimentos básicos com inteligência artificial.",
-      price: "R$ 799,99",
-      period: "*Pagamento único.",
-      features: [
-        "Responde dúvidas frequentes",
-        "Direciona para WhatsApp ou canais externos",
-        "Sem necessidade de painel ou suporte técnico contínuo",
-      ],
-    },
-    {
-      name: "Negócios",
-      description: "Dois chatbots para dois sites",
-      subtitle:
-        "Perfeito para empresas com duas frentes de atuação, marcas distintas ou filiais que precisam de atendimento automatizado em sites separados.",
-      price: "R$ 1.499,99",
-      period: "*Pagamento único.",
-      features: [
-        "Um chatbot por site (até 2 sites)",
-        "Ideal para múltiplas marcas",
-        "Pronto para responder e direcionar atendimentos",
-      ],
-    },
-    {
-      name: "Empresarial",
-      description: "Cinco chatbots para cinco sites",
-      subtitle:
-        "Solução para empresas maiores, com diversas marcas, produtos ou áreas de atuação, que precisam de chatbots distribuídos em vários domínios.",
-      price: "R$ 3.499,99",
-      period: "*Pagamento único.",
-      features: [
-        "Atendimento automatizado em (até 5 sites)",
-        "Comunicação inteligente com visitantes",
-        "Direcionamento estratégico para canais externos",
-      ],
-    },
-  ];
+  const [activeCategory, setActiveCategory] = useState("Chatbot Anual");
 
   const annualPlans = [
     {
@@ -71,6 +23,7 @@ export function PlansSection() {
         "Atendimento simples e eficaz",
         "Custo acessível para começar",
         "Incluso desenvolvimento de site",
+        "Incluso instalação chatbot",
       ],
     },
     {
@@ -87,6 +40,7 @@ export function PlansSection() {
         "Escalável e com bom custo-benefício",
         "Indicado para ecommerces, consultórios, prestadores de serviço",
         "Incluso desenvolvimento de site",
+        "Incluso instalação chatbot",
       ],
     },
     {
@@ -102,6 +56,7 @@ export function PlansSection() {
         "Estável, eficiente e preparado para alto volume",
         "Ideal para marketplaces, SaaS, franquias digitais",
         "Incluso desenvolvimento de site",
+        "Incluso instalação chatbot",
       ],
     },
   ];
@@ -118,6 +73,10 @@ export function PlansSection() {
         "Atendimento simples e eficaz",
         "Custo acessível para começar",
       ],
+      notFeatures: [
+        "Não incluso desenvolvimento de site",
+        "Pagamento da instalação de chatbot a parte",
+      ],
     },
     {
       name: "Intermediário",
@@ -131,6 +90,10 @@ export function PlansSection() {
         "Escalável e com bom custo-benefício",
         "Indicado para ecommerces, consultórios, prestadores de serviço",
       ],
+      notFeatures: [
+        "Não incluso desenvolvimento de site",
+        "Pagamento da instalação de chatbot a parte",
+      ],
     },
     {
       name: "Profissional",
@@ -140,8 +103,12 @@ export function PlansSection() {
       price: "R$ 429,00/mês",
       period: "*Plano mensal. Cancele a qualquer momento.",
       features: [
-        "Estável, eficiente e preparado para alto volume",
+        "Preparado para alto volume",
         "Ideal para marketplaces, SaaS, franquias digitais",
+      ],
+      notFeatures: [
+        "Não incluso desenvolvimento de site",
+        "Pagamento da instalação de chatbot a parte",
       ],
     },
   ];
@@ -198,8 +165,6 @@ export function PlansSection() {
 
   const getCurrentPlans = () => {
     switch (activeCategory) {
-      case "Implementação Chatbot":
-        return implementationPlans;
       case "Chatbot Anual":
         return annualPlans;
       case "Chatbot Mensal":
@@ -207,7 +172,7 @@ export function PlansSection() {
       case "Site com Chatbot":
         return sitePlans;
       default:
-        return implementationPlans;
+        return annualPlans;
     }
   };
 
@@ -219,7 +184,7 @@ export function PlansSection() {
             Confira um de nossos planos para você!
           </h2>
           <p className="text-lg text-gray-600">
-            Nossos planos possuem 30 dias para solicitação de reembolso, zero
+            Nossos planos possuem 07 dias para solicitação de reembolso, zero
             risco!
           </p>
         </div>
@@ -278,12 +243,26 @@ export function PlansSection() {
                       <span className="text-sm text-gray-600">{feature}</span>
                     </li>
                   ))}
+                  {plan.notFeatures &&
+                    plan.notFeatures.map((notFeature, notFeatureIndex) => (
+                      <li
+                        key={notFeatureIndex}
+                        className="flex items-start space-x-2"
+                      >
+                        <div className="bg-red-100 rounded-full p-1 mt-0.5">
+                          <div className="w-2 h-2 bg-red-600 rounded-full"></div>
+                        </div>
+                        <span className="text-sm text-gray-600">
+                          {notFeature}
+                        </span>
+                      </li>
+                    ))}
                 </ul>
                 <Button className="w-full bg-[#1e90ff] hover:bg-[#022041] text-white mb-3">
                   Escolher plano
                 </Button>
                 <p className="text-xs text-center text-gray-500">
-                  <strong>Detalhes:</strong> Solicitação de reembolso em até 30
+                  <strong>Detalhes:</strong> Solicitação de reembolso em até 07
                   dias. Cancele a qualquer momento.
                 </p>
               </CardContent>

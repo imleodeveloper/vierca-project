@@ -24,12 +24,14 @@ export default function PricingPage() {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
               <div className="text-center">
-                <div className="text-3xl font-black mb-2">30 dias</div>
-                <p className="text-white/80">Garantia de reembolso</p>
+                <div className="text-3xl font-black mb-2">07 dias</div>
+                <p className="text-white/80">Garantia</p>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-black mb-2">24/7</div>
-                <p className="text-white/80">Suporte disponível</p>
+                <p className="text-white/80">
+                  Atendimento disponível (via chatbot)
+                </p>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-black mb-2">100%</div>
@@ -53,10 +55,10 @@ export default function PricingPage() {
               <div className="space-y-6">
                 <div className="bg-white p-6 rounded-lg shadow-sm">
                   <h3 className="text-lg font-bold text-[#022041] mb-3">
-                    Como funciona a garantia de 30 dias?
+                    Como funciona a garantia de 07 dias?
                   </h3>
                   <p className="text-gray-700">
-                    Todos os nossos planos incluem 30 dias para solicitação de
+                    Todos os nossos planos incluem 07 dias para solicitação de
                     reembolso, sem perguntas. Se não ficar satisfeito,
                     devolvemos 100% do valor pago.
                   </p>
@@ -89,9 +91,9 @@ export default function PricingPage() {
                     Como é o suporte técnico?
                   </h3>
                   <p className="text-gray-700">
-                    Oferecemos suporte 24/7 via WhatsApp e email. Nossa equipe é
-                    especializada e você fala direto com quem entende do
-                    assunto.
+                    Oferecemos suporte das 09:00 às 18:00 via WhatsApp e email.
+                    Nossa equipe é especializada e você fala direto com quem
+                    entende do assunto.
                   </p>
                 </div>
               </div>

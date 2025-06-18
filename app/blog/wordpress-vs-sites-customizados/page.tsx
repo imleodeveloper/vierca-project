@@ -1,14 +1,47 @@
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { BlogPostLayout3 } from "@/components/blog/layouts/blog-post-layout-3"
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { BlogPostLayout3 } from "@/components/blog/layouts/blog-post-layout-3";
 
 export default function WordpressVsCustomPage() {
   const postData = {
     title: "WordPress vs Sites Customizados: Prós e Contras",
-    excerpt: "Análise completa sobre quando escolher WordPress ou desenvolvimento customizado para seu projeto web.",
+    excerpt:
+      "Análise completa sobre quando escolher WordPress ou desenvolvimento customizado para seu projeto web.",
     author: "Equipe VierCa",
     date: "10 Dez, 2024",
     readTime: "6 min",
+    subtitles: `
+        <a 
+          href="#wordpress" 
+          className="block text-gray-600 hover:text-[#1e90ff]"
+        >
+          WordPress: O CMS Mais Popular
+        </a>
+        <a 
+          href="#customizado" 
+          className="block text-gray-600 hover:text-[#1e90ff]"
+        >
+          Sites Customizados
+        </a>
+        <a 
+          href="#quando-wordpress" 
+          className="block text-gray-600 hover:text-[#1e90ff]"
+        >
+          Quando Escolher WordPress
+        </a>
+        <a 
+          href="#quando-customizado" 
+          className="block text-gray-600 hover:text-[#1e90ff]"
+        >
+          Quando Escolher Customizado
+        </a>
+        <a 
+          href="#custos" 
+          className="block text-gray-600 hover:text-[#1e90ff]"
+        >
+          Comparação de Custos
+        </a>
+      `,
     category: "Desenvolvimento de Sites NoCode",
     image: "🌐",
     content: `
@@ -135,7 +168,7 @@ export default function WordpressVsCustomPage() {
 
       <p>Quer uma consultoria personalizada? <a href="/contato" class="text-blue-600 hover:underline">Entre em contato</a> e vamos analisar seu projeto juntos!</p>
     `,
-  }
+  };
 
   return (
     <div className="min-h-screen">
@@ -143,5 +176,5 @@ export default function WordpressVsCustomPage() {
       <BlogPostLayout3 post={postData} />
       <Footer />
     </div>
-  )
+  );
 }

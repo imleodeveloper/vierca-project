@@ -40,7 +40,7 @@ export function HeroSection() {
                   <Check className="h-4 w-4 text-green-600" />
                 </div>
                 <span className="text-sm">
-                  30 dias para solicitar reembolso
+                  07 dias para solicitar reembolso
                 </span>
               </div>
               <div className="flex items-center space-x-3">
@@ -83,7 +83,12 @@ export function HeroSection() {
                 <p className="text-white/80">Inteligência Artificial</p>
               </div>
               */}
-              <Image src="/page-home.png" alt="" fill />
+              <Image
+                src="/image-vierca-ia-letters-white.webp"
+                alt=""
+                fill
+                className="rounded-xl shadow-lg"
+              />
             </div>
           </div>
         </div>

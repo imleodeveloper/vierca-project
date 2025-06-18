@@ -85,6 +85,14 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
+                  href="/servicos/implementacao-chatbot"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Implementação de chatbot
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/servicos/hospedagem"
                   className="text-gray-300 hover:text-white transition-colors"
                 >
@@ -109,10 +117,18 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/servicos/e-commerce"
+                  href="/servicos/ecommerce"
                   className="text-gray-300 hover:text-white transition-colors"
                 >
                   E-Commerce
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/servicos/chatbot"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Chatbot
                 </Link>
               </li>
             </ul>
@@ -234,7 +250,7 @@ export function Footer() {
                 height={32}
                 className="rounded"
               />
-              <span className="text-sm font-semibold">VierCa</span>
+              <span className="text-sm font-semibold">VierCa Tech</span>
             </div>
           </div>
         </div>
@@ -242,8 +258,8 @@ export function Footer() {
         {/* Copyright */}
         <div className="border-t border-gray-700 mt-8 pt-8 text-center">
           <p className="text-sm text-gray-300">
-            © 2024 VierCa - Todos os direitos reservados - Desenvolvimento de
-            sites com chatbots e sistemas.
+            © 2024 VierCa Tech - Todos os direitos reservados - Desenvolvimento
+            de sites com chatbots e sistemas.
           </p>
         </div>
       </div>
