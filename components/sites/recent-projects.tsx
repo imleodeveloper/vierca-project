@@ -44,7 +44,7 @@ const projects: Project[] = [
   {
     id: "meca-importacoes",
     title: "Meca Importações",
-    client: "Meca Importações",
+    client: "Importação & Exportação de Componentes Eletrônicos",
     category: "Site Institucional",
     date: "2025-01-16",
     dateFormatted: "16 de Janeiro de 2025",
@@ -70,7 +70,7 @@ const projects: Project[] = [
       "SEO otimizado",
     ],
     results: [
-      "Aumento de 300% nas consultas online",
+      "Aumento de 100% nas consultas sobre a empresa online",
       "Melhoria na credibilidade da marca",
       "Redução de 50% no tempo de resposta a clientes",
       "Posicionamento no Google para palavras-chave do setor",
@@ -82,7 +82,7 @@ const projects: Project[] = [
   {
     id: "alli-contabilidade",
     title: "ALLI Contabilidade",
-    client: "ALLI Contabilidade",
+    client: "Contabilidade",
     category: "Site Institucional",
     date: "2025-01-31",
     dateFormatted: "31 de Janeiro de 2025",
@@ -90,17 +90,17 @@ const projects: Project[] = [
     description:
       "Site institucional moderno para empresa de contabilidade, desenvolvido para apresentar serviços e facilitar contato com clientes.",
     fullDescription:
-      "Criamos uma plataforma de e-commerce robusta para a TechSolutions, especializada na venda de equipamentos de informática e tecnologia. A loja conta com sistema completo de gestão de produtos, pedidos e clientes, além de integração com principais gateways de pagamento do mercado brasileiro. O projeto incluiu desenvolvimento de painel administrativo personalizado e sistema de controle de estoque em tempo real.",
-    technologies: ["React", "Swiper Slide", "HTML5/CSS3", "GSAP"],
+      "Desenvolvemos um site institucional completo para a ALLI Contabilidade, uma empresa especializada em assessoria contábil. O projeto foi criado especialmente para o lançamento da empresa, com foco em transmitir credibilidade e profissionalismo no mercado de contabilidade. O site apresenta os serviços da empresa de forma clara e objetiva, facilitando o contato com potenciais clientes e parceiros comerciais.",
+    technologies: ["React", "Swiper Slide", "HTML5/CSS3"],
     features: [
-      "Design responsivo e moderno",
+      "Aumento de 100% nas consultas sobre a empresa online",
       "Seção de serviços detalhada",
       "Formulário de contato integrado",
       "Integração com redes sociais",
       "SEO otimizado",
     ],
     results: [
-      "Aumento de 300% nas consultas online",
+      "Aumento de 100% nas consultas sobre a empresa online",
       "Melhoria na credibilidade da marca",
       "Redução de 50% no tempo de resposta a clientes",
       "Posicionamento no Google para palavras-chave do setor",
@@ -111,25 +111,32 @@ const projects: Project[] = [
   {
     id: "lustra-omega",
     title: "Lustra Ômega",
-    client: "Lustra Ômega",
+    client: "Limpeza Industrial",
     category: "Site Institucional",
     date: "2025-04-14",
     dateFormatted: "14 de Abril de 2025",
     image: "/lustra-omega.webp",
     description:
-      "Landing page otimizada para conversão de pacientes, com agendamento online integrado.",
+      "Site institucional otimizado para informar sobre a empresa, para demonstrar credibilidade e profissionalismo.",
     fullDescription:
-      "Desenvolvemos uma landing page de alta conversão para o Dr. Roberto Silva, cirurgião-dentista especializado em implantes dentários. A página foi estrategicamente projetada para converter visitantes em agendamentos, utilizando as 7 seções otimizadas da nossa metodologia. Incluímos sistema de agendamento online integrado e formulários de captação de leads para diferentes tratamentos odontológicos.",
-    technologies: ["React", "Swiper Slide", "HTML5/CSS3", "GSAP"],
+      "Site institucional moderno para empresa de limpeza industrial, desenvolvido para apresentar serviços e facilitar contato com clientes.",
+    technologies: [
+      "React",
+      "Swiper Slide",
+      "HTML5/CSS3",
+      "ReCAPTCHAv2",
+      "EmailJS",
+    ],
     features: [
       "Design responsivo e moderno",
       "Seção de serviços detalhada",
       "Formulário de contato integrado",
       "Integração com redes sociais",
       "SEO otimizado",
+      "Blog com informações sobre a área da empresa",
     ],
     results: [
-      "Aumento de 300% nas consultas online",
+      "Aumento de 100% nas consultas sobre a empresa online",
       "Melhoria na credibilidade da marca",
       "Redução de 50% no tempo de resposta a clientes",
       "Posicionamento no Google para palavras-chave do setor",
@@ -140,30 +147,31 @@ const projects: Project[] = [
   {
     id: "rx-consultoria",
     title: "RX Consultoria",
-    client: "RX Consultoria",
+    client: "Consultoria Dermatológica e Auditoria",
     category: "Site + Venda de Curso",
     date: "2025-04-05",
     dateFormatted: "05 de Abril de 2025",
     image: "/rx-consultoria.webp",
     description: "Site institucional com sistema de venda de cursos integrado.",
     fullDescription:
-      "Criamos uma solução completa para o Restaurante Sabor & Arte, combinando site institucional com sistema de delivery próprio. O projeto incluiu cardápio digital interativo, sistema de pedidos online, integração com WhatsApp para confirmação de pedidos e painel administrativo para gestão do restaurante. A solução permitiu ao restaurante reduzir dependência de aplicativos de terceiros e aumentar sua margem de lucro.",
+      "Criamos uma solução completa para a RX Consultoria, combinando site institucional com sistema de vendas dos próprios cursos. O projeto incluiu catálogo de cursos, sistema de pagamentos online e área do cliente para acompanhamento do curso. A solução permitiu ao consultório reduzir dependência de aplicativos de terceiros e aumentar sua margem de lucro.",
     technologies: ["Plataforma WIX"],
     features: [
-      "Cardápio digital interativo",
-      "Sistema de pedidos online",
-      "Cálculo automático de frete",
-      "Integração com WhatsApp",
-      "Painel de gestão de pedidos",
-      "Sistema de avaliações",
-      "Programa de fidelidade",
+      "Catálogo de cursos digital",
+      "Sistema de pagamentos online",
+      "Painel do aluno",
       "Relatórios de vendas",
+      "Design responsivo e moderno",
+      "Seção de serviços detalhada",
+      "Formulário de contato integrado",
+      "Integração com redes sociais",
+      "SEO otimizado",
     ],
     results: [
-      "Aumento de 180% nos pedidos online",
-      "Redução de 40% nos custos com delivery",
-      "Melhoria de 95% na satisfação do cliente",
-      "Economia de R$ 2.500/mês em taxas de aplicativos",
+      "Redução de 40% nos custos com taxas",
+      "Melhoria na credibilidade da marca",
+      "Redução de 50% no tempo de resposta a clientes",
+      "Posicionamento no Google para palavras-chave do setor",
     ],
     projectType: "Site + Sistema",
     duration: "4 semanas",
@@ -171,25 +179,22 @@ const projects: Project[] = [
   {
     id: "planejamento-e-habitos",
     title: "eBOOK: Agência LVC",
-    client: "Agência LVC",
+    client: "Agência de Marketing",
     category: "Landing Page",
     date: "2025-05-01",
     dateFormatted: "01 de Maio de 2025",
     image: "/planejamento-e-habitos.webp",
     description:
-      "Portal jurídico completo com área do cliente e sistema de agendamento de consultas.",
+      "Landing Page desenvolvida para a Agência LVC, onde o principal foco é a conversão de leads.",
     fullDescription:
-      "Desenvolvemos um portal jurídico completo para o escritório Mendes & Associados, especializado em direito empresarial e trabalhista. O site conta com área restrita para clientes acompanharem seus processos, sistema de agendamento de consultas online e blog jurídico para posicionamento digital. O projeto foi desenvolvido seguindo rigorosos padrões de segurança e confidencialidade exigidos pelo setor jurídico.",
+      "Desenvolvemos uma landing page moderna e interativa, com o principal foco em conversão de visitantes e leads",
     technologies: ["HTML5/CSS3", "JavaScript"],
     features: [
-      "Área do cliente segura",
-      "Acompanhamento de processos",
-      "Agendamento de consultas",
-      "Blog jurídico otimizado",
-      "Calculadoras jurídicas",
-      "Formulários especializados",
-      "Sistema de documentos",
-      "Chat criptografado",
+      "Design responsivo e moderno",
+      "Seção de serviços detalhada",
+      "Formulário de contato integrado",
+      "Integração com redes sociais",
+      "SEO otimizado",
     ],
     results: [
       "Aumento de 220% em consultas agendadas",
@@ -197,72 +202,67 @@ const projects: Project[] = [
       "Melhoria na organização de processos",
       "Aumento de 300% no tráfego orgânico",
     ],
-    projectType: "Portal Jurídico",
-    duration: "5 semanas",
+    projectType: "eBook",
+    duration: "2 semanas",
   },
   {
     id: "fabio-silva-contabilidade",
     title: "Fábio Silva Contabilidade",
-    client: "Fábio Silva Contabilidade",
+    client: "Contabilidade",
     category: "Site Institucional",
-    date: "Em desenvolvimento",
-    dateFormatted: "Em desenvolvimento",
+    date: "2025-06-27",
+    dateFormatted: "27 de Junho de 2025",
     image: "/fabio-silva-contabilidade.webp",
     description:
-      "Site institucional com sistema de gestão de alunos e agendamento de aulas online.",
+      "Site institucional com foco principal em passar credibilidade para seus clientes.",
     fullDescription:
-      "Criamos uma solução digital completa para a Fitness Pro Academia, incluindo site institucional moderno e sistema de gestão integrado. A plataforma permite que alunos agendem aulas, acompanhem treinos personalizados e façam pagamentos online. Para a academia, desenvolvemos painel administrativo completo com controle de frequência, gestão financeira e relatórios detalhados de performance dos alunos.",
+      "Criamos um site institucional, com o layout moderno e responsivo para a Fábio Silva Contabilidade, com o principal intuito de detalhar seus serviços e passar mais credibilidade aos seus clientes.",
     technologies: ["HTML5/CSS3", "JavaScript"],
     features: [
-      "Agendamento de aulas online",
-      "Treinos personalizados",
-      "Controle de frequência",
-      "Pagamentos recorrentes",
-      "App mobile companion",
-      "Relatórios de performance",
-      "Sistema de avaliação física",
-      "Integração com wearables",
+      "Design responsivo e moderno",
+      "Seção de serviços detalhada",
+      "Formulário de contato integrado",
+      "Integração com redes sociais",
+      "SEO otimizado",
+      "Blog com informações sobre a área da empresa",
     ],
     results: [
-      "Aumento de 150% na retenção de alunos",
-      "Redução de 60% no trabalho administrativo",
-      "Melhoria de 40% na pontualidade das aulas",
-      "Aumento de 200% nas vendas de planos anuais",
+      "Aumento de 100% nas consultas sobre a empresa online",
+      "Melhoria na credibilidade da marca",
+      "Redução de 50% no tempo de resposta a clientes",
+      "Posicionamento no Google para palavras-chave do setor",
     ],
-    projectType: "Sistema de Gestão",
-    duration: "7 semanas",
+    projectType: "Site Institucional",
+    duration: "3 semanas",
   },
   {
     id: "eunivida",
     title: "EUNIVIDA",
-    client: "EUNIVIDA",
+    client: "Consultoria Dermatológica",
     category: "Landing Page",
-    date: "2024-09-30",
-    dateFormatted: "30 de Setembro de 2024",
+    date: "2025-06-27",
+    dateFormatted: "27 de Junho de 2025",
     image: "/eunivida.webp",
     description:
-      "Portal imobiliário completo com busca avançada, tour virtual e CRM integrado.",
+      "Landing Page desenvolvido com o intuito de mostrar os serviços do consultorio.",
     fullDescription:
-      "Desenvolvemos um portal imobiliário completo para a Prime Negócios Imobiliários, com funcionalidades avançadas de busca, filtros inteligentes e sistema de tour virtual 360°. A plataforma inclui CRM integrado para gestão de leads, sistema de avaliação automática de imóveis e integração com principais portais do mercado. O projeto revolucionou a forma como a imobiliária apresenta e vende seus imóveis.",
+      "Landing Page desenvolvida com um dos principais intuitos em passar mais credibilidade para o cliente. Sobre a empresa, serviços prestados e tudo mais!",
     technologies: ["Plataforma WIX"],
     features: [
-      "Busca avançada com filtros",
-      "Tour virtual 360°",
-      "CRM integrado",
-      "Avaliação automática de imóveis",
-      "Comparador de propriedades",
-      "Calculadora de financiamento",
-      "Sistema de favoritos",
-      "Relatórios de mercado",
+      "Design responsivo e moderno",
+      "Seção de serviços detalhada",
+      "Formulário de contato integrado",
+      "Integração com redes sociais",
+      "SEO otimizado",
     ],
     results: [
-      "Aumento de 280% em leads qualificados",
-      "Redução de 45% no tempo de venda",
-      "Melhoria de 90% na experiência do cliente",
-      "Aumento de 320% no tempo de permanência no site",
+      "Aumento de 100% nas consultas sobre a empresa online",
+      "Melhoria na credibilidade da marca",
+      "Redução de 50% no tempo de resposta a clientes",
+      "Posicionamento no Google para palavras-chave do setor",
     ],
     projectType: "Landing Page",
-    duration: "8 semanas",
+    duration: "3 semanas",
   },
 ];
 
@@ -304,7 +304,7 @@ export function RecentProjects() {
           <Button
             variant="outline"
             size="icon"
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg hover:bg-gray-50"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg hover:bg-[#1e90ff] hover:text-white"
             onClick={prevSlide}
             disabled={projects.length <= 3}
           >
@@ -314,7 +314,7 @@ export function RecentProjects() {
           <Button
             variant="outline"
             size="icon"
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg hover:bg-gray-50"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg hover:bg-[#1e90ff] hover:text-white"
             onClick={nextSlide}
             disabled={projects.length <= 3}
           >
@@ -391,7 +391,7 @@ export function RecentProjects() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="w-full"
+                    className="w-full hover:bg-[#1e90ff] hover:text-white"
                     onClick={() => setSelectedProject(project)}
                   >
                     Ver Detalhes
@@ -424,7 +424,7 @@ export function RecentProjects() {
           open={!!selectedProject}
           onOpenChange={() => setSelectedProject(null)}
         >
-          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="bg-gray-300 max-w-2xl max-h-[90vh] overflow-y-auto">
             {selectedProject && (
               <>
                 <DialogHeader>
@@ -442,7 +442,7 @@ export function RecentProjects() {
                       className="w-full h-64 object-cover"
                     />
                     <div className="absolute top-4 right-4">
-                      <Badge className="bg-blue-600">
+                      <Badge className="bg-blue-600 text-white hover:bg-blue-800">
                         {selectedProject.category}
                       </Badge>
                     </div>
@@ -482,13 +482,18 @@ export function RecentProjects() {
                         </div>
                         {selectedProject.url && (
                           <div className="pt-2">
-                            <Button size="sm" variant="outline" asChild>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              asChild
+                              className="hover:bg-[#1e90ff] hover:text-white"
+                            >
                               <a
                                 href={selectedProject.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >
-                                <ExternalLink className="w-4 h-4 mr-2" />
+                                <ExternalLink className="w-4 h-4 mr-2 " />
                                 Visitar Site
                               </a>
                             </Button>

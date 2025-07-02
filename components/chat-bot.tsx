@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { MessageCircle, X, Send, RotateCcw } from "lucide-react";
+import { X, Send, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAuth } from "@/components/auth-provider";
+import Image from "next/image";
 
 interface Message {
   id: string;
@@ -27,8 +27,6 @@ export function ChatBot() {
   const [isLoading, setIsLoading] = useState(false);
   const [showFAQ, setShowFAQ] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const { isAuthenticated } = useAuth();
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -137,7 +135,15 @@ export function ChatBot() {
           className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-[#1e90ff] hover:bg-[#022041] text-white shadow-lg z-50 flex items-center justify-center"
           size="icon"
         >
-          <MessageCircle className="h-6 w-6" />
+          <div className="w-12 h-12 relative flex justify-center items-center rounded-full overflow-hidden">
+            <Image
+              src="/vierbot-1-1.webp"
+              alt="VierBot - Chatbot com Inteligência Artificial"
+              title="Atendimento com o VierBot - Chatbot com Inteligência Artificial"
+              fill
+              className="object-cover"
+            />
+          </div>
         </Button>
       )}
 
@@ -147,11 +153,12 @@ export function ChatBot() {
           {/* Header */}
           <div className="bg-[#1e90ff] text-white p-4 rounded-t-lg flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                <img
-                  src="/image-vierca-ia-letters-white.webp"
-                  alt="VierChat"
-                  className="w-6 h-6"
+              <div className="relative w-8 h-8 bg-white/20 rounded-full flex items-center justify-center overflow-hidden">
+                <Image
+                  src="/vierbot-1-1.webp"
+                  alt="Vierbot - VierChat"
+                  fill
+                  className="object-cover"
                 />
               </div>
               <div>
@@ -184,11 +191,12 @@ export function ChatBot() {
           <div className="flex-1 p-4 overflow-y-auto space-y-3">
             {/* Bot presentation */}
             <div className="flex items-start space-x-2">
-              <div className="w-8 h-8 bg-[#1e90ff]/10 rounded-full flex items-center justify-center flex-shrink-0">
-                <img
-                  src="/image-vierca-ia-letters-black.webp"
-                  alt="Vier"
-                  className="w-5 h-5"
+              <div className="relative w-8 h-8 bg-[#1e90ff]/10 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden">
+                <Image
+                  src="/vierbot-1-1.webp"
+                  alt="Vierbot - VierChat"
+                  fill
+                  className="object-cover"
                 />
               </div>
               <div className="bg-gray-100 text-gray-800 p-3 rounded-lg max-w-[80%] text-sm">

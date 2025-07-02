@@ -31,8 +31,8 @@ export default function AboutPage() {
       rating: 5,
     },
     {
-      company: "TechStart Solutions",
-      text: "Profissionais extremamente competentes e dedicados. O chatbot implementado revolucionou nosso atendimento ao cliente. Recomendo fortemente!",
+      company: "Fábio Silva Contabilidade",
+      text: "Gostariamos de agradecer a @viercatech por entregar até mais do que imaginávamos em questão de layout do site, ficou perfeito!",
       rating: 5,
     },
   ];

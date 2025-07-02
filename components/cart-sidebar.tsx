@@ -28,13 +28,12 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
     {
       id: "chatbot-anual",
       name: "Chatbot Anual",
-      price: 1099.0,
-      description: "Chatbot com IA para seu site por 12 meses",
+      price: 91.58,
+      description: "Chatbot com IA e site incluso - pagamento anual",
       features: [
-        "Aproximadamente 120.000 conversas no ano",
-        "Escalável e com bom custo-benefício",
-        "Indicado para ecommerces, consultórios, prestadores de serviço",
-        "Incluso desenvolvimento de site",
+        "Aproximadamente 10.000 conversas por mês",
+        "Flexibilidade de cancelamento",
+        "Ideal para testes e pequenos negócios",
         "Suporte técnico incluído",
       ],
       category: "chatbot",
@@ -43,27 +42,14 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
     {
       id: "chatbot-mensal",
       name: "Chatbot Mensal",
-      price: 91.58,
-      description: "Chatbot com IA para seu site - pagamento mensal",
+      price: 1099.0,
+      description: "Chatbot com IA para seu site por 12 meses",
       features: [
-        "Aproximadamente 10.000 conversas por mês",
-        "Flexibilidade de cancelamento",
-        "Ideal para testes e pequenos negócios",
+        "Aproximadamente 120.000 conversas no ano",
+        "Escalável e com bom custo-benefício",
+        "Indicado para ecommerces, consultórios, prestadores de serviço",
+        "Incluso desenvolvimento de site",
         "Suporte técnico incluído",
-      ],
-      category: "chatbot",
-    },
-    {
-      id: "chatbot-implementacao",
-      name: "Implementação Única",
-      price: 1500.0,
-      description: "Implementação única do chatbot (cliente gerencia)",
-      features: [
-        "Desenvolvimento completo do chatbot",
-        "Implementação no seu site",
-        "Treinamento da equipe",
-        "Cliente gerencia custos da OpenAI",
-        "Suporte inicial de 30 dias",
       ],
       category: "chatbot",
     },
@@ -160,7 +146,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
       {/* Sidebar */}
       <div className="w-full max-w-md bg-white shadow-xl overflow-y-auto">
         {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-200 p-4 flex items-center justify-between">
+        <div className="sticky relative z-[2] top-0 bg-white border-b border-gray-200 p-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <ShoppingCart className="h-5 w-5 text-[#1e90ff]" />
             <h2 className="text-lg font-semibold text-[#022041]">
