@@ -80,7 +80,9 @@ export default function AboutPage() {
                     <Users className="h-8 w-8" />
                   </div>
                   <h3 className="text-lg font-bold mb-2 text-white">Suporte</h3>
-                  <p className="text-white/80 text-sm">Atendimento 24/7</p>
+                  <p className="text-white/80 text-sm">
+                    Atendimento 24/7 (24h via chatbot)
+                  </p>
                 </div>
               </div>
             </div>
