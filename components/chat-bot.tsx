@@ -1,86 +1,132 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { MessageCircle, X, Send } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { useAuth } from "@/components/auth-provider"
+import { useState, useEffect, useRef } from "react";
+import { MessageCircle, X, Send, RotateCcw } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useAuth } from "@/components/auth-provider";
 
 interface Message {
-  id: string
-  text: string
-  isBot: boolean
-  timestamp: Date
+  id: string;
+  text: string;
+  isBot: boolean;
+  timestamp: Date;
 }
 
 export function ChatBot() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      text: "Olá! Sou o VierChat, seu assistente virtual. Como posso ajudá-lo hoje?",
+      text: "Oi! Sou o Vier 🤖. Como posso te ajudar hoje?",
       isBot: true,
       timestamp: new Date(),
     },
-  ])
-  const [inputValue, setInputValue] = useState("")
-  const { isAuthenticated } = useAuth()
+  ]);
+  const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [showFAQ, setShowFAQ] = useState(true);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { isAuthenticated } = useAuth();
 
-  // Only show chatbot if user is authenticated
-  if (!isAuthenticated) {
-    return null
-  }
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
-  const handleSendMessage = () => {
-    if (!inputValue.trim()) return
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
+  const faqQuestions = [
+    "Quero criar um site",
+    "Quero um chatbot para meu site",
+    "Estou com problemas em meu computador",
+  ];
+
+  const handleFAQClick = async (question: string) => {
+    setShowFAQ(false);
+    await sendMessage(question);
+  };
+
+  const sendMessage = async (messageText: string) => {
     const userMessage: Message = {
       id: Date.now().toString(),
-      text: inputValue,
+      text: messageText,
       isBot: false,
       timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setIsLoading(true);
+
+    // Adiciona mensagem de loading
+    const loadingMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      text: "...",
+      isBot: true,
+      timestamp: new Date(),
+    };
+    setMessages((prev) => [...prev, loadingMessage]);
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userMessage: messageText }),
+      });
+
+      const data = await response.json();
+      const iaMessage =
+        data.response ||
+        "Ocorreu um erro com o sistema e não consigo gerar sua resposta.";
+
+      // Remove a mensagem de loading e adiciona a resposta real
+      setMessages((prev) => {
+        const updated = [...prev];
+        updated[updated.length - 1] = {
+          ...updated[updated.length - 1],
+          text: iaMessage,
+        };
+        return updated;
+      });
+    } catch (error) {
+      console.error("Erro ao chamar IA:", error);
+      setMessages((prev) => {
+        const updated = [...prev];
+        updated[updated.length - 1] = {
+          ...updated[updated.length - 1],
+          text: "Erro ao contactar o servidor de respostas",
+        };
+        return updated;
+      });
+    } finally {
+      setIsLoading(false);
     }
+  };
 
-    setMessages((prev) => [...prev, userMessage])
-    setInputValue("")
+  const handleSendMessage = async () => {
+    if (!inputValue.trim() || isLoading) return;
 
-    // Simulate bot response
-    setTimeout(() => {
-      const botResponse: Message = {
-        id: (Date.now() + 1).toString(),
-        text: getBotResponse(inputValue),
+    const messageText = inputValue;
+    setInputValue("");
+    setShowFAQ(false);
+    await sendMessage(messageText);
+  };
+
+  const resetChat = () => {
+    setMessages([
+      {
+        id: "1",
+        text: "Oi! Sou o Vier 🤖. Como posso te ajudar hoje?",
         isBot: true,
         timestamp: new Date(),
-      }
-      setMessages((prev) => [...prev, botResponse])
-    }, 1000)
-  }
-
-  const getBotResponse = (userInput: string): string => {
-    const input = userInput.toLowerCase()
-
-    if (input.includes("preço") || input.includes("plano") || input.includes("valor")) {
-      return "Nossos planos começam a partir de R$ 91,58/mês. Temos opções de chatbot anual, mensal e implementação única. Gostaria de saber mais sobre algum plano específico?"
-    }
-
-    if (input.includes("chatbot") || input.includes("bot")) {
-      return "Nossos chatbots são desenvolvidos com tecnologia OpenAI e funcionam 24/7 para atender seus clientes. Eles podem responder dúvidas frequentes e direcionar para WhatsApp quando necessário."
-    }
-
-    if (input.includes("site") || input.includes("website")) {
-      return "Desenvolvemos sites responsivos com HTML5, CSS3, JavaScript, React e Next.js. Oferecemos Landing Pages, Sites Institucionais e E-commerce. Todos incluem chatbot integrado!"
-    }
-
-    if (input.includes("suporte") || input.includes("ajuda")) {
-      return "Nosso suporte está disponível via WhatsApp (11) 96738-1402 ou e-mail. Atendemos em português e inglês, e você fala direto com quem entende!"
-    }
-
-    if (input.includes("reembolso") || input.includes("cancelar")) {
-      return "Todos os nossos planos têm 30 dias para solicitação de reembolso, sem risco! Você pode cancelar a qualquer momento."
-    }
-
-    return "Entendi sua pergunta! Para informações mais detalhadas, recomendo entrar em contato com nosso suporte via WhatsApp (11) 96738-1402. Posso ajudar com mais alguma coisa?"
-  }
+      },
+    ]);
+    setShowFAQ(true);
+    setInputValue("");
+  };
 
   return (
     <>
@@ -88,7 +134,7 @@ export function ChatBot() {
       {!isOpen && (
         <Button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-[#1e90ff] hover:bg-[#022041] text-white shadow-lg z-50"
+          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-[#1e90ff] hover:bg-[#022041] text-white shadow-lg z-50 flex items-center justify-center"
           size="icon"
         >
           <MessageCircle className="h-6 w-6" />
@@ -102,36 +148,107 @@ export function ChatBot() {
           <div className="bg-[#1e90ff] text-white p-4 rounded-t-lg flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                <MessageCircle className="h-4 w-4" />
+                <img
+                  src="/image-vierca-ia-letters-white.webp"
+                  alt="VierChat"
+                  className="w-6 h-6"
+                />
               </div>
               <div>
                 <h4 className="font-semibold">VierChat</h4>
                 <p className="text-xs text-white/80">Online agora</p>
               </div>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsOpen(false)}
-              className="text-white hover:bg-white/20"
-            >
-              <X className="h-4 w-4" />
-            </Button>
+            <div className="flex items-center space-x-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={resetChat}
+                className="text-white hover:bg-white/20 w-8 h-8"
+                title="Reiniciar conversa"
+              >
+                <RotateCcw className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsOpen(false)}
+                className="text-white hover:bg-white/20 w-8 h-8"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
 
           {/* Messages */}
           <div className="flex-1 p-4 overflow-y-auto space-y-3">
-            {messages.map((message) => (
-              <div key={message.id} className={`flex ${message.isBot ? "justify-start" : "justify-end"}`}>
+            {/* Bot presentation */}
+            <div className="flex items-start space-x-2">
+              <div className="w-8 h-8 bg-[#1e90ff]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                <img
+                  src="/image-vierca-ia-letters-black.webp"
+                  alt="Vier"
+                  className="w-5 h-5"
+                />
+              </div>
+              <div className="bg-gray-100 text-gray-800 p-3 rounded-lg max-w-[80%] text-sm">
+                Oi! Sou o Vier 🤖. Como posso te ajudar hoje?
+              </div>
+            </div>
+
+            {/* FAQ Questions */}
+            {showFAQ && (
+              <div className="space-y-2">
+                <p className="text-xs text-gray-500 px-2">
+                  Perguntas frequentes:
+                </p>
+                {faqQuestions.map((question, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleFAQClick(question)}
+                    className="w-full text-left p-2 text-sm bg-blue-50 hover:bg-blue-100 text-[#1e90ff] rounded-lg border border-blue-200 transition-colors"
+                    disabled={isLoading}
+                  >
+                    {question}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Chat Messages */}
+            {messages.slice(1).map((message) => (
+              <div
+                key={message.id}
+                className={`flex ${
+                  message.isBot ? "justify-start" : "justify-end"
+                }`}
+              >
+                {message.isBot && (
+                  <div className="w-8 h-8 bg-[#1e90ff]/10 rounded-full flex items-center justify-center flex-shrink-0 mr-2">
+                    <img
+                      src="/image-vierca-ia-letters-black.webp"
+                      alt="Vier"
+                      className="w-5 h-5"
+                    />
+                  </div>
+                )}
                 <div
                   className={`max-w-[80%] p-3 rounded-lg text-sm ${
-                    message.isBot ? "bg-gray-100 text-gray-800" : "bg-[#1e90ff] text-white"
+                    message.isBot
+                      ? "bg-gray-100 text-gray-800"
+                      : "bg-[#1e90ff] text-white"
                   }`}
-                >
-                  {message.text}
-                </div>
+                  dangerouslySetInnerHTML={{
+                    __html: message.text.replace(
+                      /https:\/\/wa\.me\/[^\s]+/g,
+                      (url) =>
+                        `<a href="${url}" target="_blank" rel="noopener noreferrer" class="underline hover:no-underline">WhatsApp</a>`
+                    ),
+                  }}
+                />
               </div>
             ))}
+            <div ref={messagesEndRef} />
           </div>
 
           {/* Input */}
@@ -140,17 +257,26 @@ export function ChatBot() {
               <Input
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Digite sua mensagem..."
+                placeholder="Como podemos ajudar você?"
                 onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
                 className="flex-1"
+                disabled={isLoading}
               />
-              <Button onClick={handleSendMessage} size="icon" className="bg-[#1e90ff] hover:bg-[#022041]">
+              <Button
+                onClick={handleSendMessage}
+                size="icon"
+                className="bg-[#1e90ff] hover:bg-[#022041]"
+                disabled={isLoading || !inputValue.trim()}
+              >
                 <Send className="h-4 w-4" />
               </Button>
             </div>
+            <p className="text-xs text-gray-500 mt-2 text-center">
+              A I.A pode produzir informações imprecisas
+            </p>
           </div>
         </div>
       )}
     </>
-  )
+  );
 }

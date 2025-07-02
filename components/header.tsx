@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronDown, Menu, X } from "lucide-react";
@@ -11,6 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { createClient } from "@supabase/supabase-js";
 
 const languages = [
   { code: "pt", name: "Português", flag: "🇧🇷" },
@@ -19,9 +20,52 @@ const languages = [
   { code: "fr", name: "Français", flag: "🇫🇷" },
 ];
 
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+    },
+  }
+);
+
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState(languages[0]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Verificar sessão inicial
+    const checkSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      setIsAuthenticated(!!session);
+      setUserEmail(session?.user?.email || null);
+    };
+
+    checkSession();
+
+    // Listener para mudanças na autenticação
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      setIsAuthenticated(!!session);
+      setUserEmail(session?.user?.email || null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setIsAuthenticated(false);
+    setUserEmail(null);
+  };
 
   return (
     <header className="bg-white shadow-sm border-b">
@@ -332,41 +376,87 @@ export function Header() {
           </nav>
 
           {/* Language Selector and Login */}
-          <div className="md:flex items-center space-x-4">
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center space-x-2 text-[#022041] hover:text-[#1e90ff] transition-colors">
-                <Image
-                  src="/brazil-flag.jpg"
-                  alt="Brasil"
-                  width={20}
-                  height={15}
-                  className="rounded-sm"
-                />
-                <span>{currentLang.name}</span>
-                <ChevronDown className="h-4 w-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                {languages.map((lang) => (
-                  <DropdownMenuItem
-                    key={lang.code}
-                    onClick={() => setCurrentLang(lang)}
-                    className="flex items-center space-x-2"
-                  >
-                    <span>{lang.flag}</span>
-                    <span>{lang.name}</span>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+          {!isAuthenticated ? (
+            <div className="hidden md:flex items-center space-x-4">
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center space-x-2 text-[#022041] hover:text-[#1e90ff] transition-colors">
+                  <Image
+                    src="/brazil-flag.jpg"
+                    alt="Brasil"
+                    width={20}
+                    height={15}
+                    className="rounded-sm"
+                  />
+                  <span>{currentLang.name}</span>
+                  <ChevronDown className="h-4 w-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  {languages.map((lang) => (
+                    <DropdownMenuItem
+                      key={lang.code}
+                      onClick={() => setCurrentLang(lang)}
+                      className="flex items-center space-x-2"
+                    >
+                      <span>{lang.flag}</span>
+                      <span>{lang.name}</span>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
 
-            <Button
-              asChild
-              variant="outline"
-              className="border-[#022041] text-[#022041] hover:bg-[#022041] hover:text-white"
-            >
-              <Link href="/login">Entrar</Link>
-            </Button>
-          </div>
+              <Button
+                asChild
+                variant="outline"
+                className="border-[#022041] text-[#022041] hover:bg-[#022041] hover:text-white"
+              >
+                <Link href="/login">Entrar</Link>
+              </Button>
+            </div>
+          ) : (
+            <div className="hidden md:flex items-center space-x-4">
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center space-x-2 text-[#022041] hover:text-[#1e90ff] transition-colors">
+                  <Image
+                    src="/brazil-flag.jpg"
+                    alt="Brasil"
+                    width={20}
+                    height={15}
+                    className="rounded-sm"
+                  />
+                  <span>{currentLang.name}</span>
+                  <ChevronDown className="h-4 w-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  {languages.map((lang) => (
+                    <DropdownMenuItem
+                      key={lang.code}
+                      onClick={() => setCurrentLang(lang)}
+                      className="flex items-center space-x-2"
+                    >
+                      <span>{lang.flag}</span>
+                      <span>{lang.name}</span>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              <Button
+                asChild
+                variant="outline"
+                className="border-[#022041] text-[#022041] hover:bg-[#022041] hover:text-white"
+              >
+                <Link href="/area-do-cliente">Área do Cliente</Link>
+              </Button>
+              <Button
+                onClick={handleLogout}
+                asChild
+                variant="outline"
+                className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white bg-transparent"
+              >
+                <span className="cursor-pointer">Sair</span>
+              </Button>
+            </div>
+          )}
 
           {/* Mobile Menu Button */}
           <Button
@@ -469,13 +559,34 @@ export function Header() {
                 Contato
               </Link>
 
-              <Button
-                asChild
-                variant="outline"
-                className="w-fit border-[#022041] text-[#022041]"
-              >
-                <Link href="/login">Entrar</Link>
-              </Button>
+              {!isAuthenticated ? (
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-fit border-[#022041] text-[#022041]"
+                >
+                  <Link href="/login">Entrar</Link>
+                </Button>
+              ) : (
+                <div className="flex justify-start items-center gap-4">
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="w-fit border-[#022041] text-[#022041] hover:bg-[#022041] hover:text-white"
+                  >
+                    <Link href="/area-do-cliente">Área do Cliente</Link>
+                  </Button>
+
+                  <Button
+                    onClick={handleLogout}
+                    asChild
+                    variant="outline"
+                    className="w-fit border-red-500 text-red-500 hover:bg-red-500 hover:text-white "
+                  >
+                    <span className="cursor-pointer">Sair</span>
+                  </Button>
+                </div>
+              )}
             </div>
           </nav>
         )}
