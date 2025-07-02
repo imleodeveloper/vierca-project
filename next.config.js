@@ -18,9 +18,6 @@ const nextConfig = {
     ],
     unoptimized: true,
   },
-  experimental: {
-    appDir: true,
-  },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
