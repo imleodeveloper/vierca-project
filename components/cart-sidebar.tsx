@@ -5,6 +5,7 @@ import { X, ShoppingCart, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 interface Plan {
   id: string;
@@ -14,6 +15,7 @@ interface Plan {
   features: string[];
   category: "chatbot" | "site";
   popular?: boolean;
+  link: string;
 }
 
 interface CartSidebarProps {
@@ -31,27 +33,31 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
       price: 91.58,
       description: "Chatbot com IA e site incluso - pagamento anual",
       features: [
-        "Aproximadamente 10.000 conversas por mês",
-        "Flexibilidade de cancelamento",
-        "Ideal para testes e pequenos negócios",
-        "Suporte técnico incluído",
+        "Aproximadamente 12.000 conversas por ano",
+        "Custo acessível para começar",
+        "Ideal para sites pessoais e pequenos negócios",
+        "Incluso desenvolvimento de site",
+        "Incluso domínio 01 ano grátis",
+        "Incluso instalação de chatbot",
+        "Incluso suporte técnico",
       ],
       category: "chatbot",
       popular: true,
+      link: "/chatbots",
     },
     {
       id: "chatbot-mensal",
       name: "Chatbot Mensal",
-      price: 1099.0,
-      description: "Chatbot com IA para seu site por 12 meses",
+      price: 115.0,
+      description: "Chatbot com IA para seu site - pagamento mensal",
       features: [
-        "Aproximadamente 120.000 conversas no ano",
-        "Escalável e com bom custo-benefício",
+        "Aproximadamente 1.000 conversas no mês",
+        "Custo acessível para começar",
         "Indicado para ecommerces, consultórios, prestadores de serviço",
-        "Incluso desenvolvimento de site",
-        "Suporte técnico incluído",
+        "Incluso suporte técnico",
       ],
       category: "chatbot",
+      link: "/chatbots",
     },
   ];
 
@@ -65,41 +71,45 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
         "Design responsivo",
         "Otimização para conversão",
         "Integração com formulários",
-        "SEO básico incluído",
-        "Chatbot integrado",
+        "SEO incluído",
+        "Suporte 1 mês após finalização",
+        "Hospedagem inicial gratuita",
       ],
       category: "site",
+      link: "/sites",
     },
     {
       id: "site-institucional",
       name: "Site Institucional",
-      price: 700.0,
+      price: 800.0,
       description: "Site completo para sua empresa",
       features: [
-        "Até 5 páginas",
+        "Até 10 páginas",
         "Design responsivo",
-        "Painel administrativo",
         "SEO otimizado",
-        "Chatbot integrado",
         "Formulário de contato",
+        "Suporte 1 mês após finalização",
+        "Hospedagem inicial gratuita",
       ],
       category: "site",
       popular: true,
+      link: "/sites",
     },
     {
       id: "ecommerce",
       name: "E-commerce",
-      price: 1200.0,
+      price: 1600.0,
       description: "Loja virtual completa",
       features: [
-        "Catálogo de produtos ilimitado",
+        "Catálogo de produtos",
         "Carrinho de compras",
         "Integração com pagamentos",
         "Painel administrativo",
-        "Chatbot integrado",
         "SEO otimizado",
+        "Hospedagem inicial gratuita",
       ],
       category: "site",
+      link: "/sites",
     },
   ];
 
@@ -200,7 +210,20 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                           /mês
                         </span>
                       )}
+                      {selectedPlan.id === "chatbot-anual" && (
+                        <span className="text-sm font-normal text-gray-600">
+                          /mês
+                        </span>
+                      )}
                     </div>
+                    {selectedPlan.id === "chatbot-anual" && (
+                      <div className="text-2xl font-bold text-[#1e90ff]">
+                        {formatPrice(selectedPlan.price * 12)}
+                        <span className="text-sm font-normal text-gray-600">
+                          /ano
+                        </span>
+                      </div>
+                    )}
 
                     <ul className="space-y-1 text-sm">
                       {selectedPlan.features.map((feature, index) => (
@@ -218,9 +241,18 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                 <div className="flex items-center justify-between text-lg font-semibold">
                   <span>Total:</span>
                   <span className="text-[#1e90ff]">
-                    {formatPrice(selectedPlan.price)}
                     {selectedPlan.id === "chatbot-mensal" && (
-                      <span className="text-sm font-normal">/mês</span>
+                      <div className="text-2xl font-bold text-[#1e90ff]">
+                        {formatPrice(selectedPlan.price)}
+                        <span className="text-sm font-normal text-gray-600">
+                          /mês
+                        </span>
+                      </div>
+                    )}
+                    {selectedPlan.id === "chatbot-anual" && (
+                      <div className="text-2xl font-bold text-[#1e90ff]">
+                        {formatPrice(selectedPlan.price * 12)}
+                      </div>
                     )}
                   </span>
                 </div>
@@ -253,7 +285,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
               {/* Chatbot Plans */}
               <div>
                 <h4 className="text-md font-semibold text-[#022041] mb-3">
-                  Planos de Chatbot
+                  Planos de Chatbot Mais Populares
                 </h4>
                 <div className="space-y-3">
                   {chatbotPlans.map((plan) => (
@@ -268,24 +300,43 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                           <CardTitle className="text-md text-[#022041]">
                             {plan.name}
                           </CardTitle>
-                          <div className="text-lg font-bold text-[#1e90ff]">
-                            {formatPrice(plan.price)}
-                            {plan.id === "chatbot-mensal" && (
+                          {plan.id === "chatbot-mensal" && (
+                            <div className="text-lg font-bold text-[#1e90ff]">
+                              {formatPrice(plan.price)}
                               <span className="text-sm font-normal">/mês</span>
-                            )}
-                          </div>
+                            </div>
+                          )}
+                          {plan.id === "chatbot-anual" && (
+                            <div className="text-lg font-bold text-[#1e90ff]">
+                              {formatPrice(plan.price)}
+                              <span className="text-sm font-normal">
+                                /{formatPrice(plan.price * 12)}
+                              </span>
+                            </div>
+                          )}
                         </div>
                         <p className="text-sm text-gray-600">
                           {plan.description}
                         </p>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="flex justify-center items-center gap-2">
                         <Button
                           onClick={() => handleAddToCart(plan)}
                           className="w-full bg-[#1e90ff] hover:bg-[#022041] text-white"
                           size="sm"
                         >
                           Adicionar ao Carrinho
+                        </Button>
+                        <Button
+                          className="w-full bg-[#1e90ff] hover:bg-[#022041] text-white"
+                          size="sm"
+                        >
+                          <Link
+                            href={plan.link}
+                            className="w-full h-full flex justify-center items-center"
+                          >
+                            Saiba mais
+                          </Link>
                         </Button>
                       </CardContent>
                     </Card>
@@ -319,13 +370,24 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                           {plan.description}
                         </p>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="flex justify-center items-center gap-2">
                         <Button
                           onClick={() => handleAddToCart(plan)}
                           className="w-full bg-[#1e90ff] hover:bg-[#022041] text-white"
                           size="sm"
                         >
                           Adicionar ao Carrinho
+                        </Button>
+                        <Button
+                          className="w-full bg-[#1e90ff] hover:bg-[#022041] text-white"
+                          size="sm"
+                        >
+                          <Link
+                            href={plan.link}
+                            className="w-full h-full flex justify-center items-center"
+                          >
+                            Saiba mais
+                          </Link>
                         </Button>
                       </CardContent>
                     </Card>

@@ -2,10 +2,10 @@ import { NextResponse } from "next/server";
 import { supabase, supabaseAdmin } from "@/lib/supabase";
 
 export async function POST(request: Request) {
-  const { email, password } = await request.json();
+  const { email, password, phone, fullName } = await request.json();
 
   // 1) verificação mais segura – usa trim
-  if (!email?.trim() || !password?.trim()) {
+  if (!email?.trim() || !password?.trim() || !phone?.trim()) {
     return NextResponse.json(
       { error: "Email e senha são obrigatórios" },
       { status: 400 }
@@ -33,7 +33,11 @@ export async function POST(request: Request) {
   }
 
   //(3) Tenta cadastrar no supabase
-  const { data, error } = await supabase.auth.signUp({ email, password });
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    phone,
+  });
 
   if (error) {
     console.error("Erro no signUp: ", error);
