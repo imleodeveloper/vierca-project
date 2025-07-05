@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
 
 const planCategories = [
   "Site com Chatbot",
@@ -28,6 +29,7 @@ export function ExpandedPlansSection() {
         "Atendimento 24/7 em seu site",
         "Aprox. 1.000 conversas mensais",
       ],
+      link: "/checkout?plan=starter-chatbot",
     },
     {
       name: "Pro Chatbot",
@@ -44,6 +46,7 @@ export function ExpandedPlansSection() {
         "Otimização para SEO",
         "Aprox. 10.000 conversas mensais",
       ],
+      link: "/checkout?plan=pro-chatbot",
     },
     {
       name: "Business Chatbot",
@@ -61,6 +64,7 @@ export function ExpandedPlansSection() {
         "Infraestrutura escalável",
         "Aprox. 20.000 conversas mensais",
       ],
+      link: "/checkout?plan=business-chatbot",
     },
   ];
 
@@ -79,6 +83,7 @@ export function ExpandedPlansSection() {
         "Otimização para SEO",
         "Hospedagem inicial gratuita",
       ],
+      link: "/checkout?plan=site-institucional-basic",
     },
     {
       name: "Institucional Premium",
@@ -94,6 +99,7 @@ export function ExpandedPlansSection() {
         "SEO avançado",
         "Hospedagem inicial gratuita",
       ],
+      link: "/checkout?plan=site-institucional-premium",
     },
     {
       name: "Corporativo",
@@ -111,6 +117,7 @@ export function ExpandedPlansSection() {
         "Suporte técnico dedicado",
         "Hospedagem inicial gratuita",
       ],
+      link: "/checkout?plan=site-institucional-corporativo",
     },
   ];
 
@@ -129,6 +136,7 @@ export function ExpandedPlansSection() {
         "Integração com WhatsApp",
         "Hospedagem inicial gratuita",
       ],
+      link: "/checkout?plan=landing-page-simples",
     },
     {
       name: "Landing Page Premium",
@@ -145,6 +153,7 @@ export function ExpandedPlansSection() {
         "Integração com WhatsApp",
         "Hospedagem inicial gratuita",
       ],
+      link: "/checkout?plan=landing-page-premium",
     },
     {
       name: "Landing Page Completa",
@@ -161,6 +170,7 @@ export function ExpandedPlansSection() {
         "Suporte especializado",
         "Hospedagem inicial gratuita",
       ],
+      link: "/checkout?plan=landing-page-complete",
     },
   ];
 
@@ -180,6 +190,7 @@ export function ExpandedPlansSection() {
         "Painel administrativo",
         "Hospedagem por 1 ano",
       ],
+      link: "/checkout?plan=ecommerce-basic",
     },
     {
       name: "Loja Profissional",
@@ -198,6 +209,7 @@ export function ExpandedPlansSection() {
         "Relatórios de vendas",
         "App mobile responsivo",
       ],
+      link: "/checkout?plan=ecommerce-pro",
     },
     {
       name: "Marketplace",
@@ -215,6 +227,7 @@ export function ExpandedPlansSection() {
         "Logística integrada",
         "Suporte empresarial",
       ],
+      link: "/checkout?plan=ecommerce-marketplace",
     },
   ];
 
@@ -300,9 +313,11 @@ export function ExpandedPlansSection() {
                     </li>
                   ))}
                 </ul>
-                <Button className="w-full bg-[#1e90ff] hover:bg-[#022041] text-white mb-3">
-                  Escolher plano
-                </Button>
+                <Link href={plan.link}>
+                  <Button className="w-full bg-[#1e90ff] hover:bg-[#022041] text-white mb-3">
+                    Escolher plano
+                  </Button>
+                </Link>
                 <p className="text-xs text-center text-gray-500">
                   <strong>Detalhes:</strong> Solicitação de reembolso em até 30
                   dias. Cancele a qualquer momento.

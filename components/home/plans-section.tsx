@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
 
 const planCategories = ["Chatbot Anual", "Chatbot Mensal", "Site com Chatbot"];
 
@@ -13,6 +14,7 @@ export function PlansSection() {
     {
       name: "Básico",
       description: "Aprox. 1.000 conversas por mês",
+      link: "/checkout?plan=chatbot-anual-basic",
       subtitle:
         "Ideal para sites pessoais ou pequenos negócios em início de jornada com IA. Válido para 1 site (1 domínio)",
       price: "R$ 91,58/mês",
@@ -30,6 +32,7 @@ export function PlansSection() {
       name: "Intermediário",
       popular: true,
       description: "Aprox. 10.000 conversas por mês",
+      link: "/checkout?plan=chatbot-anual-intermediate",
       subtitle:
         "Perfeito para negócios com tráfego moderado e atendimento ativo via chatbot. Válido para 1 site (1 domínio)",
       price: "R$ 214,00/mês",
@@ -46,6 +49,7 @@ export function PlansSection() {
     {
       name: "Profissional",
       description: "Aprox 20.000 conversas por mês",
+      link: "/checkout?plan=chatbot-anual-profissional",
       subtitle:
         "Solução robusta para empresas com grande volume de tráfego e atendimentos. Válido para 1 site (1 domínio)",
       price: "R$ 379,00/mês",
@@ -65,6 +69,7 @@ export function PlansSection() {
     {
       name: "Básico",
       description: "Aprox. 1.000 conversas",
+      link: "/checkout?plan=chatbot-mensal-basic",
       subtitle:
         "Ideal para sites pessoais ou pequenos negócios em início de jornada com IA. Válido para 1 site (1 domínio)",
       price: "R$ 115,00/mês",
@@ -82,6 +87,7 @@ export function PlansSection() {
       name: "Intermediário",
       popular: true,
       description: "Aprox. 10.000 conversas",
+      link: "/checkout?plan=chatbot-mensal-intermediate",
       subtitle:
         "Perfeito para negócios com tráfego moderado e atendimento ativo via chatbot. Válido para 1 site (1 domínio)",
       price: "R$ 254,00/mês",
@@ -98,6 +104,7 @@ export function PlansSection() {
     {
       name: "Profissional",
       description: "Aprox. 20.000 conversas",
+      link: "/checkout?plan=chatbot-mensal-profissional",
       subtitle:
         "Solução robusta para empresas com grande volume de tráfego e atendimentos. Válido para 1 site (1 domínio)",
       price: "R$ 429,00/mês",
@@ -117,6 +124,7 @@ export function PlansSection() {
     {
       name: "Starter Chatbot",
       description: "Landing Page com chatbot integrado",
+      link: "/checkout?plan=starter-chatbot",
       subtitle:
         "Ideal para pequenos negócios que querem automatizar o atendimento básico com presença online profissional.",
       price: "R$ 1.200,00",
@@ -132,6 +140,7 @@ export function PlansSection() {
       name: "Pro Chatbot",
       popular: true,
       description: "Site completo com chatbot avançado",
+      link: "/checkout?plan=pro-chatbot",
       subtitle:
         "Perfeito para empresas que precisam de presença online robusta com atendimento automatizado inteligente.",
       price: "R$ 2.500,00",
@@ -147,6 +156,7 @@ export function PlansSection() {
     {
       name: "Business Chatbot",
       description: "Solução completa para grandes empresas",
+      link: "/checkout?plan=business-chatbot",
       subtitle:
         "Para empresas que precisam de máxima performance, escalabilidade e recursos avançados de automação.",
       price: "R$ 4.500,00",
@@ -258,9 +268,11 @@ export function PlansSection() {
                       </li>
                     ))}
                 </ul>
-                <Button className="w-full bg-[#1e90ff] hover:bg-[#022041] text-white mb-3">
-                  Escolher plano
-                </Button>
+                <Link href={plan.link}>
+                  <Button className="w-full bg-[#1e90ff] hover:bg-[#022041] text-white mb-3">
+                    Escolher plano
+                  </Button>
+                </Link>
                 <p className="text-xs text-center text-gray-500">
                   <strong>Detalhes:</strong> Solicitação de reembolso em até 07
                   dias. Cancele a qualquer momento.
