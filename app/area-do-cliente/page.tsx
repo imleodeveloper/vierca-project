@@ -1,23 +1,26 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect, useState, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import {
-  Calendar,
-  CreditCard,
   User,
+  Mail,
+  Phone,
+  CreditCard,
+  Calendar,
+  Settings,
   LogOut,
+  Crown,
   AlertCircle,
-  ShoppingCart,
 } from "lucide-react";
 import { createClient } from "@supabase/supabase-js";
-import { CartSidebar } from "@/components/cart-sidebar";
+import { toast } from "@/hooks/use-toast";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -31,7 +34,7 @@ const supabase = createClient(
   }
 );
 
-type UserData = {
+interface UserData {
   id: string;
   email: string;
   full_name: string | null;
@@ -42,130 +45,87 @@ type UserData = {
   plan_features: string[];
   plan_start_date: string | null;
   plan_status: string | null;
-};
+}
 
-export default function ClientAreaPage() {
+export default function AreaDoClientePage() {
   const router = useRouter();
-  const [user, setUser] = useState<UserData | null>(null);
-  const [error, setError] = useState("");
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const hasFetched = useRef(false);
+  const [error, setError] = useState("");
 
-  const fetchUser = async () => {
-    // Evita múltiplas chamadas desnecessárias
-    if (hasFetched.current) return;
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const {
+          data: { session },
+          error: sessionError,
+        } = await supabase.auth.getSession();
 
-    setIsLoading(true);
-    setError("");
-
-    try {
-      // Verifica a sessão
-      const {
-        data: { session },
-        error: sessionError,
-      } = await supabase.auth.getSession();
-
-      if (sessionError || !session) {
-        console.log("Sessão não encontrada:", sessionError?.message);
-        setError("Sessão não encontrada. Faça login novamente.");
-        router.push("/login");
-        return;
-      }
-
-      // Chama a API para obter dados adicionais do usuário
-      const response = await fetch("/api/auth/area-do-cliente", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${session.access_token}`,
-        },
-      });
-
-      const result = await response.json();
-
-      if (!response.ok || result.error) {
-        setError(result.error || "Erro ao buscar dados do usuário");
-        if (response.status === 401) {
-          router.push("/login");
+        if (sessionError || !session) {
+          router.push("/login?redirect=/area-do-cliente");
+          return;
         }
-        return;
+
+        // Buscar dados do usuário usando a API
+        const response = await fetch("/api/auth/area-do-cliente", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session.access_token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Erro ao buscar dados do usuário");
+        }
+
+        const data = await response.json();
+        setUserData(data.user);
+      } catch (err) {
+        console.error("Erro ao carregar dados:", err);
+        setError("Erro ao carregar dados do usuário");
+      } finally {
+        setIsLoading(false);
       }
+    };
 
-      setUser(result.user);
-      hasFetched.current = true;
-    } catch (err) {
-      console.error("Erro no fetch:", err);
-      setError("Erro ao conectar com o servidor");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
-  // Listener para mudanças na sessão - removido para evitar recarregamentos
-  useEffect(() => {
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "SIGNED_OUT" || !session) {
-        router.push("/login");
-      }
-      // Removido o SIGNED_IN para evitar recarregamento ao trocar de aba
-    });
-
-    return () => subscription.unsubscribe();
+    fetchUserData();
   }, [router]);
-
-  // Previne recarregamento ao focar na janela
-  useEffect(() => {
-    const handleFocus = () => {
-      // Não faz nada - evita recarregamento ao voltar para a aba
-    };
-
-    const handleVisibilityChange = () => {
-      // Não faz nada - evita recarregamento ao trocar de aba
-    };
-
-    window.addEventListener("focus", handleFocus);
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    return () => {
-      window.removeEventListener("focus", handleFocus);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, []);
 
   const handleLogout = async () => {
     try {
-      await supabase.auth.signOut();
-      setUser(null);
-      hasFetched.current = false;
-      router.push("/");
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error("Erro ao fazer logout:", error);
+        toast({
+          title: "Erro ao sair",
+          description: "Ocorreu um erro ao fazer logout",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Logout realizado",
+          description: "Você foi desconectado com sucesso",
+        });
+        router.push("/");
+      }
     } catch (err) {
-      console.error("Erro ao fazer logout:", err);
+      console.error("Erro no logout:", err);
+      toast({
+        title: "Erro ao sair",
+        description: "Ocorreu um erro inesperado",
+        variant: "destructive",
+      });
     }
   };
 
-  const calculateDaysRemaining = () => {
-    if (!user?.plan_start_date) return 0;
-    const startDate = new Date(user.plan_start_date);
-    const endDate = new Date(startDate);
-    endDate.setFullYear(endDate.getFullYear() + 1); // Assumindo plano anual
-    const today = new Date();
-    const diffTime = endDate.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return Math.max(0, diffDays);
-  };
-
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString: string | null) => {
+    if (!dateString) return "N/A";
     return new Date(dateString).toLocaleDateString("pt-BR");
   };
 
-  const formatPrice = (price: number) => {
+  const formatPrice = (price: number | null) => {
+    if (!price) return "N/A";
     return new Intl.NumberFormat("pt-BR", {
       style: "currency",
       currency: "BRL",
@@ -176,12 +136,10 @@ export default function ClientAreaPage() {
     return (
       <div className="min-h-screen">
         <Header />
-        <main className="py-20 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1e90ff] mx-auto"></div>
-              <p className="mt-4 text-gray-600">Carregando...</p>
-            </div>
+        <main className="container mx-auto px-4 py-20">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1e90ff] mx-auto mb-4"></div>
+            <p className="text-gray-600">Carregando seus dados...</p>
           </div>
         </main>
         <Footer />
@@ -189,25 +147,18 @@ export default function ClientAreaPage() {
     );
   }
 
-  if (error && !user) {
+  if (error) {
     return (
       <div className="min-h-screen">
         <Header />
-        <main className="py-20 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-              <h1 className="text-2xl font-bold text-red-600 mb-2">
-                Erro de Acesso
-              </h1>
-              <p className="text-gray-600 mb-4">{error}</p>
-              <Button
-                onClick={() => router.push("/login")}
-                className="bg-[#1e90ff] hover:bg-[#022041]"
-              >
-                Fazer Login
-              </Button>
-            </div>
+        <main className="container mx-auto px-4 py-20">
+          <div className="text-center">
+            <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
+            <h1 className="text-2xl font-bold text-red-600 mb-2">Erro</h1>
+            <p className="text-gray-600 mb-4">{error}</p>
+            <Button onClick={() => window.location.reload()}>
+              Tentar novamente
+            </Button>
           </div>
         </main>
         <Footer />
@@ -215,160 +166,187 @@ export default function ClientAreaPage() {
     );
   }
 
-  if (!user) {
-    return null;
-  }
-
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       <Header />
-      <main className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <h1 className="text-3xl font-black text-[#022041] mb-2">
-                  Área do Cliente
-                </h1>
-                <p className="text-gray-600">
-                  Bem-vindo, {user.full_name || user.email}!
-                </p>
-              </div>
-              <Button
-                onClick={handleLogout}
-                variant="outline"
-                className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white bg-transparent"
-              >
-                <LogOut className="h-4 w-4 mr-2" />
-                Sair
-              </Button>
+      <main className="container mx-auto px-4 py-8">
+        <div className="max-w-6xl mx-auto">
+          {/* Header da área do cliente */}
+          <div className="flex justify-between items-center mb-8">
+            <div>
+              <h1 className="text-3xl font-bold text-[#022041]">
+                Área do Cliente
+              </h1>
+              <p className="text-gray-600">
+                Bem-vindo, {userData?.full_name || userData?.email}!
+              </p>
             </div>
+            <Button
+              onClick={handleLogout}
+              variant="outline"
+              className="text-red-600 border-red-200 bg-transparent hover:bg-red-500 hover:text-white"
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              Sair
+            </Button>
+          </div>
 
-            {error && (
-              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-red-600">{error}</p>
-              </div>
-            )}
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* User Info */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Informações do Usuário */}
+            <div className="lg:col-span-2 space-y-6">
+              {/* Dados Pessoais */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <User className="h-5 w-5 text-[#1e90ff]" />
-                    <span>Informações Pessoais</span>
+                  <CardTitle className="flex items-center text-[#022041]">
+                    <User className="h-5 w-5 mr-2" />
+                    Dados Pessoais
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    <p>
-                      <strong>Nome:</strong> {user.full_name || "Não informado"}
-                    </p>
-                    <p>
-                      <strong>Email:</strong> {user.email}
-                    </p>
-                    <p>
-                      <strong>Telefone:</strong> {user.phone || "Não informado"}
-                    </p>
-                    <p>
-                      <strong>ID:</strong> #{user.id.slice(0, 8)}...
-                    </p>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="flex items-center space-x-3">
+                      <Mail className="h-4 w-4 text-gray-400" />
+                      <div>
+                        <p className="text-sm text-gray-600">Email</p>
+                        <p className="font-medium">{userData?.email}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <User className="h-4 w-4 text-gray-400" />
+                      <div>
+                        <p className="text-sm text-gray-600">Nome Completo</p>
+                        <p className="font-medium">
+                          {userData?.full_name || "Não informado"}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <Phone className="h-4 w-4 text-gray-400" />
+                      <div>
+                        <p className="text-sm text-gray-600">Telefone</p>
+                        <p className="font-medium">
+                          {userData?.phone || "Não informado"}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <Settings className="h-4 w-4 text-gray-400" />
+                      <div>
+                        <p className="text-sm text-gray-600">ID do Usuário</p>
+                        <p className="font-medium text-xs text-gray-500">
+                          {userData?.id}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Current Plan */}
+              {/* Plano Atual */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <CreditCard className="h-5 w-5 text-[#1e90ff]" />
-                    <span>Plano Atual</span>
+                  <CardTitle className="flex items-center text-[#022041]">
+                    <Crown className="h-5 w-5 mr-2" />
+                    Plano Atual
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {user.plan_name ? (
-                    <div className="space-y-3">
-                      <div className="flex items-center space-x-2">
-                        <Badge className="bg-[#1e90ff] text-white">
-                          {user.plan_name}
-                        </Badge>
-                      </div>
-                      <p className="text-sm text-gray-600">
-                        {user.plan_description || "Plano ativo e funcionando"}
-                      </p>
-                      {user.plan_price && (
-                        <div className="text-lg font-bold text-green-600">
-                          {formatPrice(user.plan_price)}
+                  {userData?.plan_name ? (
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h3 className="text-xl font-bold text-[#1e90ff]">
+                            {userData.plan_name}
+                          </h3>
+                          <p className="text-gray-600">
+                            {userData.plan_description}
+                          </p>
                         </div>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="space-y-3">
-                      <div className="flex items-center space-x-2">
-                        <Badge
-                          variant="outline"
-                          className="border-gray-400 text-gray-600"
-                        >
-                          Nenhum Plano
-                        </Badge>
+                        <div className="text-right">
+                          <p className="text-2xl font-bold text-[#1e90ff]">
+                            {formatPrice(userData.plan_price)}
+                          </p>
+                          <Badge
+                            className={
+                              userData.plan_status === "active"
+                                ? "bg-green-100 text-green-800"
+                                : "bg-red-100 text-red-800"
+                            }
+                          >
+                            {userData.plan_status === "active"
+                              ? "Ativo"
+                              : "Inativo"}
+                          </Badge>
+                        </div>
                       </div>
-                      <p className="text-sm text-gray-600">
-                        Você ainda não possui um plano ativo.
-                      </p>
-                      <Button
-                        onClick={() => setIsCartOpen(true)}
-                        size="sm"
-                        className="bg-[#1e90ff] text-white hover:bg-[#022041]"
-                      >
-                        <ShoppingCart className="h-4 w-4 mr-1" />
-                        Contratar Plano
-                      </Button>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
 
-              {/* Plan Duration */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Calendar className="h-5 w-5 text-[#1e90ff]" />
-                    <span>Período do Contrato</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {user.plan_start_date ? (
-                    <div className="space-y-2">
-                      <p>
-                        <strong>Início:</strong>{" "}
-                        {formatDate(user.plan_start_date)}
-                      </p>
-                      <p>
-                        <strong>Renovação:</strong>{" "}
-                        {formatDate(
-                          new Date(
-                            new Date(user.plan_start_date).setFullYear(
-                              new Date(user.plan_start_date).getFullYear() + 1
-                            )
-                          ).toISOString()
-                        )}
-                      </p>
-                      <div className="text-lg font-bold text-[#1e90ff]">
-                        {calculateDaysRemaining()} dias restantes
+                      <Separator />
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="flex items-center space-x-3">
+                          <Calendar className="h-4 w-4 text-gray-400" />
+                          <div>
+                            <p className="text-sm text-gray-600">
+                              Data de Início
+                            </p>
+                            <p className="font-medium">
+                              {formatDate(userData.plan_start_date)}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <CreditCard className="h-4 w-4 text-gray-400" />
+                          <div>
+                            <p className="text-sm text-gray-600">Status</p>
+                            <p className="font-medium">
+                              {userData.plan_status === "active"
+                                ? "Ativo"
+                                : "Inativo"}
+                            </p>
+                          </div>
+                        </div>
                       </div>
+
+                      {userData.plan_features &&
+                        userData.plan_features.length > 0 && (
+                          <>
+                            <Separator />
+                            <div>
+                              <h4 className="font-semibold text-[#022041] mb-2">
+                                Recursos Inclusos:
+                              </h4>
+                              <ul className="space-y-1">
+                                {userData.plan_features.map(
+                                  (feature, index) => (
+                                    <li
+                                      key={index}
+                                      className="flex items-start space-x-2 text-sm"
+                                    >
+                                      <div className="h-1.5 w-1.5 bg-[#1e90ff] rounded-full mt-2 flex-shrink-0"></div>
+                                      <span>{feature}</span>
+                                    </li>
+                                  )
+                                )}
+                              </ul>
+                            </div>
+                          </>
+                        )}
                     </div>
                   ) : (
-                    <div className="space-y-2">
-                      <p className="text-sm text-gray-600">
-                        Nenhum contrato ativo no momento.
+                    <div className="text-center py-8">
+                      <Crown className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+                      <h3 className="text-lg font-semibold text-gray-600 mb-2">
+                        Nenhum plano ativo
+                      </h3>
+                      <p className="text-gray-500 mb-4">
+                        Você ainda não possui um plano ativo. Escolha um plano
+                        para começar!
                       </p>
                       <Button
-                        onClick={() => setIsCartOpen(true)}
-                        size="sm"
-                        className="bg-[#1e90ff] text-white hover:bg-[#022041]"
+                        onClick={() => router.push("/")}
+                        className="bg-[#1e90ff] hover:bg-[#022041] text-white"
                       >
-                        <ShoppingCart className="h-4 w-4 mr-1" />
-                        Contratar Plano
+                        Ver Planos Disponíveis
                       </Button>
                     </div>
                   )}
@@ -376,133 +354,72 @@ export default function ClientAreaPage() {
               </Card>
             </div>
 
-            {/* Plan Details */}
-            <Card className="mt-6">
-              <CardHeader>
-                <CardTitle>
-                  {user.plan_name
-                    ? "Detalhes do Plano"
-                    : "Recursos Disponíveis"}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="font-semibold text-[#022041] mb-3">
-                      {user.plan_name
-                        ? "Recursos Inclusos:"
-                        : "Recursos dos Nossos Planos:"}
-                    </h4>
-                    <ul className="space-y-2 text-sm">
-                      {user.plan_features && user.plan_features.length > 0 ? (
-                        user.plan_features.map((feature, index) => (
-                          <li
-                            key={index}
-                            className="flex items-center space-x-2"
-                          >
-                            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                            <span>{feature}</span>
-                          </li>
-                        ))
-                      ) : (
-                        <>
-                          <li className="flex items-center space-x-2">
-                            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                            <span>
-                              Aproximadamente 120.000 conversas no ano
-                            </span>
-                          </li>
-                          <li className="flex items-center space-x-2">
-                            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                            <span>Escalável e com bom custo-benefício</span>
-                          </li>
-                          <li className="flex items-center space-x-2">
-                            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                            <span>
-                              Indicado para ecommerces, consultórios,
-                              prestadores de serviço
-                            </span>
-                          </li>
-                          <li className="flex items-center space-x-2">
-                            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                            <span>Incluso desenvolvimento de site</span>
-                          </li>
-                        </>
-                      )}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-[#022041] mb-3">
-                      Suporte:
-                    </h4>
-                    <div className="space-y-3">
-                      <p className="text-sm">
-                        <strong>WhatsApp:</strong> (11) 96738-1402
-                      </p>
-                      <p className="text-sm">
-                        <strong>Email:</strong> vierca@gmail.com
-                      </p>
-                      <p className="text-sm">
-                        <strong>Horário:</strong> 09:00 às 18:00 - Seg à Sex
-                      </p>
-                      <Button
-                        asChild
-                        className="bg-[#25D366] hover:bg-[#128C7E] text-white"
-                      >
-                        <a
-                          href="https://wa.me/5511967381402"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Falar no WhatsApp
-                        </a>
-                      </Button>
+            {/* Sidebar com ações rápidas */}
+            <div className="space-y-6">
+              {/* Ações Rápidas */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-[#022041]">
+                    Ações Rápidas
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start bg-transparent hover:bg-gray-300"
+                    onClick={() => router.push("/")}
+                  >
+                    <Crown className="h-4 w-4 mr-2" />
+                    Ver Planos
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start bg-transparent hover:bg-gray-300"
+                    onClick={() => router.push("/contato")}
+                  >
+                    <Mail className="h-4 w-4 mr-2" />
+                    Suporte
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start bg-transparent hover:bg-gray-300"
+                    onClick={() => router.push("/blog")}
+                  >
+                    <Settings className="h-4 w-4 mr-2" />
+                    Blog
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Informações de Suporte */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-[#022041]">
+                    Precisa de Ajuda?
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Nossa equipe está pronta para ajudar você com qualquer
+                    dúvida ou problema.
+                  </p>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center space-x-2">
+                      <Mail className="h-4 w-4 text-[#1e90ff]" />
+                      <span>viercatech@gmail.com</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Phone className="h-4 w-4 text-[#1e90ff]" />
+                      <span>(11) 96738-1402</span>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Quick Actions */}
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Button
-                asChild
-                variant="outline"
-                className="border-[#1e90ff] text-[#1e90ff] hover:bg-[#1e90ff] hover:text-white bg-transparent"
-              >
-                <a
-                  href="https://wa.me/5511967381402"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Solicitar Suporte
-                </a>
-              </Button>
-              <Button
-                onClick={() => setIsCartOpen(true)}
-                variant="outline"
-                className="border-[#1e90ff] text-[#1e90ff] hover:bg-[#1e90ff] hover:text-white bg-transparent"
-              >
-                <ShoppingCart className="h-4 w-4 mr-1" />
-                {user.plan_name ? "Alterar Plano" : "Ver Planos"}
-              </Button>
-              {user.plan_name && (
-                <Button
-                  asChild
-                  variant="outline"
-                  className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white bg-transparent"
-                >
-                  <Link href="/politica-de-reembolso">Solicitar Reembolso</Link>
-                </Button>
-              )}
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
       </main>
       <Footer />
-
-      {/* Cart Sidebar */}
-      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </div>
   );
 }

@@ -1,0 +1,15 @@
+[33m39cc1e5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{0}: reset: moving to HEAD~1
+[33m56dd205[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{1}: commit: Add descriptions in pages checkouts
+[33m39cc1e5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{2}: commit: Change plans in cart-sidebar
+[33m9bbab37[m HEAD@{3}: commit: Add text in about page 24h via chatbot
+[33mbe64ef2[m HEAD@{4}: commit: Add photo in VierBot, repair divs on the projects recents, repair way for API OPENAI, change feedback fake to feedback Fabio Silva Contablidade
+[33m012eddf[m HEAD@{5}: commit: Repair next.config.js
+[33mb11aca8[m HEAD@{6}: commit: Changes: Add DBS, possible signIn and signUp, área do cliente page, VierChat add, openAI key add in vercel
+[33mdecc4df[m HEAD@{7}: commit: Repair ecommerce-conversoes-ux/page.tsx , the problem did it's dangerousHTML
+[33me75a688[m HEAD@{8}: commit: Add slider projects recents in the page sites
+[33mc5c4084[m HEAD@{9}: commit: Finish pages: All services page and policies pages (privacy, service and refund)
+[33m41075b2[m HEAD@{10}: commit: Att plans chatbots and display none for button login and flags languages
+[33m223d700[m HEAD@{11}: pull origin main: Fast-forward
+[33m64dd7e7[m HEAD@{12}: reset: moving to HEAD
+[33m64dd7e7[m HEAD@{13}: Branch: renamed refs/heads/master to refs/heads/main
+[33m64dd7e7[m HEAD@{15}: commit (initial): Inicio projeto: VierCa

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
@@ -17,8 +17,21 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Check, Info, Shield, CreditCard, CircleAlert } from "lucide-react";
+import { Check, Info, Shield, CreditCard, AlertTriangle } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: true,
+    },
+  }
+);
 
 interface Plan {
   id: string;
@@ -33,6 +46,7 @@ interface Plan {
   benefits: string | null;
   warning?: string | null;
   installChatbot?: number;
+  additionalMonthlyFee?: number;
 }
 
 const plans: Plan[] = [
@@ -173,6 +187,7 @@ const plans: Plan[] = [
     benefits: "O primeiro mês de uso do chatbot é totalmente gratuito.",
     warning:
       "Este plano acompanha o pacote mensal para o funcionamento do chatbot: R$ 115,00/mês",
+    additionalMonthlyFee: 115.0,
   },
   {
     id: "pro-chatbot",
@@ -193,6 +208,7 @@ const plans: Plan[] = [
     benefits: "O primeiro mês de uso do chatbot é totalmente gratuito.",
     warning:
       "Este plano acompanha o pacote mensal para o funcionamento do chatbot: R$ 254,00/mês",
+    additionalMonthlyFee: 254.0,
   },
   {
     id: "business-chatbot",
@@ -214,6 +230,7 @@ const plans: Plan[] = [
     benefits: "O primeiro mês de uso do chatbot é totalmente gratuito.",
     warning:
       "Este plano acompanha o pacote mensal para o funcionamento do chatbot: R$ 429,00/mês",
+    additionalMonthlyFee: 429.0,
   },
   {
     id: "landing-page-simples",
@@ -266,6 +283,7 @@ const plans: Plan[] = [
     benefits: "O primeiro mês de uso do site e sistema é totalmente gratuito.",
     warning:
       "Este plano acompanha o pacote mensal para o funcionamento do sistema integrado: R$ 130,00/mês",
+    additionalMonthlyFee: 130.0,
   },
   {
     id: "site-institucional-basic",
@@ -322,6 +340,7 @@ const plans: Plan[] = [
     benefits: "O primeiro mês de uso do site e sistema é totalmente gratuito.",
     warning:
       "Este plano acompanha o pacote mensal para o funcionamento do site e sistema integrado: R$ 130,00/mês",
+    additionalMonthlyFee: 130.0,
   },
   {
     id: "ecommerce-basic",
@@ -341,6 +360,7 @@ const plans: Plan[] = [
     benefits: "O primeiro mês de uso do site e sistema é totalmente gratuito.",
     warning:
       "Este plano acompanha o pacote mensal para o funcionamento do site e sistema integrado: R$ 130,00/mês",
+    additionalMonthlyFee: 130.0,
   },
   {
     id: "ecommerce-pro",
@@ -359,6 +379,7 @@ const plans: Plan[] = [
     benefits: "O primeiro mês de uso do site e sistema é totalmente gratuito.",
     warning:
       "Este plano acompanha o pacote mensal para o funcionamento do site e sistema integrado: R$ 130,00/mês",
+    additionalMonthlyFee: 130.0,
   },
   {
     id: "ecommerce-marketplace",
@@ -378,11 +399,13 @@ const plans: Plan[] = [
     benefits: "O primeiro mês de uso do site e sistema é totalmente gratuito.",
     warning:
       "Este plano acompanha o pacote mensal para o funcionamento do site e sistema integrado: R$ 500,00/mês",
+    additionalMonthlyFee: 500.0,
   },
 ];
 
 export default function CheckoutPage() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const planId = searchParams.get("plan");
 
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
@@ -390,12 +413,52 @@ export default function CheckoutPage() {
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [customerData, setCustomerData] = useState({
     name: "",
     email: "",
     phone: "",
     document: "",
   });
+
+  // Verificar autenticação de forma mais simples
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+
+        if (!session) {
+          // Redirecionar para login apenas se não estiver autenticado
+          const currentUrl = window.location.pathname + window.location.search;
+          router.push(`/login?redirect=${encodeURIComponent(currentUrl)}`);
+          return;
+        }
+
+        setIsAuthenticated(true);
+
+        // Preencher dados do usuário se disponível
+        if (session.user) {
+          setCustomerData((prev) => ({
+            ...prev,
+            email: session.user.email || "",
+            name: session.user.user_metadata?.full_name || "",
+            phone: session.user.user_metadata?.phone || "",
+          }));
+        }
+      } catch (error) {
+        console.error("Erro ao verificar autenticação:", error);
+        // Em caso de erro, permitir acesso mas mostrar aviso
+        setIsAuthenticated(true);
+      } finally {
+        setIsCheckingAuth(false);
+      }
+    };
+
+    checkAuth();
+  }, [router]);
 
   useEffect(() => {
     if (planId) {
@@ -421,6 +484,11 @@ export default function CheckoutPage() {
     if (selectedPlan.period === "annual") {
       const months = Number.parseInt(period);
       total = selectedPlan.price * months;
+    }
+
+    // Adicionar taxa de instalação se aplicável
+    if (selectedPlan.installChatbot && selectedPlan.installChatbot > 0) {
+      total += selectedPlan.installChatbot;
     }
 
     if (discount > 0) {
@@ -508,6 +576,22 @@ export default function CheckoutPage() {
       setIsProcessing(false);
     }
   };
+
+  // Loading state durante verificação de autenticação
+  if (isCheckingAuth) {
+    return (
+      <div className="min-h-screen">
+        <Header />
+        <main className="container mx-auto px-4 py-20">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1e90ff] mx-auto mb-4"></div>
+            <p className="text-gray-600">Carregando...</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!selectedPlan) {
     return (
@@ -633,23 +717,48 @@ export default function CheckoutPage() {
                   {selectedPlan.benefits && (
                     <div className="bg-green-50 p-4 rounded-lg">
                       <div className="flex items-start space-x-2 text-green-700">
-                        <Check className="h-5 w-5" />
+                        <Check className="h-5 w-5 mt-0.5 flex-shrink-0" />
                         <span className="font-semibold">
                           {selectedPlan.benefits}
                         </span>
-                        <Info className="h-4 w-4" />
+                        <Info className="h-4 w-4 mt-0.5 flex-shrink-0" />
                       </div>
                     </div>
                   )}
 
-                  {/* Aviso */}
+                  {/* Aviso com valor adicional */}
                   {selectedPlan.warning && (
-                    <div className="bg-gray-200 p-4 rounded-lg">
-                      <div className="flex items-start space-x-2 text-gray-700">
-                        <CircleAlert className="h-12 w-12" />
-                        <span className="font-semibold text-sm">
-                          {selectedPlan.warning}
-                        </span>
+                    <div className="bg-orange-50 border border-orange-200 p-4 rounded-lg">
+                      <div className="flex items-start space-x-3">
+                        <AlertTriangle className="h-6 w-6 text-orange-600 mt-0.5 flex-shrink-0" />
+                        <div className="flex-1">
+                          <p className="font-semibold text-orange-800 text-sm mb-2">
+                            {selectedPlan.warning}
+                          </p>
+                          {selectedPlan.additionalMonthlyFee && (
+                            <div className="bg-orange-100 p-2 rounded border border-orange-300">
+                              <p className="text-orange-700 font-bold text-lg">
+                                +{" "}
+                                {formatPrice(selectedPlan.additionalMonthlyFee)}
+                                /mês
+                              </p>
+                              <p className="text-orange-600 text-xs">
+                                Taxa mensal adicional
+                              </p>
+                            </div>
+                          )}
+                          {selectedPlan.installChatbot &&
+                            selectedPlan.installChatbot > 0 && (
+                              <div className="bg-orange-100 p-2 rounded border border-orange-300 mt-2">
+                                <p className="text-orange-700 font-bold text-lg">
+                                  + {formatPrice(selectedPlan.installChatbot)}
+                                </p>
+                                <p className="text-orange-600 text-xs">
+                                  Taxa única de instalação
+                                </p>
+                              </div>
+                            )}
+                        </div>
                       </div>
                     </div>
                   )}
@@ -768,12 +877,11 @@ export default function CheckoutPage() {
                     </div>
 
                     {/* Benefícios inclusos */}
-
                     <div className="space-y-2 text-sm">
                       {selectedPlan.installChatbot === 300.0 && (
-                        <div className="flex justify-between">
+                        <div className="flex justify-between items-center bg-orange-50 p-2 rounded">
                           <span>Instalação chatbot</span>
-                          <span className="text-green-600 font-semibold">
+                          <span className="text-orange-600 font-semibold">
                             + {formatPrice(selectedPlan.installChatbot)}
                           </span>
                         </div>
@@ -781,67 +889,79 @@ export default function CheckoutPage() {
                       {selectedPlan.installChatbot === 0 && (
                         <div className="flex justify-between">
                           <span>Instalação chatbot</span>
-                          <span className="text-gray-400 line-through">
-                            R$300,00
-                          </span>
-                          <span className="text-green-600 font-semibold">
-                            R$0,00
-                          </span>
+                          <div className="text-right">
+                            <span className="text-gray-400 line-through text-xs">
+                              R$300,00
+                            </span>
+                            <span className="text-green-600 font-semibold ml-2">
+                              R$0,00
+                            </span>
+                          </div>
                         </div>
                       )}
 
                       {selectedPlan.period === "annual" && (
-                        <div className="flex flex-col">
+                        <div className="flex flex-col space-y-1">
                           <div className="flex justify-between">
                             <span>Instalação chatbot</span>
-                            <span className="text-gray-400 line-through">
-                              R$300,00
-                            </span>
-                            <span className="text-green-600 font-semibold">
-                              R$0,00
-                            </span>
+                            <div className="text-right">
+                              <span className="text-gray-400 line-through text-xs">
+                                R$300,00
+                              </span>
+                              <span className="text-green-600 font-semibold ml-2">
+                                R$0,00
+                              </span>
+                            </div>
                           </div>
                           {selectedPlan.id === "chatbot-anual-basic" && (
                             <div className="flex justify-between">
                               <span>Desenvolvimento de site</span>
-                              <span className="text-gray-400 line-through">
-                                R$800,00
-                              </span>
-                              <span className="text-green-600 font-semibold">
-                                R$0,00
-                              </span>
+                              <div className="text-right">
+                                <span className="text-gray-400 line-through text-xs">
+                                  R$800,00
+                                </span>
+                                <span className="text-green-600 font-semibold ml-2">
+                                  R$0,00
+                                </span>
+                              </div>
                             </div>
                           )}
                           {selectedPlan.id === "chatbot-anual-intermediate" && (
                             <div className="flex justify-between">
                               <span>Desenvolvimento de site</span>
-                              <span className="text-gray-400 line-through">
-                                R$1600,00
-                              </span>
-                              <span className="text-green-600 font-semibold">
-                                R$0,00
-                              </span>
+                              <div className="text-right">
+                                <span className="text-gray-400 line-through text-xs">
+                                  R$1600,00
+                                </span>
+                                <span className="text-green-600 font-semibold ml-2">
+                                  R$0,00
+                                </span>
+                              </div>
                             </div>
                           )}
                           {selectedPlan.id === "chatbot-anual-profissional" && (
                             <div className="flex justify-between">
                               <span>Desenvolvimento de site</span>
-                              <span className="text-gray-400 line-through">
-                                R$3200,00
-                              </span>
-                              <span className="text-green-600 font-semibold">
-                                R$0,00
-                              </span>
+                              <div className="text-right">
+                                <span className="text-gray-400 line-through text-xs">
+                                  R$3200,00
+                                </span>
+                                <span className="text-green-600 font-semibold ml-2">
+                                  R$0,00
+                                </span>
+                              </div>
                             </div>
                           )}
                           <div className="flex justify-between">
                             <span>Domínio por 1 ano</span>
-                            <span className="text-gray-400 line-through">
-                              R$40,99
-                            </span>
-                            <span className="text-green-600 font-semibold">
-                              R$0,00
-                            </span>
+                            <div className="text-right">
+                              <span className="text-gray-400 line-through text-xs">
+                                R$40,99
+                              </span>
+                              <span className="text-green-600 font-semibold ml-2">
+                                R$0,00
+                              </span>
+                            </div>
                           </div>
                         </div>
                       )}
@@ -881,7 +1001,23 @@ export default function CheckoutPage() {
                     </div>
                   </div>
 
-                  {/* Cupom de desconto 
+                  {/* Aviso sobre taxa mensal adicional */}
+                  {selectedPlan.additionalMonthlyFee && (
+                    <div className="bg-yellow-50 border border-yellow-200 p-3 rounded-lg">
+                      <div className="flex items-center space-x-2">
+                        <Info className="h-4 w-4 text-yellow-600" />
+                        <p className="text-yellow-800 text-sm font-medium">
+                          Taxa mensal adicional:{" "}
+                          {formatPrice(selectedPlan.additionalMonthlyFee)}/mês
+                        </p>
+                      </div>
+                      <p className="text-yellow-700 text-xs mt-1">
+                        Esta taxa será cobrada mensalmente após a compra
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Cupom de desconto */}
                   <div className="space-y-2">
                     <button
                       className="text-purple-600 font-semibold text-sm"
@@ -908,7 +1044,6 @@ export default function CheckoutPage() {
                       </p>
                     )}
                   </div>
-                    */}
 
                   {/* Botão de checkout */}
                   <Button
