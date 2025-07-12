@@ -61,7 +61,7 @@ function PendingContent() {
                     className="flex items-center space-x-2 bg-transparent"
                   >
                     <Mail className="h-4 w-4" />
-                    <span>contato@vierca.com.br</span>
+                    <span>viercatech@gmail.com</span>
                   </Button>
                   <Button
                     variant="outline"
@@ -74,7 +74,10 @@ function PendingContent() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-                <Button asChild className="bg-[#1e90ff] hover:bg-[#022041]">
+                <Button
+                  asChild
+                  className="bg-[#1e90ff] hover:bg-[#022041] text-white"
+                >
                   <Link href="/area-do-cliente">Acompanhar Status</Link>
                 </Button>
                 <Button variant="outline" asChild>

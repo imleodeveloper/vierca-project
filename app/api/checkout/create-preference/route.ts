@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
 
 // Tipos para o Mercado Pago
 interface MercadoPagoItem {
@@ -58,7 +59,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Configuração do Mercado Pago (você precisa configurar essas variáveis)
+    //Validação se é pagamento recorrente / mensal / anual
+    if (plan.isRecurring) {
+      return NextResponse.json(
+        { error: "Este plano usa pagamento recorrente. Use outra rota." },
+        { status: 400 }
+      );
+    }
+    // Configuração do Mercado Pago
     const accessToken = process.env.MERCADO_PAGO_ACCESS_TOKEN;
 
     if (!accessToken) {
@@ -122,7 +130,17 @@ export async function POST(request: NextRequest) {
         ...(identification && { identification }),
       },
       back_urls: {
-        success: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/success`,
+        success: `${
+          process.env.NEXT_PUBLIC_BASE_URL
+        }/checkout/success?combo=1&planId=${
+          plan.id
+        }&planName=${encodeURIComponent(
+          plan.name
+        )}&planDesc=${encodeURIComponent(plan.description)}&monthly=${
+          plan.additionalMonthlyFee || plan.price
+        }&email=${encodeURIComponent(customer.email)}&name=${encodeURIComponent(
+          customer.name
+        )}`,
         failure: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/failure`,
         pending: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/pending`,
       },
@@ -133,12 +151,15 @@ export async function POST(request: NextRequest) {
         installments: 12, // Máximo de 12 parcelas
       },
       notification_url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/checkout/webhook`,
-      external_reference: `vierca-${plan.id}-${Date.now()}`,
+      external_reference: `vierca-${plan.id}-${customer.id}-${Date.now()}`,
       expires: true,
       expiration_date_to: new Date(
         Date.now() + 24 * 60 * 60 * 1000
       ).toISOString(), // 24 horas
     };
+
+    // DEBUG
+    console.log("Preferência sendo enviada:", preference);
 
     // Fazer requisição para o Mercado Pago
     const response = await fetch(
@@ -165,7 +186,7 @@ export async function POST(request: NextRequest) {
     const preferenceData = await response.json();
 
     // Salvar dados do pedido no banco (opcional)
-    // Aqui você pode salvar os dados do pedido em seu banco de dados
+    // Aqui vpode salvar os dados do pedido em banco de dados
     // para controle interno e acompanhamento
 
     return NextResponse.json({

@@ -200,7 +200,7 @@ export default function SignUpPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="phone">Telefone (Opcional)</Label>
+                    <Label htmlFor="phone">Telefone</Label>
                     <div className="relative">
                       <Phone className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
@@ -211,6 +211,7 @@ export default function SignUpPage() {
                         value={formData.phone}
                         onChange={handleInputChange}
                         className="pl-10"
+                        required
                       />
                     </div>
                   </div>
@@ -280,6 +281,25 @@ export default function SignUpPage() {
                   >
                     {isLoading ? "Criando conta..." : "Criar Conta"}
                   </Button>
+
+                  <div className="text-center text-xs text-gray-500">
+                    <span>
+                      Ao clicar em (Criar Conta) você concorda com nossos{" "}
+                      <Link
+                        href="/termos-de-servico"
+                        className="text-blue-500 hover:text-blue-800"
+                      >
+                        Termos de Serviço
+                      </Link>{" "}
+                      e{" "}
+                      <Link
+                        href="/politica-de-privacidade"
+                        className="text-blue-500 hover:text-blue-800"
+                      >
+                        Política de Privacidade
+                      </Link>
+                    </span>
+                  </div>
 
                   <div className="text-center text-sm">
                     <span className="text-gray-600">Já tem uma conta? </span>

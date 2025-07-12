@@ -46,10 +46,32 @@ interface Plan {
   benefits: string | null;
   warning?: string | null;
   installChatbot?: number;
+  additional?: number;
   additionalMonthlyFee?: number;
+  isMonthlyFee: boolean;
 }
 
 const plans: Plan[] = [
+  {
+    id: "chatbot-teste",
+    name: "Chatbot TESTE",
+    price: 1.0,
+    description: "Chatbot com IA para seu site - pagamento mensal",
+    features: [
+      "Aproximadamente 1.000 conversas no mês",
+      "Custo acessível para começar",
+      "Incluso suporte técnico",
+      "Instalação 100% por nossa conta",
+    ],
+    category: "chatbot",
+    period: "monthly",
+    benefits: null,
+    installChatbot: 1.0,
+    warning:
+      "Atenção: A contratação deste plano não inclui a instalação do chatbot. A instalação deve ser adquirida separadamente por um pagamento único de R$ 300,00.",
+    isMonthlyFee: true,
+    additional: 1.0,
+  },
   {
     id: "chatbot-mensal-basic",
     name: "Chatbot Mensal Básico",
@@ -67,6 +89,8 @@ const plans: Plan[] = [
     installChatbot: 300.0,
     warning:
       "Atenção: A contratação deste plano não inclui a instalação do chatbot. A instalação deve ser adquirida separadamente por um pagamento único de R$ 300,00.",
+    isMonthlyFee: true,
+    additional: 300.0,
   },
   {
     id: "chatbot-mensal-intermediate",
@@ -85,6 +109,7 @@ const plans: Plan[] = [
     benefits: "A contratação deste plano inclui a instalação do chatbot.",
     installChatbot: 0,
     warning: null,
+    isMonthlyFee: true,
   },
   {
     id: "chatbot-mensal-profissional",
@@ -102,6 +127,7 @@ const plans: Plan[] = [
     installChatbot: 0,
     benefits: "A contratação deste plano inclui a instalação do chatbot.",
     warning: null,
+    isMonthlyFee: true,
   },
 
   {
@@ -124,6 +150,7 @@ const plans: Plan[] = [
     popular: false,
     benefits:
       "Neste plano você tem incluso: Desenvolvimento de site, instalação do chatbot, domínio gratuíto por 1 ano e suporte técnico",
+    isMonthlyFee: false,
   },
   {
     id: "chatbot-anual-intermediate",
@@ -145,6 +172,7 @@ const plans: Plan[] = [
     popular: true,
     benefits:
       "Neste plano você tem incluso: Desenvolvimento de site, instalação do chatbot, domínio gratuíto por 1 ano e suporte técnico",
+    isMonthlyFee: false,
   },
   {
     id: "chatbot-anual-profissional",
@@ -166,6 +194,7 @@ const plans: Plan[] = [
     popular: false,
     benefits:
       "Neste plano você tem incluso: Desenvolvimento de site, instalação do chatbot, domínio gratuíto por 1 ano e suporte técnico",
+    isMonthlyFee: false,
   },
 
   {
@@ -182,12 +211,13 @@ const plans: Plan[] = [
       "Domínio gratuito por 01 ano",
     ],
     category: "chatbot",
-    period: "one-time",
+    period: "monthly",
     popular: false,
     benefits: "O primeiro mês de uso do chatbot é totalmente gratuito.",
     warning:
       "Este plano acompanha o pacote mensal para o funcionamento do chatbot: R$ 115,00/mês",
     additionalMonthlyFee: 115.0,
+    isMonthlyFee: true,
   },
   {
     id: "pro-chatbot",
@@ -203,12 +233,13 @@ const plans: Plan[] = [
       "Domínio gratuito por 01 ano",
     ],
     category: "chatbot",
-    period: "one-time",
+    period: "monthly",
     popular: true,
     benefits: "O primeiro mês de uso do chatbot é totalmente gratuito.",
     warning:
       "Este plano acompanha o pacote mensal para o funcionamento do chatbot: R$ 254,00/mês",
     additionalMonthlyFee: 254.0,
+    isMonthlyFee: true,
   },
   {
     id: "business-chatbot",
@@ -225,12 +256,13 @@ const plans: Plan[] = [
       "Atendimento 24/7 em seu site",
     ],
     category: "chatbot",
-    period: "one-time",
+    period: "monthly",
     popular: true,
     benefits: "O primeiro mês de uso do chatbot é totalmente gratuito.",
     warning:
       "Este plano acompanha o pacote mensal para o funcionamento do chatbot: R$ 429,00/mês",
     additionalMonthlyFee: 429.0,
+    isMonthlyFee: true,
   },
   {
     id: "landing-page-simples",
@@ -248,6 +280,7 @@ const plans: Plan[] = [
     category: "site",
     period: "one-time",
     benefits: null,
+    isMonthlyFee: false,
   },
   {
     id: "landing-page-premium",
@@ -266,6 +299,7 @@ const plans: Plan[] = [
     period: "one-time",
     benefits: null,
     popular: true,
+    isMonthlyFee: false,
   },
   {
     id: "landing-page-complete",
@@ -279,11 +313,12 @@ const plans: Plan[] = [
       "Domínio gratuito por 01 ano",
     ],
     category: "site",
-    period: "one-time",
+    period: "monthly",
     benefits: "O primeiro mês de uso do site e sistema é totalmente gratuito.",
     warning:
       "Este plano acompanha o pacote mensal para o funcionamento do sistema integrado: R$ 130,00/mês",
     additionalMonthlyFee: 130.0,
+    isMonthlyFee: true,
   },
   {
     id: "site-institucional-basic",
@@ -302,6 +337,7 @@ const plans: Plan[] = [
     period: "one-time",
     popular: false,
     benefits: null,
+    isMonthlyFee: false,
   },
   {
     id: "site-institucional-premium",
@@ -320,6 +356,7 @@ const plans: Plan[] = [
     period: "one-time",
     popular: true,
     benefits: null,
+    isMonthlyFee: false,
   },
   {
     id: "site-institucional-corporativo",
@@ -335,12 +372,13 @@ const plans: Plan[] = [
       "Domínio gratuito por 01 ano",
     ],
     category: "site",
-    period: "one-time",
+    period: "monthly",
     popular: false,
     benefits: "O primeiro mês de uso do site e sistema é totalmente gratuito.",
     warning:
       "Este plano acompanha o pacote mensal para o funcionamento do site e sistema integrado: R$ 130,00/mês",
     additionalMonthlyFee: 130.0,
+    isMonthlyFee: true,
   },
   {
     id: "ecommerce-basic",
@@ -356,11 +394,12 @@ const plans: Plan[] = [
       "Hospedagem inicial gratuita",
     ],
     category: "site",
-    period: "one-time",
+    period: "monthly",
     benefits: "O primeiro mês de uso do site e sistema é totalmente gratuito.",
     warning:
       "Este plano acompanha o pacote mensal para o funcionamento do site e sistema integrado: R$ 130,00/mês",
     additionalMonthlyFee: 130.0,
+    isMonthlyFee: true,
   },
   {
     id: "ecommerce-pro",
@@ -375,11 +414,12 @@ const plans: Plan[] = [
       "Relatórios de vendas",
     ],
     category: "site",
-    period: "one-time",
+    period: "monthly",
     benefits: "O primeiro mês de uso do site e sistema é totalmente gratuito.",
     warning:
       "Este plano acompanha o pacote mensal para o funcionamento do site e sistema integrado: R$ 130,00/mês",
     additionalMonthlyFee: 130.0,
+    isMonthlyFee: true,
   },
   {
     id: "ecommerce-marketplace",
@@ -395,11 +435,12 @@ const plans: Plan[] = [
       "Suporte empresarial",
     ],
     category: "site",
-    period: "one-time",
+    period: "monthly",
     benefits: "O primeiro mês de uso do site e sistema é totalmente gratuito.",
     warning:
       "Este plano acompanha o pacote mensal para o funcionamento do site e sistema integrado: R$ 500,00/mês",
     additionalMonthlyFee: 500.0,
+    isMonthlyFee: true,
   },
 ];
 
@@ -416,6 +457,7 @@ export default function CheckoutPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [customerData, setCustomerData] = useState({
+    id: "",
     name: "",
     email: "",
     phone: "",
@@ -443,6 +485,7 @@ export default function CheckoutPage() {
         if (session.user) {
           setCustomerData((prev) => ({
             ...prev,
+            id: session.user.id,
             email: session.user.email || "",
             name: session.user.user_metadata?.full_name || "",
             phone: session.user.user_metadata?.phone || "",
@@ -542,28 +585,100 @@ export default function CheckoutPage() {
     setIsProcessing(true);
 
     try {
-      const response = await fetch("/api/checkout/create-preference", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          plan: selectedPlan,
-          period: period,
-          customer: customerData,
-          discount: discount,
-          total: calculateTotal(),
-        }),
-      });
+      // Verifica se é um plano combo mensalidade + pagamento único
 
-      const data = await response.json();
+      const isCombo =
+        (selectedPlan.additional && selectedPlan.additional > 0) ||
+        (selectedPlan.additionalMonthlyFee &&
+          selectedPlan.additionalMonthlyFee > 0);
 
-      if (data.init_point) {
-        // Redirecionar para o Mercado Pago
-        window.location.href = data.init_point;
-      } else {
-        throw new Error("Erro ao criar preferência de pagamento");
+      const isOnlyMonthly = selectedPlan.isMonthlyFee && !isCombo;
+      const isOnlyOneTime = !selectedPlan.isMonthlyFee && !isCombo;
+
+      if (isCombo) {
+        // Primeiro passo: cria o pagamento único
+        const preferenceResponse = await fetch(
+          "/api/checkout/create-preference",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              plan: {
+                ...selectedPlan,
+                price: selectedPlan.additional || selectedPlan.price,
+              },
+              period,
+              customer: customerData,
+              discount,
+              total: selectedPlan.additional || selectedPlan.price,
+            }),
+          }
+        );
+
+        const preferenceData = await preferenceResponse.json();
+
+        if (!preferenceData.init_point) {
+          throw new Error("Erro ao criar preferência para pagamento único");
+        }
+
+        // Redireciona pro pagamento único
+        window.location.href = preferenceData.init_point;
+        return;
       }
+
+      if (isOnlyMonthly) {
+        // Plano de assinatura direta (sem pagamento único)
+        const subscriptionResponse = await fetch(
+          "/api/checkout/create-subscription",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              plan: selectedPlan,
+              period,
+              customer: customerData,
+              discount,
+              total: calculateTotal(),
+            }),
+          }
+        );
+
+        const subscriptionData = await subscriptionResponse.json();
+
+        if (!subscriptionData.init_point) {
+          throw new Error("Erro ao criar assinatura");
+        }
+
+        window.location.href = subscriptionData.init_point;
+        return;
+      }
+
+      if (isOnlyOneTime) {
+        // Pagamento único direto
+        const oneTimeResponse = await fetch("/api/checkout/create-preference", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            plan: selectedPlan,
+            period,
+            customer: customerData,
+            discount,
+            total: calculateTotal(),
+          }),
+        });
+
+        const oneTimeData = await oneTimeResponse.json();
+
+        if (!oneTimeData.init_point) {
+          throw new Error("Erro ao criar pagamento único");
+        }
+
+        window.location.href = oneTimeData.init_point;
+        return;
+      }
+
+      // 🔴 Segurança: se não cair em nenhum caso, lança erro
+      throw new Error("Plano inválido ou mal configurado");
     } catch (error) {
       console.error("Erro no checkout:", error);
       toast({
@@ -968,9 +1083,7 @@ export default function CheckoutPage() {
                     </div>
                   </div>
 
-                  <Separator />
-
-                  {/* Impostos */}
+                  {/* Impostos 
                   <div className="flex justify-between">
                     <span>Impostos</span>
                     <span>-</span>
@@ -978,6 +1091,7 @@ export default function CheckoutPage() {
                   <p className="text-xs text-gray-500">
                     (Calculados após as informações de faturamento)
                   </p>
+                  */}
 
                   <Separator />
 
@@ -1017,7 +1131,7 @@ export default function CheckoutPage() {
                     </div>
                   )}
 
-                  {/* Cupom de desconto */}
+                  {/* Cupom de desconto 
                   <div className="space-y-2">
                     <button
                       className="text-purple-600 font-semibold text-sm"
@@ -1044,6 +1158,7 @@ export default function CheckoutPage() {
                       </p>
                     )}
                   </div>
+                        */}
 
                   {/* Botão de checkout */}
                   <Button

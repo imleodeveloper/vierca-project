@@ -12,6 +12,23 @@ export function PlansSection() {
 
   const annualPlans = [
     {
+      name: "TESTE",
+      description: "Aprox. 1.000 conversas por mês",
+      link: "/checkout?plan=chatbot-teste",
+      subtitle:
+        "Ideal para sites pessoais ou pequenos negócios em início de jornada com IA. Válido para 1 site (1 domínio)",
+      price: "R$ 91,58/mês",
+      period:
+        "*Estimativa mensal para referência com pagamento à vista. O plano pode ser parcelado em até 12x com acréscimo.",
+      features: [
+        "Aproximadamente 12.000 conversas no ano",
+        "Atendimento simples e eficaz",
+        "Custo acessível para começar",
+        "Incluso desenvolvimento de site",
+        "Incluso instalação chatbot",
+      ],
+    },
+    {
       name: "Básico",
       description: "Aprox. 1.000 conversas por mês",
       link: "/checkout?plan=chatbot-anual-basic",
@@ -19,7 +36,7 @@ export function PlansSection() {
         "Ideal para sites pessoais ou pequenos negócios em início de jornada com IA. Válido para 1 site (1 domínio)",
       price: "R$ 91,58/mês",
       period:
-        "*Estimativa mensal para referência. Plano anual com pagamento à vista.",
+        "*Estimativa mensal para referência com pagamento à vista. O plano pode ser parcelado em até 12x com acréscimo.",
       features: [
         "Aproximadamente 12.000 conversas no ano",
         "Atendimento simples e eficaz",
@@ -37,7 +54,7 @@ export function PlansSection() {
         "Perfeito para negócios com tráfego moderado e atendimento ativo via chatbot. Válido para 1 site (1 domínio)",
       price: "R$ 214,00/mês",
       period:
-        "*Estimativa mensal para referência. Plano anual com pagamento à vista.",
+        "*Estimativa mensal para referência com pagamento à vista. O plano pode ser parcelado em até 12x com acréscimo.",
       features: [
         "Aproximadamente 120.000 conversas no ano",
         "Escalável e com bom custo-benefício",
@@ -54,7 +71,7 @@ export function PlansSection() {
         "Solução robusta para empresas com grande volume de tráfego e atendimentos. Válido para 1 site (1 domínio)",
       price: "R$ 379,00/mês",
       period:
-        "*Estimativa mensal para referência. Plano anual com pagamento à vista.",
+        "*Estimativa mensal para referência com pagamento à vista. O plano pode ser parcelado em até 12x com acréscimo.",
       features: [
         "Aproximadamente 240.000 conversas no ano",
         "Estável, eficiente e preparado para alto volume",
@@ -128,7 +145,8 @@ export function PlansSection() {
       subtitle:
         "Ideal para pequenos negócios que querem automatizar o atendimento básico com presença online profissional.",
       price: "R$ 1.200,00",
-      period: "*Pagamento único em até 12x + R$ 115,00/mês pelo chatbot",
+      period:
+        "*Pagamento único em até 12x de (R$ 122,12) + R$ 115,00/mês pelo chatbot",
       features: [
         "Site responsivo com até 7 seções",
         "Chatbot com respostas automáticas",
@@ -144,7 +162,8 @@ export function PlansSection() {
       subtitle:
         "Perfeito para empresas que precisam de presença online robusta com atendimento automatizado inteligente.",
       price: "R$ 2.500,00",
-      period: "*Pagamento único em até 12x + R$ 254,00/mês pelo chatbot",
+      period:
+        "*Pagamento único em até 12x de (R$ 254,40) + R$ 254,00/mês pelo chatbot",
       features: [
         "Site responsivo com até 10 páginas",
         "Chatbot com IA avançada",
@@ -160,7 +179,8 @@ export function PlansSection() {
       subtitle:
         "Para empresas que precisam de máxima performance, escalabilidade e recursos avançados de automação.",
       price: "R$ 4.500,00",
-      period: "*Pagamento único em até 12x + R$ 429,00/mês pelo chatbot",
+      period:
+        "*Pagamento único em até 12x de (R$ 457,91) + R$ 429,00/mês pelo chatbot",
       features: [
         "Site ilimitado com design personalizado",
         "Chatbot multi-idioma com IA",

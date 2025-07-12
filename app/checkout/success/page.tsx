@@ -1,12 +1,60 @@
-import { Suspense } from "react";
+"use client";
+
+import { Suspense, useEffect } from "react";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Mail, Phone } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 function SuccessContent() {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const isCombo = searchParams.get("combo") === "1";
+    const planId = searchParams.get("planId");
+    const customerEmail = searchParams.get("email");
+    const customerName = searchParams.get("name");
+
+    if (isCombo && planId && customerEmail && customerName) {
+      const subscriptionPayload = {
+        plan: {
+          id: planId,
+          name: `${searchParams.get("planName")} (Mensalidade Combo)`,
+          price: Number(searchParams.get("monthly")),
+          description: `${searchParams.get(
+            "planDesc"
+          )} - Mensalidade recorrente para funcionamento`,
+          period: "monthly",
+        },
+        customer: {
+          email: customerEmail,
+          name: customerName,
+        },
+        trial_days: 30,
+      };
+
+      fetch("/api/checkout/create-subscription", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(subscriptionPayload),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.init_point) {
+            //Redireciona para o  checkout da assinatura
+            window.location.href = data.init_point;
+          } else {
+            console.error("Erro ao criar assinatura do combo: ", data);
+          }
+        })
+        .catch((err) => {
+          console.error("Erro ao processar assinatura do combo:", err);
+        });
+    }
+  }, []);
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -49,7 +97,7 @@ function SuccessContent() {
                     className="flex items-center space-x-2 bg-transparent"
                   >
                     <Mail className="h-4 w-4" />
-                    <span>contato@vierca.com.br</span>
+                    <span>viercatech@gmail.com</span>
                   </Button>
                   <Button
                     variant="outline"
@@ -62,7 +110,10 @@ function SuccessContent() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-                <Button asChild className="bg-[#1e90ff] hover:bg-[#022041]">
+                <Button
+                  asChild
+                  className="bg-[#1e90ff] hover:bg-[#022041] text-white"
+                >
                   <Link href="/area-do-cliente">Acessar Área do Cliente</Link>
                 </Button>
                 <Button variant="outline" asChild>

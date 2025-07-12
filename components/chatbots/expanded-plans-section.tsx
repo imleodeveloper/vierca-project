@@ -22,7 +22,8 @@ export function ExpandedPlansSection() {
       subtitle:
         "Ideal para pequenos negócios que querem automatizar o atendimento básico com presença online profissional.",
       price: "R$ 1.200,00",
-      period: "*Pagamento único em até 12x + R$ 115,00/mês pelo chatbot",
+      period:
+        "*Pagamento único em até 12x de (R$ 122,12) + R$ 115,00/mês pelo chatbot",
       features: [
         "Site responsivo com até 7 seções",
         "Chatbot com respostas automáticas",
@@ -38,7 +39,8 @@ export function ExpandedPlansSection() {
       subtitle:
         "Perfeito para empresas que precisam de presença online robusta com atendimento automatizado inteligente.",
       price: "R$ 2.500,00",
-      period: "*Pagamento único em até 12x + R$ 254,00/mês pelo chatbot",
+      period:
+        "*Pagamento único em até 12x de (R$ 254,40) + R$ 254,00/mês pelo chatbot",
       features: [
         "Site responsivo com até 10 páginas",
         "Chatbot com IA avançada",
@@ -54,7 +56,8 @@ export function ExpandedPlansSection() {
       subtitle:
         "Para empresas que precisam de máxima performance, escalabilidade e recursos avançados de automação.",
       price: "R$ 4.500,00",
-      period: "*Pagamento único em até 12x + R$ 429,00/mês pelo chatbot",
+      period:
+        "*Pagamento único em até 12x de (R$ 457,91) + R$ 429,00/mês pelo chatbot",
       features: [
         "Site ilimitado com design personalizado",
         "Chatbot multi-idioma com IA",
@@ -75,7 +78,7 @@ export function ExpandedPlansSection() {
       subtitle:
         "Apresente sua empresa com credibilidade e profissionalismo online.",
       price: "R$ 800,00",
-      period: "*Pagamento único em até 12x",
+      period: "*Pagamento único em até 12x de (R$ 81,41)",
       features: [
         "Design responsivo e moderno",
         "Até 10 páginas institucionais",
@@ -92,7 +95,7 @@ export function ExpandedPlansSection() {
       subtitle:
         "Solução completa para empresas que querem se destacar no mercado digital.",
       price: "R$ 1.500,00",
-      period: "*Pagamento único em até 12x",
+      period: "*Pagamento único em até 12x de (R$ 152,64)",
       features: [
         "Design personalizado exclusivo",
         "Até 15 páginas + blog",
@@ -108,7 +111,7 @@ export function ExpandedPlansSection() {
         "Para grandes empresas que precisam de um portal robusto e funcionalidades avançadas.",
       price: "R$ 3.000,00",
       period:
-        "*Pagamento único em até 12x + R$ 130,00/mês por manutenção preventiva",
+        "*Pagamento único em até 12x de (R$ 305,28) + R$ 130,00/mês por manutenção preventiva",
       features: [
         "Portal multi-idioma",
         "Sistema de gestão de conteúdo",
@@ -128,7 +131,7 @@ export function ExpandedPlansSection() {
       subtitle:
         "Ideal para campanhas específicas, lançamentos de produtos ou captação de leads.",
       price: "R$ 600,00",
-      period: "*Pagamento único em até 12x",
+      period: "*Pagamento único em até 12x de (R$ 61,06)",
       features: [
         "Design otimizado para conversão",
         "Até 7 seções estratégicas",
@@ -145,7 +148,7 @@ export function ExpandedPlansSection() {
       subtitle:
         "Para campanhas de alto impacto com recursos de automação e análise detalhada.",
       price: "R$ 1.200,00",
-      period: "*Pagamento único em até 12x",
+      period: "*Pagamento único em até 12x de (R$ 122,11)",
       features: [
         "Design premium personalizado",
         "Otimização para anúncios pagos",
@@ -162,7 +165,7 @@ export function ExpandedPlansSection() {
         "Solução completa com múltiplas páginas e painel de vendas para maximizar conversões.",
       price: "R$ 2.500,00",
       period:
-        "*Pagamento único em até 12x + R$ 130,00/mês por manutenção preventiva",
+        "*Pagamento único em até 12x de (R$ 254,40) + R$ 130,00/mês por manutenção preventiva",
       features: [
         "Múltiplas páginas de vendas",
         "Sistema de pagamento integrado",
@@ -182,7 +185,7 @@ export function ExpandedPlansSection() {
         "Comece a vender online com uma loja virtual completa e fácil de gerenciar.",
       price: "R$ 1.600,00",
       period:
-        "*Pagamento único em até 12x + R$ 130,00/mês por manutenção preventiva",
+        "*Pagamento único em até 12x de (R$ 162,81) + R$ 130,00/mês por manutenção preventiva",
       features: [
         "Até 100 produtos",
         "Carrinho de compras",
@@ -200,7 +203,7 @@ export function ExpandedPlansSection() {
         "Solução robusta para empresas que querem crescer no comércio eletrônico.",
       price: "R$ 3.200,00",
       period:
-        "*Pagamento único em até 12x + R$ 130,00/mês por manutenção preventiva",
+        "*Pagamento único em até 12x de (R$ 325,63) + R$ 130,00/mês por manutenção preventiva",
       features: [
         "Produtos ilimitados",
         "Múltiplas formas de pagamento",
@@ -218,7 +221,7 @@ export function ExpandedPlansSection() {
         "Para empresas que querem criar um marketplace com múltiplos vendedores.",
       price: "R$ 6.500,00",
       period:
-        "*Pagamento único em até 12x + R$ 130,00/mês por manutenção preventiva",
+        "*Pagamento único em até 12x de (R$ 661,43) + R$ 130,00/mês por manutenção preventiva",
       features: [
         "Sistema multi-vendor",
         "Comissões automáticas",

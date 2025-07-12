@@ -1,4 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
+import { Resend } from "resend";
 
 export async function POST(request: NextRequest) {
   try {
@@ -80,12 +82,40 @@ export async function POST(request: NextRequest) {
 }
 
 async function handleApprovedPayment(paymentData: any) {
-  // Implementar lógica para pagamento aprovado
-  // Exemplos:
-  // - Ativar o serviço do cliente
-  // - Enviar email de confirmação
-  // - Atualizar status no banco de dados
-  // - Criar conta do cliente
+  const external = paymentData.external_reference; //vierca-planId-userId-timestamp
+  const parts = external.split("-");
+
+  const planId = parts[1];
+  const userId = parts[2];
+
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+
+  const { data: existing } = await supabase
+    .from("user_plans")
+    .select("*")
+    .eq("user_id", userId)
+    .eq("plan_id", planId)
+    .limit(1);
+
+  if (!existing || existing.length === 0) {
+    const { error } = await supabase.from("user_plans").insert({
+      user_id: userId,
+      plan_id: planId,
+      plan_start_date: new Date(),
+      status: "active",
+    });
+
+    if (error) {
+      console.error("Erro ao salvar plano no banco:", error);
+    } else {
+      console.log("Plano salvo com sucesso para o usuário:", userId);
+    }
+  } else {
+    console.log("Plano já está registrado com esse usuário: ", userId);
+  }
 
   console.log("Processando pagamento aprovado:", {
     id: paymentData.id,
@@ -94,11 +124,12 @@ async function handleApprovedPayment(paymentData: any) {
     payer_email: paymentData.payer.email,
   });
 
-  // Aqui você implementaria:
-  // 1. Salvar no banco de dados
-  // 2. Enviar email de boas-vindas
-  // 3. Ativar serviços contratados
-  // 4. Criar acesso ao painel do cliente
+  await sendEmailConfirmation({
+    customerEmail: paymentData.payer.email,
+    customerName: `${paymentData.payer.first_name} ${paymentData.payer.last_name}`,
+    planName: planId,
+    amount: paymentData.transaction_amount,
+  });
 }
 
 async function handlePendingPayment(paymentData: any) {
@@ -137,4 +168,51 @@ async function handleCancelledPayment(paymentData: any) {
     id: paymentData.id,
     external_reference: paymentData.external_reference,
   });
+}
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+async function sendEmailConfirmation({
+  customerEmail,
+  customerName,
+  planName,
+  amount,
+}: {
+  customerEmail: string;
+  customerName: string;
+  planName: string;
+  amount: number;
+}) {
+  try {
+    //Envia para o cliente
+    await resend.emails.send({
+      from: "VierCa Tech <viercatech@gmail.com>",
+      to: customerEmail,
+      subject: "Confirmação de pagamento - VierCa Tech",
+      html: `
+        <h2>Olá, ${customerName}!</h2>
+        <p>Seu pagamento foi aprovado com sucesso.</p>
+        <p><strong>Plano:</strong> ${planName}<br/>
+        <strong>Valor:</strong> R$ ${amount.toFixed(2)}</p>
+        <p>Seja bem-vindo(a) à VierBarber!</p>
+      `,
+    });
+
+    //Envia para VierCa
+    await resend.emails.send({
+      from: "Sistema VierCa Tech - <viercatech@gmail.com>",
+      to: "viercatech@gmail.com",
+      subject: "Novo venda realizada",
+      html: `
+        <h2>Novo pagamento confirmado</h2>
+        <p><strong>Cliente:</strong> ${customerName} (${customerEmail})<br/>
+        <strong>Plano:</strong> ${planName}<br/>
+        <strong>Valor:</strong> R$ ${amount.toFixed(2)}</p>
+      `,
+    });
+
+    console.log("Emails enviados com sucesso. ");
+  } catch (err) {
+    console.error("Erro ao enviar e-mail: ", err);
+  }
 }
