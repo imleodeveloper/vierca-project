@@ -90,6 +90,17 @@ async function handleApprovedPayment(paymentData: any) {
   const userId = parts[2];
   console.log("userId", userId);
 
+  // VALIDAÇÃO DE UUID
+  const isValidUUID =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+      userId
+    );
+
+  if (!isValidUUID) {
+    console.error("userId inválido recebido do external_reference:", userId);
+    return;
+  }
+
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
