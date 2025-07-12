@@ -82,11 +82,11 @@ export async function POST(request: NextRequest) {
 }
 
 async function handleApprovedPayment(paymentData: any) {
-  const external = paymentData.external_reference; //vierca|planId|userId|timestamp
+  const external = paymentData.external_reference; //vierca|planSlug|userId|timestamp
   const parts = external.split("|");
   console.log(external);
-  const planId = parts[1];
-  console.log("PlanId", planId);
+  const planSlug = parts[1];
+  console.log("PlanId", planSlug);
   const userId = parts[2];
   console.log("userId", userId);
 
@@ -110,13 +110,13 @@ async function handleApprovedPayment(paymentData: any) {
     .from("user_plans")
     .select("*")
     .eq("user_id", userId)
-    .eq("plan_id", planId)
+    .eq("slug", planSlug)
     .limit(1);
 
   if (!existing || existing.length === 0) {
     const { error } = await supabase.from("user_plans").insert({
       user_id: userId,
-      plan_id: planId,
+      slug: planSlug,
       plan_start_date: new Date(),
       status: "active",
     });
@@ -140,7 +140,7 @@ async function handleApprovedPayment(paymentData: any) {
   await sendEmailConfirmation({
     customerEmail: paymentData.payer.email,
     customerName: `${paymentData.payer.first_name} ${paymentData.payer.last_name}`,
-    planName: planId,
+    planName: planSlug,
     amount: paymentData.transaction_amount,
   });
 }

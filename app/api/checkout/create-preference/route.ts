@@ -160,7 +160,7 @@ export async function POST(request: NextRequest) {
 
     // DEBUG
     console.log("Preferência sendo enviada:", preference);
-    console.log("UUID: ", customer.id);
+    console.log("ID PLANO: ", plan.id);
 
     // Fazer requisição para o Mercado Pago
     const response = await fetch(

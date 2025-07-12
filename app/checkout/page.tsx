@@ -35,6 +35,7 @@ const supabase = createClient(
 
 interface Plan {
   id: string;
+  uuid: string;
   name: string;
   price: number;
   originalPrice?: number;
@@ -54,6 +55,7 @@ interface Plan {
 const plans: Plan[] = [
   {
     id: "chatbot-teste",
+    uuid: "d34f9485-ffbe-4c41-b8af-be1a5cdd6b98",
     name: "Chatbot TESTE",
     price: 1.0,
     description: "Chatbot com IA para seu site - pagamento mensal",
@@ -74,6 +76,7 @@ const plans: Plan[] = [
   },
   {
     id: "chatbot-mensal-basic",
+    uuid: "04cfd435-118b-4963-83b2-be5d93d49bc8",
     name: "Chatbot Mensal Básico",
     price: 115.0,
     description: "Chatbot com IA para seu site - pagamento mensal",
@@ -94,6 +97,7 @@ const plans: Plan[] = [
   },
   {
     id: "chatbot-mensal-intermediate",
+    uuid: "fe739efb-3b3f-41c2-a308-de30cc87c207",
     name: "Chatbot Mensal Intermediário",
     price: 254.0,
     description: "Chatbot com IA para seu site - pagamento mensal",
@@ -113,6 +117,7 @@ const plans: Plan[] = [
   },
   {
     id: "chatbot-mensal-profissional",
+    uuid: "39b3fe0a-725a-415d-a6c3-53a731f888dd",
     name: "Chatbot Mensal Profissional",
     price: 429.0,
     description: "Chatbot com IA para seu site - pagamento mensal",
@@ -132,6 +137,7 @@ const plans: Plan[] = [
 
   {
     id: "chatbot-anual-basic",
+    uuid: "fa68bfb1-83fc-4732-a13a-14ec1179ddc4",
     name: "Chatbot Anual Básico",
     price: 91.58,
     originalPrice: 115.0,
@@ -154,6 +160,7 @@ const plans: Plan[] = [
   },
   {
     id: "chatbot-anual-intermediate",
+    uuid: "888d577f-99c7-4c27-8678-2eca87d4adc7",
     name: "Chatbot Anual Intermediário",
     price: 214.0,
     originalPrice: 254.0,
@@ -176,6 +183,7 @@ const plans: Plan[] = [
   },
   {
     id: "chatbot-anual-profissional",
+    uuid: "46829016-aed5-4360-90b7-7c4202de475f",
     name: "Chatbot Anual Profissional",
     price: 379.0,
     originalPrice: 429.0,
@@ -199,6 +207,7 @@ const plans: Plan[] = [
 
   {
     id: "starter-chatbot",
+    uuid: "246929fd-5b15-43a9-b99d-9ae055b5fc05",
     name: "Starter Chatbot - Site com Chatbot",
     price: 1200.0,
     description: "Landing Page e chatbot integrado",
@@ -221,6 +230,7 @@ const plans: Plan[] = [
   },
   {
     id: "pro-chatbot",
+    uuid: "e89ded60-ca6b-429b-9085-945dd17fc87f",
     name: "Pro Chatbot - Site com Chatbot",
     price: 2500.0,
     description: "Landing Page e chatbot integrado",
@@ -243,6 +253,7 @@ const plans: Plan[] = [
   },
   {
     id: "business-chatbot",
+    uuid: "14644c24-40e0-4023-a93c-48a877b67e5e",
     name: "Business Chatbot - Site com Chatbot",
     price: 4500.0,
     description: "Landing Page e chatbot integrado",
@@ -266,6 +277,7 @@ const plans: Plan[] = [
   },
   {
     id: "landing-page-simples",
+    uuid: "a1945d59-5cc8-4995-8123-480691781bdf",
     name: "Landing Page Simples",
     price: 600.0,
     description: "Página de vendas otimizada focada em conversão ",
@@ -284,6 +296,7 @@ const plans: Plan[] = [
   },
   {
     id: "landing-page-premium",
+    uuid: "c09199e1-b569-4e79-a69d-f449029670f0",
     name: "Landing Page Premium",
     price: 1200.0,
     description: "Página de conversão otimizada",
@@ -303,6 +316,7 @@ const plans: Plan[] = [
   },
   {
     id: "landing-page-complete",
+    uuid: "6b3f37bf-92b2-444e-9f2f-4463077c1ef6",
     name: "Landing Page Completa",
     price: 2500.0,
     description: "Página de conversão otimizada",
@@ -322,6 +336,7 @@ const plans: Plan[] = [
   },
   {
     id: "site-institucional-basic",
+    uuid: "9161ba24-105c-450d-bad3-365aa6e5a629",
     name: "Site Institucional Básico",
     price: 800.0,
     description: "Site completo para sua empresa",
@@ -341,6 +356,7 @@ const plans: Plan[] = [
   },
   {
     id: "site-institucional-premium",
+    uuid: "49d91bcb-d234-472d-9f8a-67df1d051fc5",
     name: "Site Institucional Premium",
     price: 1500.0,
     description: "Site completo para sua empresa",
@@ -360,6 +376,7 @@ const plans: Plan[] = [
   },
   {
     id: "site-institucional-corporativo",
+    uuid: "255bd77f-05cf-4c94-be3a-40c2ac1e55ad",
     name: "Corporativo",
     price: 3000.0,
     description: "Site completo para sua empresa",
@@ -382,6 +399,7 @@ const plans: Plan[] = [
   },
   {
     id: "ecommerce-basic",
+    uuid: "615ceae0-6afd-4a65-ae77-14b0e9baf923",
     name: "Loja Básica - E-commerce",
     price: 1600.0,
     description: "Loja virtual completa",
@@ -403,6 +421,7 @@ const plans: Plan[] = [
   },
   {
     id: "ecommerce-pro",
+    uuid: "a9e33692-dcbf-445c-add2-fccbbc057383",
     name: "Loja Profissional - E-commerce",
     price: 3200.0,
     description: "Loja virtual completa",
@@ -423,6 +442,7 @@ const plans: Plan[] = [
   },
   {
     id: "ecommerce-marketplace",
+    uuid: "24d50e11-1b51-41ba-8eba-19b7863c1c63",
     name: "Marketplace - E-commerce",
     price: 6500.0,
     description: "Plataforma de vendas multi-vendor",
@@ -457,6 +477,7 @@ export default function CheckoutPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [customerData, setCustomerData] = useState({
+    planSlug: "",
     id: "",
     name: "",
     email: "",

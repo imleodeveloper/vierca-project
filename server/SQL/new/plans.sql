@@ -355,3 +355,41 @@ INSERT INTO public.plans (
     'Suporte empresarial'
   ]
 );
+
+
+-- Adicionado slug aos plans
+
+ALTER TABLE plans ADD COLUMN slug TEXT UNIQUE;
+
+-- Chatbots Mensais
+update plans SET slug = 'chatbot-mensal-basic' WHERE id = '04cfd435-118b-4963-83b2-be5d93d49bc8';
+update plans SET slug = 'chatbot-mensal-intermediate' WHERE id = 'fe739efb-3b3f-41c2-a308-de30cc87c207';
+update plans SET slug = 'chatbot-mensal-profissional' WHERE id = '39b3fe0a-725a-415d-a6c3-53a731f888dd';
+
+-- Chatbots anuais
+update plans SET slug = 'chatbot-anual-basic' WHERE id = 'fa68bfb1-83fc-4732-a13a-14ec1179ddc4';
+update plans SET slug = 'chatbot-anual-intermediate' WHERE id = '888d577f-99c7-4c27-8678-2eca87d4adc7';
+update plans SET slug = 'chatbot-anual-profissional' WHERE id = '46829016-aed5-4360-90b7-7c4202de475f';
+
+-- Sites com Chatbots
+update plans SET slug = 'starter-chatbot' WHERE id = '246929fd-5b15-43a9-b99d-9ae055b5fc05';
+update plans SET slug = 'pro-chatbot' WHERE id = 'e89ded60-ca6b-429b-9085-945dd17fc87f';
+update plans SET slug = 'business-chatbot' WHERE id = '14644c24-40e0-4023-a93c-48a877b67e5e';
+
+-- Landing Pages
+update plans SET slug = 'landing-page-simples' WHERE id = 'a1945d59-5cc8-4995-8123-480691781bdf';
+update plans SET slug = 'landing-page-premium' WHERE id = 'c09199e1-b569-4e79-a69d-f449029670f0';
+update plans SET slug = 'landing-page-complete' WHERE id = '6b3f37bf-92b2-444e-9f2f-4463077c1ef6';
+
+-- Site Institucional
+update plans SET slug = 'site-institucional-basic' WHERE id = '9161ba24-105c-450d-bad3-365aa6e5a629';
+update plans SET slug = 'site-institucional-premium' WHERE id = 'c09199e1-b569-4e79-a69d-f449029670f0';
+update plans SET slug = 'site-institucional-corporativo' WHERE id = '255bd77f-05cf-4c94-be3a-40c2ac1e55ad';
+
+-- Ecommerces
+update plans SET slug = 'ecommerce-basic' WHERE id = '615ceae0-6afd-4a65-ae77-14b0e9baf923';
+update plans SET slug = 'ecommerce-pro' WHERE id = 'a9e33692-dcbf-445c-add2-fccbbc057383';
+update plans SET slug = 'ecommerce-marketplace' WHERE id = '24d50e11-1b51-41ba-8eba-19b7863c1c63';
+
+-- Teste
+update plans SET slug = 'chatbot-teste' WHERE id = 'd34f9485-ffbe-4c41-b8af-be1a5cdd6b98';

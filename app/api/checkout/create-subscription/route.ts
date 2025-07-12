@@ -7,6 +7,7 @@ interface Customer {
   email: string;
   phone?: string;
   document?: string;
+  planUUID: string;
 }
 
 interface Plan {
