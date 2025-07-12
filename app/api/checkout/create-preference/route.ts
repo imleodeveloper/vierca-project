@@ -49,7 +49,7 @@ interface MercadoPagoPreference {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { plan, period, customer, discount, total, uuid } = body;
+    const { plan, period, customer, discount, total } = body;
 
     // Validações básicas
     if (!plan || !customer.name || !customer.email) {
@@ -151,7 +151,7 @@ export async function POST(request: NextRequest) {
         installments: 12, // Máximo de 12 parcelas
       },
       notification_url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/checkout/webhook`,
-      external_reference: `vierca|${plan.id}|${uuid}|${Date.now()}`,
+      external_reference: `vierca|${plan.id}|${customer.id}|${Date.now()}`,
       expires: true,
       expiration_date_to: new Date(
         Date.now() + 24 * 60 * 60 * 1000
@@ -160,7 +160,7 @@ export async function POST(request: NextRequest) {
 
     // DEBUG
     console.log("Preferência sendo enviada:", preference);
-    console.log(uuid);
+    console.log("UUID: ", customer.id);
 
     // Fazer requisição para o Mercado Pago
     const response = await fetch(

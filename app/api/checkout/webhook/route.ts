@@ -84,6 +84,7 @@ export async function POST(request: NextRequest) {
 async function handleApprovedPayment(paymentData: any) {
   const external = paymentData.external_reference; //vierca|planId|userId|timestamp
   const parts = external.split("|");
+  console.log(external);
   const planId = parts[1];
   console.log("PlanId", planId);
   const userId = parts[2];
