@@ -85,7 +85,9 @@ async function handleApprovedPayment(paymentData: any) {
   const external = paymentData.external_reference; //vierca|planId|userId|timestamp
   const parts = external.split("|");
   const planId = parts[1];
+  console.log("PlanId", planId);
   const userId = parts[2];
+  console.log("userId", userId);
 
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

@@ -608,6 +608,7 @@ export default function CheckoutPage() {
                 price: selectedPlan.additional || selectedPlan.price,
               },
               period,
+              uuid: customerData.id,
               customer: customerData,
               discount,
               total: selectedPlan.additional || selectedPlan.price,
@@ -636,6 +637,7 @@ export default function CheckoutPage() {
             body: JSON.stringify({
               plan: selectedPlan,
               period,
+              uuid: customerData.id,
               customer: customerData,
               discount,
               total: calculateTotal(),
