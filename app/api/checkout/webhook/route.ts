@@ -82,9 +82,8 @@ export async function POST(request: NextRequest) {
 }
 
 async function handleApprovedPayment(paymentData: any) {
-  const external = paymentData.external_reference; //vierca-planId-userId-timestamp
-  const parts = external.split("-");
-
+  const external = paymentData.external_reference; //vierca|planId|userId|timestamp
+  const parts = external.split("|");
   const planId = parts[1];
   const userId = parts[2];
 

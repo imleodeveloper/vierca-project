@@ -151,7 +151,7 @@ export async function POST(request: NextRequest) {
         installments: 12, // Máximo de 12 parcelas
       },
       notification_url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/checkout/webhook`,
-      external_reference: `vierca-${plan.id}-${customer.id}-${Date.now()}`,
+      external_reference: `vierca|${plan.id}|${customer.id}|${Date.now()}`,
       expires: true,
       expiration_date_to: new Date(
         Date.now() + 24 * 60 * 60 * 1000

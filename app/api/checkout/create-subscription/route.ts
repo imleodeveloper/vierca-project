@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
       },
       back_url: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/success`,
       payer_email: customer.email,
-      external_reference: `sub-${plan.id}-${customer.id}-${Date.now()}`,
+      external_reference: `sub|${plan.id}|${customer.id}|${Date.now()}`,
     };
 
     //Enviar para o mercado pago
