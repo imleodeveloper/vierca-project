@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
+import { plans } from "@/app/checkout/page";
 
 export async function POST(request: NextRequest) {
   try {
@@ -106,6 +107,13 @@ async function handleApprovedPayment(paymentData: any) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
 
+  const plan = plans.find((p) => p.id === planSlug);
+  console.log("plano: " + plan);
+  console.log("name: " + plan?.name);
+  console.log("isMonthlyFee: " + plan?.isMonthlyFee);
+  console.log("additionalMonthlyFee: " + plan?.additionalMonthlyFee);
+  console.log("category: " + plan?.category);
+
   const { data: existing } = await supabase
     .from("user_plans")
     .select("*")
@@ -117,8 +125,13 @@ async function handleApprovedPayment(paymentData: any) {
     const { error } = await supabase.from("user_plans").insert({
       user_id: userId,
       slug: planSlug,
+      plan_name: plan?.name,
       plan_start_date: new Date(),
       status: "active",
+      is_monthly: plan?.isMonthlyFee, // True ou False
+      has_additional_monthly: (plan?.additionalMonthlyFee ?? 0) > 0,
+      additional_monthly_fee: plan?.additionalMonthlyFee ?? 0,
+      category: plan?.category,
     });
 
     if (error) {

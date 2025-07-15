@@ -60,6 +60,7 @@ const configCategories = ["Dados", "Meus Pedidos", "Configurações da Conta"];
 
 export default function AreaDoClientePage() {
   const router = useRouter();
+  const [expandedDetails, setExpandedDetails] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
@@ -118,6 +119,14 @@ export default function AreaDoClientePage() {
 
     fetchUserData();
   }, [router]);
+
+  //console.log("AQUI ESTÁ TODOS OS RETORNO DA API");
+  //console.log("Plano nome: ", userData?.plan_name);
+  //console.log("Plano preço: ", userData?.plan_price);
+  //console.log("Plano descrição: ", userData?.plan_description);
+  //console.log("Plano vantagens: ", userData?.plan_features);
+  //console.log("Plano data de ínicio: ", userData?.plan_start_date);
+  //console.log("Plano status: ", userData?.plan_status);
 
   const handleLogout = async () => {
     try {
@@ -192,6 +201,11 @@ export default function AreaDoClientePage() {
       </div>
     );
   }
+
+  const handleExpandedDetails = () => {
+    // Atualiza para o inverso de expandeDetails e mostra os detalhes expanded
+    setExpandedDetails(!expandedDetails);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -281,7 +295,7 @@ export default function AreaDoClientePage() {
                   <CardContent>
                     {userData?.plan_name ? (
                       <div className="space-y-4">
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-start flex-col justify-between gap-4">
                           <div>
                             <h3 className="text-xl font-bold text-[#1e90ff]">
                               {userData.plan_name}
@@ -290,15 +304,15 @@ export default function AreaDoClientePage() {
                               {userData.plan_description}
                             </p>
                           </div>
-                          <div className="text-right">
-                            <p className="text-2xl font-bold text-[#1e90ff]">
+                          <div className="text-start">
+                            <p className="text-xl font-bold text-[#1e90ff]">
                               {formatPrice(userData.plan_price)}
                             </p>
                             <Badge
                               className={
                                 userData.plan_status === "active"
-                                  ? "bg-green-100 text-green-800"
-                                  : "bg-red-100 text-red-800"
+                                  ? "bg-green-100 text-green-800 hover:bg-green-100"
+                                  : "bg-red-100 text-red-800 hover:bg-red-100"
                               }
                             >
                               {userData.plan_status === "active"
@@ -469,76 +483,154 @@ export default function AreaDoClientePage() {
               {/* Informações do Usuário */}
               <div className="lg:col-span-2 space-y-6">
                 {/* Dados Pessoais */}
-                <Card>
+                <Card className="relative">
                   <CardHeader>
                     <CardTitle className="flex items-center text-[#022041]">
                       <Box className="h-5 w-5 mr-2" />
                       Meus Pedidos
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-12 min-h-96">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="flex items-center space-x-3">
-                        <CircleCheckBig className="h-4 w-4 text-gray-400" />
-                        <div>
-                          <p className="text-sm text-gray-600">Status</p>
-                          <p className="font-medium">Ativo</p>
+
+                  {userData?.plan_name ? (
+                    <CardContent className="space-y-12 min-h-auto">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="flex items-center space-x-3">
+                          <CircleCheckBig className="h-4 w-4 text-gray-400" />
+                          <div>
+                            <p className="text-sm text-gray-600">Status</p>
+                            <p className="font-medium text-sm text-gray-500">
+                              {userData.plan_status === "active"
+                                ? "Ativo"
+                                : "Inativo"}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <Code className="h-4 w-4 text-gray-400" />
+                          <div>
+                            <p className="text-sm text-gray-600">Plano atual</p>
+                            <p className="font-medium text-sm text-gray-500">
+                              {userData?.plan_name || "Sem plano no momento"}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <CalendarClock className="h-4 w-4 text-gray-400" />
+                          <div>
+                            <p className="text-sm text-gray-600">Tipo</p>
+                            <p className="font-medium text-sm text-gray-500">
+                              Mensal / Pagamento Único
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <CalendarCheck className="h-4 w-4 text-gray-400" />
+                          <div>
+                            <p className="text-sm text-gray-600">
+                              Data de compra
+                            </p>
+                            <p className="font-medium text-sm text-gray-500">
+                              {userData?.plan_start_date?.substring(0, 10)}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <Code className="h-4 w-4 text-gray-400" />
-                        <div>
-                          <p className="text-sm text-gray-600">Plano atual</p>
-                          <p className="font-medium">
-                            {userData?.plan_name || "Sem plano no momento"}
-                          </p>
+                      <div className="grid grid-cols-1 gap-4">
+                        <Button
+                          variant="outline"
+                          onClick={handleExpandedDetails}
+                          className="w-full justify-center bg-[#1e90ff] hover:bg-[#022041] text-white hover:text-white"
+                        >
+                          <ReceiptText className="h-4 w-4 mr-2" />
+                          Ver Detalhes
+                        </Button>
+                        <div className="grid grid-cols-2 gap-2">
+                          <Button
+                            variant="outline"
+                            className="w-full justify-center bg-transparent hover:bg-gray-300"
+                          >
+                            <RefreshCcw className="h-4 w-4 mr-2" />
+                            Cancelar Assinatura Mensal
+                          </Button>
+                          <Button
+                            variant="outline"
+                            className="w-full justify-center bg-transparent hover:bg-gray-300"
+                          >
+                            <PowerOff className="h-4 w-4 mr-2" />
+                            Solicitar Reembolso
+                          </Button>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <CalendarClock className="h-4 w-4 text-gray-400" />
-                        <div>
-                          <p className="text-sm text-gray-600">Tipo</p>
-                          <p className="font-medium">
-                            Mensal / Pagamento Único
-                          </p>
+                      {expandedDetails && (
+                        <div className="mt-4 p-4 bg-blue-100 flex flex-col  ">
+                          <CardHeader>
+                            <CardTitle className="flex items-center justify-between text-[#022041]">
+                              <span className="flex">
+                                <Crown className="h-5 w-5 mr-2" />
+                                Plano Atual
+                              </span>
+                              <span className="flex">
+                                <p className="text-xl font-bold text-[#1e90ff]">
+                                  {formatPrice(userData.plan_price)}
+                                </p>
+                              </span>
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <span className="text-xl font-bold">
+                              {userData.plan_name}
+                            </span>
+                            <p className="text-base mb-4">
+                              {userData.plan_description}
+                            </p>
+                            {userData.plan_features &&
+                              userData.plan_features.length > 0 && (
+                                <>
+                                  <Separator />
+                                  <div>
+                                    <h4 className="font-semibold text-[#022041] mb-2">
+                                      Recursos Inclusos:
+                                    </h4>
+                                    <ul className="space-y-1">
+                                      {userData.plan_features.map(
+                                        (feature, index) => (
+                                          <li
+                                            key={index}
+                                            className="flex items-start space-x-2 text-sm"
+                                          >
+                                            <div className="h-1.5 w-1.5 bg-[#1e90ff] rounded-full mt-2 flex-shrink-0"></div>
+                                            <span>{feature}</span>
+                                          </li>
+                                        )
+                                      )}
+                                    </ul>
+                                  </div>
+                                </>
+                              )}
+                          </CardContent>
                         </div>
+                      )}
+                    </CardContent>
+                  ) : (
+                    <CardContent className="space-y-12 min-h-96">
+                      <div className="text-center py-8">
+                        <Crown className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+                        <h3 className="text-lg font-semibold text-gray-600 mb-2">
+                          Nenhum plano ativo
+                        </h3>
+                        <p className="text-gray-500 mb-4">
+                          Você ainda não possui um plano ativo. Escolha um plano
+                          para começar!
+                        </p>
+                        <Button
+                          onClick={() => router.push("/")}
+                          className="bg-[#1e90ff] hover:bg-[#022041] text-white"
+                        >
+                          Ver Planos Disponíveis
+                        </Button>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <CalendarCheck className="h-4 w-4 text-gray-400" />
-                        <div>
-                          <p className="text-sm text-gray-600">
-                            Data de compra
-                          </p>
-                          <p className="font-medium text-xs text-gray-500">
-                            {userData?.id?.substring(0, 15) + "..."}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <Button
-                        variant="outline"
-                        className="w-full justify-center bg-transparent hover:bg-gray-300"
-                      >
-                        <ReceiptText className="h-4 w-4 mr-2" />
-                        Ver Detalhes
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="w-full justify-center bg-[#1e90ff] hover:bg-[#022041] text-white hover:text-white"
-                      >
-                        <RefreshCcw className="h-4 w-4 mr-2" />
-                        Cancelar Assinatura Mensal
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="w-full justify-center bg-transparent hover:bg-red-500 text-red-500 hover:text-white"
-                      >
-                        <PowerOff className="h-4 w-4 mr-2" />
-                        Solicitar Reembolso
-                      </Button>
-                    </div>
-                  </CardContent>
+                    </CardContent>
+                  )}
                 </Card>
               </div>
 

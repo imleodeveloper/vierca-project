@@ -52,7 +52,7 @@ interface Plan {
   isMonthlyFee: boolean;
 }
 
-const plans: Plan[] = [
+export const plans: Plan[] = [
   {
     id: "chatbot-teste",
     uuid: "d34f9485-ffbe-4c41-b8af-be1a5cdd6b98",
@@ -68,11 +68,12 @@ const plans: Plan[] = [
     category: "chatbot",
     period: "monthly",
     benefits: null,
-    installChatbot: 1.0,
+    installChatbot: 2.0,
     warning:
       "Atenção: A contratação deste plano não inclui a instalação do chatbot. A instalação deve ser adquirida separadamente por um pagamento único de R$ 300,00.",
     isMonthlyFee: true,
-    additional: 1.0,
+    additionalMonthlyFee: 1.5,
+    additional: 2.0,
   },
   {
     id: "chatbot-mensal-basic",
@@ -93,6 +94,7 @@ const plans: Plan[] = [
     warning:
       "Atenção: A contratação deste plano não inclui a instalação do chatbot. A instalação deve ser adquirida separadamente por um pagamento único de R$ 300,00.",
     isMonthlyFee: true,
+    additionalMonthlyFee: 115.0,
     additional: 300.0,
   },
   {
@@ -113,6 +115,7 @@ const plans: Plan[] = [
     benefits: "A contratação deste plano inclui a instalação do chatbot.",
     installChatbot: 0,
     warning: null,
+    additionalMonthlyFee: 0,
     isMonthlyFee: true,
   },
   {
@@ -133,6 +136,7 @@ const plans: Plan[] = [
     benefits: "A contratação deste plano inclui a instalação do chatbot.",
     warning: null,
     isMonthlyFee: true,
+    additionalMonthlyFee: 0,
   },
 
   {
@@ -157,6 +161,7 @@ const plans: Plan[] = [
     benefits:
       "Neste plano você tem incluso: Desenvolvimento de site, instalação do chatbot, domínio gratuíto por 1 ano e suporte técnico",
     isMonthlyFee: false,
+    additionalMonthlyFee: 0,
   },
   {
     id: "chatbot-anual-intermediate",
@@ -180,6 +185,7 @@ const plans: Plan[] = [
     benefits:
       "Neste plano você tem incluso: Desenvolvimento de site, instalação do chatbot, domínio gratuíto por 1 ano e suporte técnico",
     isMonthlyFee: false,
+    additionalMonthlyFee: 0,
   },
   {
     id: "chatbot-anual-profissional",
@@ -203,6 +209,7 @@ const plans: Plan[] = [
     benefits:
       "Neste plano você tem incluso: Desenvolvimento de site, instalação do chatbot, domínio gratuíto por 1 ano e suporte técnico",
     isMonthlyFee: false,
+    additionalMonthlyFee: 0,
   },
 
   {
@@ -293,6 +300,7 @@ const plans: Plan[] = [
     period: "one-time",
     benefits: null,
     isMonthlyFee: false,
+    additionalMonthlyFee: 0,
   },
   {
     id: "landing-page-premium",
@@ -313,6 +321,7 @@ const plans: Plan[] = [
     benefits: null,
     popular: true,
     isMonthlyFee: false,
+    additionalMonthlyFee: 0,
   },
   {
     id: "landing-page-complete",
@@ -353,6 +362,7 @@ const plans: Plan[] = [
     popular: false,
     benefits: null,
     isMonthlyFee: false,
+    additionalMonthlyFee: 0,
   },
   {
     id: "site-institucional-premium",
@@ -373,6 +383,7 @@ const plans: Plan[] = [
     popular: true,
     benefits: null,
     isMonthlyFee: false,
+    additionalMonthlyFee: 0,
   },
   {
     id: "site-institucional-corporativo",

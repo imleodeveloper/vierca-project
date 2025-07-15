@@ -18,7 +18,7 @@ export function ChatBot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      text: "Oi! Sou o Vier 🤖. Como posso te ajudar hoje?",
+      text: "Oi! Sou o VierBot 🤖. Como posso te ajudar hoje?",
       isBot: true,
       timestamp: new Date(),
     },
@@ -36,9 +36,9 @@ export function ChatBot() {
   }, [messages]);
 
   const faqQuestions = [
-    "Quero criar um site",
+    "Quero desenvolver um site com vocês",
     "Quero um chatbot para meu site",
-    "Estou com problemas em meu computador",
+    "Quais planos de desenvolvimento de site e chatbots vocês tem?",
   ];
 
   const handleFAQClick = async (question: string) => {
@@ -117,7 +117,7 @@ export function ChatBot() {
     setMessages([
       {
         id: "1",
-        text: "Oi! Sou o Vier 🤖. Como posso te ajudar hoje?",
+        text: "Oi! Sou o VierBot 🤖. Como posso te ajudar hoje?",
         isBot: true,
         timestamp: new Date(),
       },
@@ -200,7 +200,7 @@ export function ChatBot() {
                 />
               </div>
               <div className="bg-gray-100 text-gray-800 p-3 rounded-lg max-w-[80%] text-sm">
-                Oi! Sou o Vier 🤖. Como posso te ajudar hoje?
+                Oi! Sou o VierBot 🤖. Como posso te ajudar hoje?
               </div>
             </div>
 
@@ -234,7 +234,7 @@ export function ChatBot() {
                 {message.isBot && (
                   <div className="w-8 h-8 bg-[#1e90ff]/10 rounded-full flex items-center justify-center flex-shrink-0 mr-2">
                     <img
-                      src="/image-vierca-ia-letters-black.webp"
+                      src="/vierbot-1-1.webp"
                       alt="Vier"
                       className="w-5 h-5"
                     />
