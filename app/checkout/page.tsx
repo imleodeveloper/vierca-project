@@ -86,7 +86,7 @@ interface PlansSites {
   warning?: string;
 }
 
-export const plansChatbots: PlansChatbots[] = [
+const plansChatbots: PlansChatbots[] = [
   {
     type: "chatbot",
     title_plan: "Chatbot Teste",
@@ -242,7 +242,7 @@ export const plansChatbots: PlansChatbots[] = [
   },
 ];
 
-export const plansSites: PlansSites[] = [
+const plansSites: PlansSites[] = [
   {
     type: "site",
     title_plan: "Starter Chatbot - Site com Chatbot",
@@ -491,7 +491,7 @@ export const plansSites: PlansSites[] = [
   },
 ];
 
-export const plans: Plan[] = [
+const plans: Plan[] = [
   {
     id: "chatbot-teste",
     uuid: "d34f9485-ffbe-4c41-b8af-be1a5cdd6b98",

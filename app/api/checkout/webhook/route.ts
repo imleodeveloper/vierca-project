@@ -1,8 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
-import { plansChatbots, plansSites } from "@/app/checkout/page";
-
+import { plans_chatbots, plans_sites } from "@/lib/plans";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -108,8 +107,8 @@ async function handleApprovedPayment(paymentData: any) {
   );
 
   const plan =
-    plansSites.find((p) => p.slug === planSlug) ||
-    plansChatbots.find((p) => p.slug === planSlug);
+    plans_sites.find((p) => p.slug === planSlug) ||
+    plans_chatbots.find((p) => p.slug === planSlug);
 
   if (plan?.type === "chatbot") {
     const { data: existing } = await supabase
@@ -125,7 +124,7 @@ async function handleApprovedPayment(paymentData: any) {
       let price_plan_separate = 0;
       let price_monthly_separate = 0;
       if (plan.price_installation_separate) {
-        let price_plan_separate = plan.price_installation_separate;
+        price_plan_separate = plan.price_installation_separate;
         price_monthly_separate = plan.price;
       }
 
