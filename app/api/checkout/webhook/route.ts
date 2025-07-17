@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
-import { plans } from "@/app/checkout/page";
+import { plansChatbots, plansSites } from "@/app/checkout/page";
 
 export async function POST(request: NextRequest) {
   try {
@@ -107,37 +107,103 @@ async function handleApprovedPayment(paymentData: any) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
 
-  const plan = plans.find((p) => p.id === planSlug);
-  console.log("plano: " + plan);
-  console.log("name: " + plan?.name);
-  console.log("isMonthlyFee: " + plan?.isMonthlyFee);
-  console.log("additionalMonthlyFee: " + plan?.additionalMonthlyFee);
-  console.log("category: " + plan?.category);
+  const plan =
+    plansSites.find((p) => p.slug === planSlug) ||
+    plansChatbots.find((p) => p.slug === planSlug);
 
-  const { data: existing } = await supabase
-    .from("user_plans")
-    .select("*")
-    .eq("user_id", userId)
-    .eq("slug", planSlug)
-    .limit(1);
+  if (plan?.type === "chatbot") {
+    const { data: existing } = await supabase
+      .from("user_plan")
+      .select("*")
+      .eq("user_id", userId)
+      .eq("slug", planSlug)
+      .limit(1);
 
-  if (!existing || existing.length === 0) {
-    const { error } = await supabase.from("user_plans").insert({
-      user_id: userId,
-      slug: planSlug,
-      plan_name: plan?.name,
-      plan_start_date: new Date(),
-      status: "active",
-      is_monthly: plan?.isMonthlyFee, // True ou False
-      has_additional_monthly: (plan?.additionalMonthlyFee ?? 0) > 0,
-      additional_monthly_fee: plan?.additionalMonthlyFee ?? 0,
-      category: plan?.category,
-    });
+    // Verifica se é um plano de pagamento único e
+    // depois ativação de assinatura mensal
+    if (!existing || existing.length === 0) {
+      let price_plan_separate = 0;
+      let price_monthly_separate = 0;
+      if (plan.price_installation_separate) {
+        let price_plan_separate = plan.price_installation_separate;
+        price_monthly_separate = plan.price;
+      }
 
-    if (error) {
-      console.error("Erro ao salvar plano no banco:", error);
-    } else {
-      console.log("Plano salvo com sucesso para o usuário:", userId);
+      let period = "";
+      if (plan.isMonthlyFee === true) {
+        period = "monthly";
+      } else if (plan.isMonthlyFee === false) {
+        period = "annual";
+      }
+
+      const { error } = await supabase.from("user_plan").insert({
+        user_id: userId,
+        type_plan: plan.type,
+        slug_chatbot: planSlug,
+        has_chatbot: true,
+        conversations_per_month: plan.conversationsPerMonth,
+        price_plan: price_plan_separate || plan.price,
+        has_monthly_fee: plan.isMonthlyFee,
+        price_monthly_fee: price_monthly_separate || plan.price,
+        status: "active",
+        period: period,
+        plan_start_date: new Date(),
+      });
+
+      if (error) {
+        console.error("Erro ao salvar plano no banco:", error);
+      } else {
+        console.log("Plano salvo com sucesso para o usuário:", userId);
+      }
+    }
+  } else {
+    console.log("Plano já está registrado com esse usuário: ", userId);
+  }
+
+  if (plan?.type === "site") {
+    const { data: existing } = await supabase
+      .from("user_plan")
+      .select("*")
+      .eq("user_id", userId)
+      .eq("slug", planSlug)
+      .limit(1);
+
+    if (!existing || existing.length === 0) {
+      let period = "";
+      if (plan.isMonthlyFee === true) {
+        period = "monthly";
+      } else if (plan.isMonthlyFee === false) {
+        period = "one-time";
+      }
+
+      let conversationsSitesPerMonth = 0;
+      if (plan.slug === "starter-chatbot") {
+        conversationsSitesPerMonth = 1000;
+      } else if (plan.slug === "pro-chatbot") {
+        conversationsSitesPerMonth = 10000;
+      } else if (plan.slug === "business-chatbot") {
+        conversationsSitesPerMonth = 20000;
+      }
+
+      const { error } = await supabase.from("user_plan").insert({
+        user_id: userId,
+        type_plan: plan.type,
+        slug_chatbot: planSlug,
+        has_chatbot: plan.chatbot_installation,
+        conversations_per_month: conversationsSitesPerMonth,
+        price_plan: plan.price,
+        has_monthly_fee: plan.isMonthlyFee,
+        price_monthly_fee: plan.additionalMonthlyFee,
+        status: "active",
+        period: period,
+        plan_start_date: new Date(),
+      });
+
+      if (error) {
+        console.error("Erro ao salvar plano no banco:", error);
+      } else {
+        console.log("Plano salvo com sucesso para o usuário:", userId);
+      }
     }
   } else {
     console.log("Plano já está registrado com esse usuário: ", userId);

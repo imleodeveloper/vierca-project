@@ -52,6 +52,445 @@ interface Plan {
   isMonthlyFee: boolean;
 }
 
+interface PlansChatbots {
+  type: "chatbot";
+  title_plan: string;
+  slug: string;
+  description: string;
+  features: string[];
+  price: number;
+  originalPrice?: number;
+  isMonthlyFee: boolean;
+  conversationsPerMonth: number;
+  site_development: boolean;
+  chatbot_installation: boolean;
+  price_installation_separate?: number;
+  popular: boolean;
+  benefits?: string;
+  warning?: string;
+}
+
+interface PlansSites {
+  type: "site";
+  title_plan: string;
+  slug: string;
+  description: string;
+  features: string[];
+  price: number;
+  originalPrice?: number;
+  isMonthlyFee: boolean;
+  additionalMonthlyFee?: number;
+  chatbot_installation: boolean;
+  popular: boolean;
+  benefits?: string;
+  warning?: string;
+}
+
+export const plansChatbots: PlansChatbots[] = [
+  {
+    type: "chatbot",
+    title_plan: "Chatbot Teste",
+    slug: "chatbot-teste",
+    description: "Chatbot com IA para seu site - pagamento mensal",
+    features: [
+      "Aproximadamente 1.000 conversas no mês",
+      "Custo acessível para começar",
+      "Incluso suporte técnico",
+      "Instalação 100% por nossa conta",
+    ],
+    price: 1.0,
+    originalPrice: 5.0,
+    isMonthlyFee: true,
+    conversationsPerMonth: 1000,
+    site_development: false,
+    chatbot_installation: false,
+    price_installation_separate: 1.5,
+    popular: false,
+    warning:
+      "Atenção: A contratação deste plano não inclui a instalação do chatbot. A instalação deve ser adquirida separadamente por um pagamento único de R$ 300,00.",
+  },
+  {
+    type: "chatbot",
+    title_plan: "Chatbot Mensal Básico",
+    slug: "chatbot-mensal-basic",
+    description: "Chatbot com IA para seu site - pagamento mensal",
+    features: [
+      "Aproximadamente 1.000 conversas no mês",
+      "Custo acessível para começar",
+      "Incluso suporte técnico",
+      "Instalação 100% por nossa conta",
+    ],
+    price: 115.0,
+    isMonthlyFee: true,
+    conversationsPerMonth: 1000,
+    site_development: false,
+    chatbot_installation: false,
+    price_installation_separate: 300,
+    popular: false,
+    warning:
+      "Atenção: A contratação deste plano não inclui a instalação do chatbot. A instalação deve ser adquirida separadamente por um pagamento único de R$ 300,00.",
+  },
+  {
+    type: "chatbot",
+    title_plan: "Chatbot Mensal Intermediário",
+    slug: "chatbot-mensal-intermediate",
+    description: "Chatbot com IA para seu site - pagamento mensal",
+    features: [
+      "Aproximadamente 10.000 conversas no mês",
+      "Custo acessível para começar",
+      "Instalação 100% por nossa conta",
+      "Incluso suporte técnico",
+    ],
+    price: 254.0,
+    isMonthlyFee: true,
+    conversationsPerMonth: 10000,
+    site_development: false,
+    chatbot_installation: true,
+    popular: true,
+    benefits: "A contratação deste plano inclui a instalação do chatbot.",
+  },
+  {
+    type: "chatbot",
+    title_plan: "Chatbot Mensal Profissional",
+    slug: "chatbot-mensal-profissional",
+    description: "Chatbot com IA para seu site - pagamento mensal",
+    features: [
+      "Aproximadamente 20.000 conversas no mês",
+      "Custo acessível para começar",
+      "Instalação 100% por nossa conta",
+      "Incluso suporte técnico",
+    ],
+    price: 429.0,
+    isMonthlyFee: true,
+    conversationsPerMonth: 20000,
+    site_development: false,
+    chatbot_installation: true,
+    popular: false,
+    benefits: "A contratação deste plano inclui a instalação do chatbot.",
+  },
+  {
+    type: "chatbot",
+    title_plan: "Chatbot Anual Básico",
+    slug: "chatbot-anual-basic",
+    description: "Chatbot com IA e site incluso - pagamento anual",
+    features: [
+      "Aproximadamente 12.000 conversas por ano",
+      "Custo acessível para começar",
+      "Ideal para sites pessoais e pequenos negócios",
+      "Incluso desenvolvimento de site",
+      "Incluso domínio 01 ano gratuito",
+      "Incluso instalação de chatbot",
+      "Incluso suporte técnico",
+    ],
+    price: 91.58,
+    originalPrice: 115.0,
+    isMonthlyFee: false,
+    conversationsPerMonth: 1000,
+    site_development: true,
+    chatbot_installation: true,
+    popular: false,
+    benefits:
+      "Neste plano você tem incluso: Desenvolvimento de site, instalação do chatbot, domínio gratuíto por 1 ano e suporte técnico",
+  },
+  {
+    type: "chatbot",
+    title_plan: "Chatbot Anual Intermediário",
+    slug: "chatbot-anual-intermediate",
+    description: "Chatbot com IA e site incluso - pagamento anual",
+    features: [
+      "Aproximadamente 120.000 conversas por ano",
+      "Escalável e com bom custo-benefício",
+      "Indicado para ecommerces, consultórios, prestadores de serviço",
+      "Incluso desenvolvimento de site",
+      "Incluso domínio 01 ano gratuito",
+      "Incluso instalação de chatbot",
+      "Incluso suporte técnico",
+    ],
+    price: 214.0,
+    originalPrice: 254.0,
+    isMonthlyFee: false,
+    conversationsPerMonth: 10000,
+    site_development: true,
+    chatbot_installation: true,
+    popular: true,
+    benefits:
+      "Neste plano você tem incluso: Desenvolvimento de site, instalação do chatbot, domínio gratuíto por 1 ano e suporte técnico",
+  },
+  {
+    type: "chatbot",
+    title_plan: "Chatbot Anual Profissional",
+    slug: "chatbot-anual-profissional",
+    description: "Chatbot com IA e site incluso - pagamento anual",
+    features: [
+      "Aproximadamente 240.000 conversas por ano",
+      "Estável, eficiente e preparado para alto volume",
+      "Ideal para marketplaces, SaaS, franquias digitais",
+      "Incluso desenvolvimento de site",
+      "Incluso domínio 01 ano gratuito",
+      "Incluso instalação de chatbot",
+      "Incluso suporte técnico",
+    ],
+    price: 379.0,
+    originalPrice: 429.0,
+    isMonthlyFee: false,
+    conversationsPerMonth: 20000,
+    site_development: true,
+    chatbot_installation: true,
+    popular: false,
+    benefits:
+      "Neste plano você tem incluso: Desenvolvimento de site, instalação do chatbot, domínio gratuíto por 1 ano e suporte técnico",
+  },
+];
+
+export const plansSites: PlansSites[] = [
+  {
+    type: "site",
+    title_plan: "Starter Chatbot - Site com Chatbot",
+    slug: "starter-chatbot",
+    description: "Landing Page e chatbot integrado",
+    features: [
+      "Site responsivo com até 7 seções",
+      "Chatbot com respostas automáticas",
+      "Atendimento 24/7 em seu site",
+      "Aprox. 1.000 conversas mensais",
+      "Suporte técnico",
+      "Domínio gratuito por 01 ano",
+    ],
+    price: 1200.0,
+    isMonthlyFee: true,
+    additionalMonthlyFee: 115.0,
+    chatbot_installation: true,
+    popular: false,
+    benefits: "O primeiro mês de uso do chatbot é totalmente gratuito.",
+    warning:
+      "Este plano acompanha o pacote mensal para o funcionamento do chatbot: R$ 115,00/mês",
+  },
+  {
+    type: "site",
+    title_plan: "Pro Chatbot - Site com Chatbot",
+    slug: "pro-chatbot",
+    description: "Site institucional e chatbot integrado",
+    features: [
+      "Site responsivo com até 10 páginas",
+      "Chatbot com respostas automáticas",
+      "Atendimento 24/7 em seu site",
+      "Aprox. 10.000 conversas mensais",
+      "Suporte técnico",
+      "Domínio gratuito por 01 ano",
+    ],
+    price: 2500.0,
+    isMonthlyFee: true,
+    additionalMonthlyFee: 254.0,
+    chatbot_installation: true,
+    popular: true,
+    benefits: "O primeiro mês de uso do chatbot é totalmente gratuito.",
+    warning:
+      "Este plano acompanha o pacote mensal para o funcionamento do chatbot: R$ 254,00/mês",
+  },
+  {
+    type: "site",
+    title_plan: "Business Chatbot - Site com Chatbot",
+    slug: "business-chatbot",
+    description: "Site com sistema e chatbot integrado",
+    features: [
+      "Site ilimitado com design personalizado",
+      "Chatbot com respostas automáticas",
+      "Integração com múltiplos sistemas",
+      "Painel administrativo avançado",
+      "Aprox. 20.000 conversas mensais",
+      "Domínio gratuito por 01 ano",
+      "Atendimento 24/7 em seu site",
+    ],
+    price: 4500.0,
+    isMonthlyFee: true,
+    additionalMonthlyFee: 429.0,
+    chatbot_installation: true,
+    popular: false,
+    benefits: "O primeiro mês de uso do chatbot é totalmente gratuito.",
+    warning:
+      "Este plano acompanha o pacote mensal para o funcionamento do chatbot: R$ 429,00/mês",
+  },
+  {
+    type: "site",
+    title_plan: "Landing Page Simples",
+    slug: "landing-page-simples",
+    description: "Página de vendas otimizada focada em conversão",
+    features: [
+      "Design responsivo",
+      "Otimização para conversão",
+      "7 seções estratégicas",
+      "Integração com formulários",
+      "Suporte gratuito por 1 mês após término do site",
+      "Domínio gratuito por 01 ano",
+    ],
+    price: 600.0,
+    isMonthlyFee: false,
+    chatbot_installation: false,
+    popular: false,
+  },
+  {
+    type: "site",
+    title_plan: "Landing Page Premium",
+    slug: "landing-page-premium",
+    description: "Página de vendas otimizada focada em conversão",
+    features: [
+      "Design premium personalizado e responsivo",
+      "Otimização para anúncios pagos",
+      "Integração com formulários",
+      "Integração com WhatsApp",
+      "Suporte gratuito por 1 mês após término do site",
+      "Domínio gratuito por 01 ano",
+    ],
+    price: 1200.0,
+    isMonthlyFee: false,
+    chatbot_installation: false,
+    popular: true,
+  },
+  {
+    type: "site",
+    title_plan: "Landing Page Completa",
+    slug: "landing-page-complete",
+    description: "Página de vendas otimizada focada em conversão",
+    features: [
+      "Múltiplas páginas de vendas",
+      "Sistema de pagamento integrado",
+      "Automação completa de vendas",
+      "Domínio gratuito por 01 ano",
+    ],
+    price: 2500.0,
+    isMonthlyFee: true,
+    additionalMonthlyFee: 130.0,
+    chatbot_installation: false,
+    popular: false,
+    warning:
+      "Este plano acompanha o pacote mensal para o funcionamento do sistema integrado: R$ 130,00/mês",
+  },
+  {
+    type: "site",
+    title_plan: "Site Institucional Básico",
+    slug: "site-institucional-basic",
+    description: "Site completo para sua empresa",
+    features: [
+      "Até 10 páginas",
+      "Design responsivo",
+      "SEO otimizado",
+      "Formulário de contato",
+      "Suporte 1 mês após finalização",
+      "Domínio gratuito por 01 ano",
+    ],
+    price: 800.0,
+    isMonthlyFee: false,
+    chatbot_installation: false,
+    popular: false,
+  },
+  {
+    type: "site",
+    title_plan: "Site Institucional Premium",
+    slug: "site-institucional-premium",
+    description: "Site completo para sua empresa",
+    features: [
+      "Até 15 páginas + blog",
+      "Design personalizado exclusivo",
+      "SEO otimizado",
+      "Formulário de contato",
+      "Suporte 1 mês após finalização",
+      "Domínio gratuito por 01 ano",
+    ],
+    price: 1500.0,
+    isMonthlyFee: false,
+    chatbot_installation: false,
+    popular: true,
+  },
+  {
+    type: "site",
+    title_plan: "Corporativo",
+    slug: "site-institucional-corporativo",
+    description: "Site completo para sua empresa",
+    features: [
+      "Portal multi-idioma",
+      "Sistema de gestão de conteúdo",
+      "Integração com sistemas internos",
+      "Área do colaborador",
+      "Suporte técnico dedicado",
+      "Domínio gratuito por 01 ano",
+    ],
+    price: 3000.0,
+    isMonthlyFee: true,
+    chatbot_installation: false,
+    additionalMonthlyFee: 130.0,
+    benefits: "O primeiro mês de uso do site e sistema é totalmente gratuito.",
+    warning:
+      "Este plano acompanha o pacote mensal para o funcionamento do site e sistema integrado: R$ 130,00/mês",
+    popular: false,
+  },
+
+  {
+    type: "site",
+    title_plan: "Loja Virtual Completa",
+    slug: "ecommerce-basic",
+    description: "Loja Básica - E-commerce",
+    features: [
+      "Catálogo de produtos",
+      "Carrinho de compras",
+      "Integração com pagamentos",
+      "Painel administrativo",
+      "SEO otimizado",
+      "Hospedagem inicial gratuita",
+    ],
+    price: 1600.0,
+    isMonthlyFee: true,
+    chatbot_installation: false,
+    additionalMonthlyFee: 130.0,
+    benefits: "O primeiro mês de uso do site e sistema é totalmente gratuito.",
+    warning:
+      "Este plano acompanha o pacote mensal para o funcionamento do site e sistema integrado: R$ 130,00/mês",
+    popular: false,
+  },
+  {
+    type: "site",
+    title_plan: "Loja Profissional - E-commerce",
+    slug: "ecommerce-pro",
+    description: "Loja virtual completa",
+    features: [
+      "Produtos ilimitados",
+      "Múltiplas formas de pagamento",
+      "Sistema de cupons e promoções",
+      "Gestão de estoque avançada",
+      "Relatórios de vendas",
+    ],
+    price: 3200.0,
+    isMonthlyFee: true,
+    chatbot_installation: false,
+    additionalMonthlyFee: 130.0,
+    benefits: "O primeiro mês de uso do site e sistema é totalmente gratuito.",
+    warning:
+      "Este plano acompanha o pacote mensal para o funcionamento do site e sistema integrado: R$ 130,00/mês",
+    popular: true,
+  },
+  {
+    type: "site",
+    title_plan: "Marketplace - E-commerce",
+    slug: "ecommerce-marketplace",
+    description: "Plataforma de vendas multi-vendor",
+    features: [
+      "Sistema multi-vendor",
+      "Comissões automáticas",
+      "Painel para vendedores",
+      "Sistema de avaliações",
+      "Logística integrada",
+      "Suporte empresarial",
+    ],
+    price: 6500.0,
+    isMonthlyFee: true,
+    chatbot_installation: false,
+    additionalMonthlyFee: 500.0,
+    benefits: "O primeiro mês de uso do site e sistema é totalmente gratuito.",
+    warning:
+      "Este plano acompanha o pacote mensal para o funcionamento do site e sistema integrado: R$ 500,00/mês",
+    popular: false,
+  },
+];
+
 export const plans: Plan[] = [
   {
     id: "chatbot-teste",
@@ -480,7 +919,10 @@ export default function CheckoutPage() {
   const router = useRouter();
   const planId = searchParams.get("plan");
 
-  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
+  const [selectedPlans, setSelectedPlans] = useState<{
+    chatbot: PlansChatbots | null;
+    site: PlansSites | null;
+  }>({ chatbot: null, site: null });
   const [period, setPeriod] = useState<string>("12");
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0);
@@ -537,12 +979,17 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     if (planId) {
-      const plan = plans.find((p) => p.id === planId);
-      if (plan) {
-        setSelectedPlan(plan);
+      const planChatbot = plansChatbots.find((p) => p.slug === planId);
+      const planSite = plansSites.find((p) => p.slug === planId);
+      if (planChatbot) {
+        setSelectedPlans((prev) => ({ ...prev, chatbot: planChatbot }));
+      }
+
+      if (planSite) {
+        setSelectedPlans((prev) => ({ ...prev, site: planSite }));
       }
     }
-  }, [planId]);
+  }, [planId, plansChatbots, plansSites]);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("pt-BR", {
@@ -552,38 +999,78 @@ export default function CheckoutPage() {
   };
 
   const calculateTotal = () => {
-    if (!selectedPlan) return 0;
+    let total = 0;
 
-    let total = selectedPlan.price;
+    // CALCULAR TOTAL DO PLANO CHATBOT
+    if (selectedPlans.chatbot) {
+      let chatbotTotal = selectedPlans.chatbot.price;
 
-    if (selectedPlan.period === "annual") {
-      const months = Number.parseInt(period);
-      total = selectedPlan.price * months;
+      if (!selectedPlans.chatbot.isMonthlyFee) {
+        const months = Number.parseInt(period);
+        chatbotTotal = selectedPlans.chatbot.price * months;
+      }
+
+      if (selectedPlans.chatbot.chatbot_installation === false) {
+        chatbotTotal += selectedPlans.chatbot.price_installation_separate || 0;
+      }
+
+      if (discount > 0) {
+        chatbotTotal *= 1 - discount / 100;
+      }
+
+      total += chatbotTotal;
     }
 
-    // Adicionar taxa de instalação se aplicável
-    if (selectedPlan.installChatbot && selectedPlan.installChatbot > 0) {
-      total += selectedPlan.installChatbot;
-    }
+    // CALCULAR TOTAL DO PLANO SITE
+    if (selectedPlans.site) {
+      let siteTotal = selectedPlans.site.price;
 
-    if (discount > 0) {
-      total = total * (1 - discount / 100);
+      if (!selectedPlans.site.isMonthlyFee) {
+        const months = Number.parseInt(period);
+        siteTotal = selectedPlans.site.price * months;
+      }
+
+      if (selectedPlans.site.isMonthlyFee === false) {
+        siteTotal = selectedPlans.site.price;
+      }
+
+      if (discount > 0) {
+        siteTotal *= 1 - discount / 100;
+      }
+
+      total += siteTotal;
     }
 
     return total;
   };
 
   const calculateSavings = () => {
-    if (!selectedPlan || !selectedPlan.originalPrice) return 0;
-
-    if (selectedPlan.period === "annual") {
+    let totalSavings: number = 0;
+    // SAVINGS PLANO CHATBOT
+    if (
+      selectedPlans.chatbot &&
+      selectedPlans.chatbot.originalPrice &&
+      !selectedPlans.chatbot.isMonthlyFee
+    ) {
       const months = Number.parseInt(period);
-      const originalTotal = selectedPlan.originalPrice * months;
-      const currentTotal = selectedPlan.price * months;
-      return originalTotal - currentTotal;
+      const originalTotal = selectedPlans.chatbot.originalPrice * months;
+      const currentTotal = selectedPlans.chatbot.price * months;
+      totalSavings += originalTotal - currentTotal;
     }
 
-    return 0;
+    // SAVINGS PLANO SITE
+    if (
+      selectedPlans.site &&
+      selectedPlans.site.originalPrice &&
+      !selectedPlans.site.isMonthlyFee
+    ) {
+      const months = Number.parseInt(period);
+      const originalTotal = selectedPlans.site.originalPrice * months;
+      const currentTotal = selectedPlans.site.price * months;
+      totalSavings += originalTotal - currentTotal;
+    }
+
+    return totalSavings;
   };
 
   const applyCoupon = () => {
@@ -612,101 +1099,177 @@ export default function CheckoutPage() {
   };
 
   const handleCheckout = async () => {
-    if (!selectedPlan) return;
+    if (!selectedPlans.chatbot && !selectedPlans.site) {
+      console.warn(
+        "❌ selectedPlans.chatbot ou selectedPlans.site estão ausentes"
+      );
+      return;
+    }
 
     setIsProcessing(true);
 
     try {
-      // Verifica se é um plano combo mensalidade + pagamento único
+      // FETCH PARA CHATBOT
+      if (selectedPlans.chatbot) {
+        // Verifica se é um plano combo mensalidade + pagamento único - CHATBOT
+        const isComboChatbot =
+          selectedPlans.chatbot.isMonthlyFee === true &&
+          selectedPlans.chatbot.price_installation_separate &&
+          selectedPlans.chatbot.price_installation_separate > 0;
 
-      const isCombo =
-        (selectedPlan.additional && selectedPlan.additional > 0) ||
-        (selectedPlan.additionalMonthlyFee &&
-          selectedPlan.additionalMonthlyFee > 0);
+        const isOnlyMonthlyChatbot =
+          !isComboChatbot && selectedPlans.chatbot.isMonthlyFee === true;
 
-      const isOnlyMonthly = selectedPlan.isMonthlyFee && !isCombo;
-      const isOnlyOneTime = !selectedPlan.isMonthlyFee && !isCombo;
+        const isOnlyOneTimeChatbot =
+          !isComboChatbot && selectedPlans.chatbot.isMonthlyFee === false;
 
-      if (isCombo) {
-        // Primeiro passo: cria o pagamento único
-        const preferenceResponse = await fetch(
-          "/api/checkout/create-preference",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              plan: {
-                ...selectedPlan,
-                price: selectedPlan.additional || selectedPlan.price,
+        if (isComboChatbot) {
+          // Primeiro passo: cria o pagamento único
+          const preferenceResponse = await fetch(
+            "/api/checkout/create-preference",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                plan: selectedPlans,
+                period,
+                customer: customerData,
+                discount,
+                total: calculateTotal(),
+              }),
+            }
+          );
+
+          const preferenceData = await preferenceResponse.json();
+
+          if (!preferenceData.init_point) {
+            throw new Error("Erro ao criar preferência para pagamento único");
+          }
+
+          // Redireciona pro pagamento único
+          window.location.href = preferenceData.init_point;
+          return;
+        }
+
+        if (isOnlyMonthlyChatbot) {
+          // Plano de assinatura direta (sem pagamento único)
+          const subscriptionResponse = await fetch(
+            "/api/checkout/create-subscription",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                plan: selectedPlans,
+                period,
+                customer: customerData,
+                discount,
+                total: calculateTotal(),
+              }),
+            }
+          );
+
+          const subscriptionData = await subscriptionResponse.json();
+
+          if (!subscriptionData.init_point) {
+            throw new Error("Erro ao criar assinatura");
+          }
+
+          window.location.href = subscriptionData.init_point;
+          return;
+        }
+
+        if (isOnlyOneTimeChatbot) {
+          // Pagamento único direto
+          const oneTimeResponse = await fetch(
+            "/api/checkout/create-preference",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                plan: selectedPlans,
+                period,
+                customer: customerData,
+                discount,
+                total: calculateTotal(),
+              }),
+            }
+          );
+
+          const oneTimeData = await oneTimeResponse.json();
+
+          if (!oneTimeData.init_point) {
+            throw new Error("Erro ao criar pagamento único");
+          }
+
+          window.location.href = oneTimeData.init_point;
+          return;
+        }
+      }
+
+      // FETCH PARA PLANOS DE SITE
+      if (selectedPlans.site) {
+        const isMonthlyFeeSite =
+          selectedPlans.site.isMonthlyFee === true &&
+          selectedPlans.site.additionalMonthlyFee;
+
+        const isPaymentUniqueSite = selectedPlans.site.isMonthlyFee === false;
+
+        if (isMonthlyFeeSite) {
+          // Primeiro passo: cria o pagamento único
+          const preferenceResponse = await fetch(
+            "/api/checkout/create-preference",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                plan: selectedPlans,
+                period,
+                customer: customerData,
+                discount,
+                total: calculateTotal(),
+              }),
+            }
+          );
+
+          const preferenceData = await preferenceResponse.json();
+
+          if (!preferenceData.init_point) {
+            throw new Error("Erro ao criar preferência para pagamento único");
+          }
+
+          // Redireciona pro pagamento único
+          window.location.href = preferenceData.init_point;
+          return;
+        }
+
+        if (isPaymentUniqueSite) {
+          //Pagamento único direto
+          const oneTimeResponse = await fetch(
+            "/api/checkout/create-preference",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
               },
-              period,
-              customer: customerData,
-              discount,
-              total: selectedPlan.additional || selectedPlan.price,
-            }),
+              body: JSON.stringify({
+                plan: selectedPlans,
+                period,
+                customer: customerData,
+                discount,
+                total: calculateTotal(),
+              }),
+            }
+          );
+
+          const oneTimeData = await oneTimeResponse.json();
+
+          if (!oneTimeData.init_point) {
+            throw new Error("Erro ao criar o pagamento único");
           }
-        );
 
-        const preferenceData = await preferenceResponse.json();
-
-        if (!preferenceData.init_point) {
-          throw new Error("Erro ao criar preferência para pagamento único");
+          window.location.href = oneTimeData.init_point;
+          return;
         }
-
-        // Redireciona pro pagamento único
-        window.location.href = preferenceData.init_point;
-        return;
-      }
-
-      if (isOnlyMonthly) {
-        // Plano de assinatura direta (sem pagamento único)
-        const subscriptionResponse = await fetch(
-          "/api/checkout/create-subscription",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              plan: selectedPlan,
-              period,
-              customer: customerData,
-              discount,
-              total: calculateTotal(),
-            }),
-          }
-        );
-
-        const subscriptionData = await subscriptionResponse.json();
-
-        if (!subscriptionData.init_point) {
-          throw new Error("Erro ao criar assinatura");
-        }
-
-        window.location.href = subscriptionData.init_point;
-        return;
-      }
-
-      if (isOnlyOneTime) {
-        // Pagamento único direto
-        const oneTimeResponse = await fetch("/api/checkout/create-preference", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            plan: selectedPlan,
-            period,
-            customer: customerData,
-            discount,
-            total: calculateTotal(),
-          }),
-        });
-
-        const oneTimeData = await oneTimeResponse.json();
-
-        if (!oneTimeData.init_point) {
-          throw new Error("Erro ao criar pagamento único");
-        }
-
-        window.location.href = oneTimeData.init_point;
-        return;
       }
 
       // 🔴 Segurança: se não cair em nenhum caso, lança erro
@@ -740,7 +1303,7 @@ export default function CheckoutPage() {
     );
   }
 
-  if (!selectedPlan) {
+  if (!selectedPlans.chatbot && !selectedPlans.site) {
     return (
       <div className="min-h-screen">
         <Header />
@@ -772,211 +1335,394 @@ export default function CheckoutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Carrinho - Lado Esquerdo */}
             <div className="lg:col-span-2">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-xl text-[#022041]">
-                    {selectedPlan.name}
-                    {selectedPlan.popular && (
-                      <Badge className="ml-2 bg-[#1e90ff] text-white">
-                        Mais Popular
-                      </Badge>
-                    )}
-                  </CardTitle>
-                  <p className="text-gray-600">{selectedPlan.description}</p>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  {/* Seletor de Período para planos anuais */}
-                  {selectedPlan.period === "annual" && (
-                    <div>
-                      <Label htmlFor="period">Período</Label>
-                      <Select value={period} onValueChange={setPeriod}>
-                        <SelectTrigger className="w-full">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className="bg-[#fff]">
-                          <SelectItem value="12">12 meses</SelectItem>
-                          <SelectItem
-                            value="24"
-                            className="pointer-events-none text-gray-300"
-                          >
-                            24 meses (Não disponível ainda)
-                          </SelectItem>
-                          <SelectItem
-                            value="36"
-                            className="pointer-events-none text-gray-300"
-                          >
-                            36 meses (Não disponível ainda)
-                          </SelectItem>
-                          <SelectItem
-                            value="48"
-                            className="pointer-events-none text-gray-300"
-                          >
-                            48 meses (Não disponível ainda)
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-
-                      {calculateSavings() > 0 && (
-                        <div className="mt-2 flex items-center justify-between">
-                          <span className="text-2xl font-bold text-[#1e90ff]">
-                            {formatPrice(selectedPlan.price)}
-                            <span className="text-sm font-normal text-gray-600">
-                              /mês
-                            </span>
-                          </span>
-                          <Button
-                            variant="outline"
-                            className="bg-green-50 text-green-700 border-green-200"
-                          >
-                            ECONOMIZE {formatPrice(calculateSavings())}
-                          </Button>
-                        </div>
+              {selectedPlans.chatbot && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-xl text-[#022041]">
+                      {selectedPlans.chatbot.title_plan}
+                      {selectedPlans.chatbot.popular && (
+                        <Badge className="ml-2 bg-[#1e90ff] text-white">
+                          Mais Popular
+                        </Badge>
                       )}
+                    </CardTitle>
+                    <p className="text-gray-600">
+                      {selectedPlans.chatbot.description}
+                    </p>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    {/* Seletor de Período para planos anuais */}
+                    {selectedPlans.chatbot.isMonthlyFee === false && (
+                      <div>
+                        <Label htmlFor="period">Período</Label>
+                        <Select value={period} onValueChange={setPeriod}>
+                          <SelectTrigger className="w-full">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-[#fff]">
+                            <SelectItem value="12">12 meses</SelectItem>
+                            <SelectItem
+                              value="24"
+                              className="pointer-events-none text-gray-300"
+                            >
+                              24 meses (Não disponível ainda)
+                            </SelectItem>
+                            <SelectItem
+                              value="36"
+                              className="pointer-events-none text-gray-300"
+                            >
+                              36 meses (Não disponível ainda)
+                            </SelectItem>
+                            <SelectItem
+                              value="48"
+                              className="pointer-events-none text-gray-300"
+                            >
+                              48 meses (Não disponível ainda)
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
 
-                      <p className="text-sm text-gray-600 mt-2">
-                        Renovação por {formatPrice(selectedPlan.price)}/mês para
-                        1 ano. Cancele a qualquer momento.
-                      </p>
-                    </div>
-                  )}
-
-                  {/* Preço para planos únicos */}
-                  {selectedPlan.period === "one-time" && (
-                    <div className="text-2xl font-bold text-[#1e90ff]">
-                      {formatPrice(selectedPlan.price)}
-                      <span className="text-sm font-normal text-gray-600 ml-2">
-                        pagamento único
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Preço para planos mensais */}
-                  {selectedPlan.period === "monthly" && (
-                    <div className="text-2xl font-bold text-[#1e90ff]">
-                      {formatPrice(selectedPlan.price)}
-                      <span className="text-sm font-normal text-gray-600">
-                        /mês
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Benefícios inclusos */}
-                  {selectedPlan.benefits && (
-                    <div className="bg-green-50 p-4 rounded-lg">
-                      <div className="flex items-start space-x-2 text-green-700">
-                        <Check className="h-5 w-5 mt-0.5 flex-shrink-0" />
-                        <span className="font-semibold">
-                          {selectedPlan.benefits}
-                        </span>
-                        <Info className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Aviso com valor adicional */}
-                  {selectedPlan.warning && (
-                    <div className="bg-orange-50 border border-orange-200 p-4 rounded-lg">
-                      <div className="flex items-start space-x-3">
-                        <AlertTriangle className="h-6 w-6 text-orange-600 mt-0.5 flex-shrink-0" />
-                        <div className="flex-1">
-                          <p className="font-semibold text-orange-800 text-sm mb-2">
-                            {selectedPlan.warning}
-                          </p>
-                          {selectedPlan.additionalMonthlyFee && (
-                            <div className="bg-orange-100 p-2 rounded border border-orange-300">
-                              <p className="text-orange-700 font-bold text-lg">
-                                +{" "}
-                                {formatPrice(selectedPlan.additionalMonthlyFee)}
+                        {calculateSavings() > 0 && (
+                          <div className="mt-2 flex items-center justify-between">
+                            <span className="text-2xl font-bold text-[#1e90ff]">
+                              {formatPrice(selectedPlans.chatbot.price)}
+                              <span className="text-sm font-normal text-gray-600">
                                 /mês
-                              </p>
-                              <p className="text-orange-600 text-xs">
-                                Taxa mensal adicional
-                              </p>
-                            </div>
-                          )}
-                          {selectedPlan.installChatbot &&
-                            selectedPlan.installChatbot > 0 && (
-                              <div className="bg-orange-100 p-2 rounded border border-orange-300 mt-2">
+                              </span>
+                            </span>
+                            <Button
+                              variant="outline"
+                              className="bg-green-50 text-green-700 border-green-200"
+                            >
+                              ECONOMIZE {formatPrice(calculateSavings())}
+                            </Button>
+                          </div>
+                        )}
+
+                        {/*
+                        <p className="text-sm text-gray-600 mt-2">
+                          Renovação por{" "}
+                          {formatPrice(selectedPlans.chatbot.price)}/mês para 1
+                          ano. Cancele a qualquer momento.
+                        </p> */}
+                      </div>
+                    )}
+
+                    {/* Preço para planos únicos */}
+                    {selectedPlans.chatbot.isMonthlyFee === false && (
+                      <div className="text-2xl font-bold text-[#1e90ff]">
+                        {formatPrice(
+                          selectedPlans.chatbot.price * Number(period)
+                        )}
+                        <span className="text-sm font-normal text-gray-600 ml-2">
+                          pagamento único
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Preço para planos mensais */}
+                    {selectedPlans.chatbot.isMonthlyFee === true && (
+                      <div className="text-2xl font-bold text-[#1e90ff]">
+                        {formatPrice(selectedPlans.chatbot.price)}
+                        <span className="text-sm font-normal text-gray-600">
+                          /mês
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Benefícios inclusos */}
+                    {selectedPlans.chatbot.benefits && (
+                      <div className="bg-green-50 p-4 rounded-lg">
+                        <div className="flex items-start space-x-2 text-green-700">
+                          <Check className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                          <span className="font-semibold">
+                            {selectedPlans.chatbot.benefits}
+                          </span>
+                          <Info className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Aviso com valor adicional */}
+                    {selectedPlans.chatbot.warning && (
+                      <div className="bg-orange-50 border border-orange-200 p-4 rounded-lg">
+                        <div className="flex items-start space-x-3">
+                          <AlertTriangle className="h-6 w-6 text-orange-600 mt-0.5 flex-shrink-0" />
+                          <div className="flex-1">
+                            <p className="font-semibold text-orange-800 text-sm mb-2">
+                              {selectedPlans.chatbot.warning}
+                            </p>
+                            {/*selectedPlans.chatbot
+                              .price_installation_separate && (
+                              <div className="bg-orange-100 p-2 rounded border border-orange-300">
                                 <p className="text-orange-700 font-bold text-lg">
-                                  + {formatPrice(selectedPlan.installChatbot)}
+                                  + {formatPrice(selectedPlans.chatbot.price)}
+                                  /mês
                                 </p>
                                 <p className="text-orange-600 text-xs">
-                                  Taxa única de instalação
+                                  Taxa mensal adicional
+                                </p>
+                              </div>
+                            )*/}
+                            {selectedPlans.chatbot.chatbot_installation ===
+                              false &&
+                              selectedPlans.chatbot
+                                .price_installation_separate && (
+                                <div className="bg-orange-100 p-2 rounded border border-orange-300 mt-2">
+                                  <p className="text-orange-700 font-bold text-lg">
+                                    +{" "}
+                                    {formatPrice(
+                                      selectedPlans.chatbot
+                                        .price_installation_separate
+                                    )}
+                                  </p>
+                                  <p className="text-orange-600 text-xs">
+                                    Taxa única de instalação
+                                  </p>
+                                </div>
+                              )}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Dados do Cliente */}
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-semibold text-[#022041]">
+                        Dados do Cliente
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="name">Nome Completo</Label>
+                          <Input
+                            id="name"
+                            value={customerData.name}
+                            onChange={(e) =>
+                              setCustomerData({
+                                ...customerData,
+                                name: e.target.value,
+                              })
+                            }
+                            placeholder="Seu nome completo"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="email">E-mail</Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            value={customerData.email}
+                            onChange={(e) =>
+                              setCustomerData({
+                                ...customerData,
+                                email: e.target.value,
+                              })
+                            }
+                            placeholder="seu@email.com"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="phone">Telefone</Label>
+                          <Input
+                            id="phone"
+                            value={customerData.phone}
+                            onChange={(e) =>
+                              setCustomerData({
+                                ...customerData,
+                                phone: e.target.value,
+                              })
+                            }
+                            placeholder="(11) 99999-9999"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="document">CPF/CNPJ</Label>
+                          <Input
+                            id="document"
+                            value={customerData.document}
+                            onChange={(e) =>
+                              setCustomerData({
+                                ...customerData,
+                                document: e.target.value,
+                              })
+                            }
+                            placeholder="000.000.000-00"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+              {selectedPlans.site && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-xl text-[#022041]">
+                      {selectedPlans.site.title_plan}
+                      {selectedPlans.site.popular && (
+                        <Badge className="ml-2 bg-[#1e90ff] text-white">
+                          Mais Popular
+                        </Badge>
+                      )}
+                    </CardTitle>
+                    <p className="text-gray-600">
+                      {selectedPlans.site.description}
+                    </p>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    {/* Preço para planos únicos */}
+                    {selectedPlans.site.isMonthlyFee === false && (
+                      <div className="text-2xl font-bold text-[#1e90ff]">
+                        {formatPrice(selectedPlans.site.price)}
+                        <span className="text-sm font-normal text-gray-600 ml-2">
+                          pagamento único
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Preço para planos mensais */}
+                    {selectedPlans.site.isMonthlyFee === true && (
+                      <div className="text-2xl flex flex-col gap-4 font-bold text-[#1e90ff]">
+                        <div className="flex items-center justify-start gap-2">
+                          {formatPrice(selectedPlans.site.price)}
+                          <span className="text-sm font-normal text-gray-600">
+                            pagamento único
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-start gap-2">
+                          {formatPrice(
+                            selectedPlans.site.additionalMonthlyFee || 0
+                          )}
+                          <span className="text-sm font-normal text-gray-600">
+                            /mês
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Benefícios inclusos */}
+                    {selectedPlans.site.benefits && (
+                      <div className="bg-green-50 p-4 rounded-lg">
+                        <div className="flex items-start space-x-2 text-green-700">
+                          <Check className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                          <span className="font-semibold">
+                            {selectedPlans.site.benefits}
+                          </span>
+                          <Info className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Aviso com valor adicional */}
+                    {selectedPlans.site.warning && (
+                      <div className="bg-orange-50 border border-orange-200 p-4 rounded-lg">
+                        <div className="flex items-start space-x-3">
+                          <AlertTriangle className="h-6 w-6 text-orange-600 mt-0.5 flex-shrink-0" />
+                          <div className="flex-1">
+                            <p className="font-semibold text-orange-800 text-sm mb-2">
+                              {selectedPlans.site.warning}
+                            </p>
+                            {selectedPlans.site.additionalMonthlyFee && (
+                              <div className="bg-orange-100 p-2 rounded border border-orange-300">
+                                <p className="text-orange-700 font-bold text-lg">
+                                  +{" "}
+                                  {formatPrice(
+                                    selectedPlans.site.additionalMonthlyFee
+                                  )}
+                                  /mês
+                                </p>
+                                <p className="text-orange-600 text-xs">
+                                  Taxa mensal adicional
                                 </p>
                               </div>
                             )}
+                            {/*selectedPlans.site.chatbot_installation &&
+                              selectedPlans.site.additionalMonthlyFee && (
+                                <div className="bg-orange-100 p-2 rounded border border-orange-300 mt-2">
+                                  <p className="text-orange-700 font-bold text-lg">
+                                    +{" "}
+                                    {formatPrice(
+                                      selectedPlans.site.additionalMonthlyFee
+                                    )}
+                                  </p>
+                                  <p className="text-orange-600 text-xs">
+                                    Taxa única de instalação
+                                  </p>
+                                </div>
+                              )*/}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Dados do Cliente */}
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-semibold text-[#022041]">
+                        Dados do Cliente
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="name">Nome Completo</Label>
+                          <Input
+                            id="name"
+                            value={customerData.name}
+                            onChange={(e) =>
+                              setCustomerData({
+                                ...customerData,
+                                name: e.target.value,
+                              })
+                            }
+                            placeholder="Seu nome completo"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="email">E-mail</Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            value={customerData.email}
+                            onChange={(e) =>
+                              setCustomerData({
+                                ...customerData,
+                                email: e.target.value,
+                              })
+                            }
+                            placeholder="seu@email.com"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="phone">Telefone</Label>
+                          <Input
+                            id="phone"
+                            value={customerData.phone}
+                            onChange={(e) =>
+                              setCustomerData({
+                                ...customerData,
+                                phone: e.target.value,
+                              })
+                            }
+                            placeholder="(11) 99999-9999"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="document">CPF/CNPJ</Label>
+                          <Input
+                            id="document"
+                            value={customerData.document}
+                            onChange={(e) =>
+                              setCustomerData({
+                                ...customerData,
+                                document: e.target.value,
+                              })
+                            }
+                            placeholder="000.000.000-00"
+                          />
                         </div>
                       </div>
                     </div>
-                  )}
-
-                  {/* Dados do Cliente */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold text-[#022041]">
-                      Dados do Cliente
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="name">Nome Completo</Label>
-                        <Input
-                          id="name"
-                          value={customerData.name}
-                          onChange={(e) =>
-                            setCustomerData({
-                              ...customerData,
-                              name: e.target.value,
-                            })
-                          }
-                          placeholder="Seu nome completo"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="email">E-mail</Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          value={customerData.email}
-                          onChange={(e) =>
-                            setCustomerData({
-                              ...customerData,
-                              email: e.target.value,
-                            })
-                          }
-                          placeholder="seu@email.com"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="phone">Telefone</Label>
-                        <Input
-                          id="phone"
-                          value={customerData.phone}
-                          onChange={(e) =>
-                            setCustomerData({
-                              ...customerData,
-                              phone: e.target.value,
-                            })
-                          }
-                          placeholder="(11) 99999-9999"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="document">CPF/CNPJ</Label>
-                        <Input
-                          id="document"
-                          value={customerData.document}
-                          onChange={(e) =>
-                            setCustomerData({
-                              ...customerData,
-                              document: e.target.value,
-                            })
-                          }
-                          placeholder="000.000.000-00"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              )}
             </div>
 
             {/* Resumo do Pedido - Lado Direito */}
@@ -987,68 +1733,60 @@ export default function CheckoutPage() {
                     Resumo do pedido
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  {/* Itens do pedido */}
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p className="font-semibold text-[#022041]">
-                          {selectedPlan.name}
-                        </p>
-                        {selectedPlan.period === "annual" && (
-                          <p className="text-sm text-gray-600">
-                            Plano de {period} meses
+                {selectedPlans.chatbot && (
+                  <CardContent className="space-y-4">
+                    {/* Itens do pedido */}
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <p className="font-semibold text-[#022041]">
+                            {selectedPlans.chatbot.title_plan}
                           </p>
-                        )}
-                      </div>
-                      <div className="text-right">
-                        {selectedPlan.originalPrice && (
-                          <p className="text-sm text-gray-400 line-through">
+                          {selectedPlans.chatbot.isMonthlyFee === false && (
+                            <p className="text-sm text-gray-600">
+                              Plano de {period} meses
+                            </p>
+                          )}
+                        </div>
+                        <div className="text-right">
+                          {selectedPlans.chatbot.originalPrice && (
+                            <p className="text-sm text-gray-400 line-through">
+                              {formatPrice(
+                                selectedPlans.chatbot.originalPrice *
+                                  (selectedPlans.chatbot.isMonthlyFee === false
+                                    ? Number.parseInt(period)
+                                    : 1)
+                              )}
+                            </p>
+                          )}
+                          <p className="font-bold text-[#1e90ff]">
                             {formatPrice(
-                              selectedPlan.originalPrice *
-                                (selectedPlan.period === "annual"
+                              selectedPlans.chatbot.price *
+                                (selectedPlans.chatbot.isMonthlyFee === false
                                   ? Number.parseInt(period)
                                   : 1)
                             )}
                           </p>
-                        )}
-                        <p className="font-bold text-[#1e90ff]">
-                          {formatPrice(
-                            selectedPlan.price *
-                              (selectedPlan.period === "annual"
-                                ? Number.parseInt(period)
-                                : 1)
-                          )}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Benefícios inclusos */}
-                    <div className="space-y-2 text-sm">
-                      {selectedPlan.installChatbot === 300.0 && (
-                        <div className="flex justify-between items-center bg-orange-50 p-2 rounded">
-                          <span>Instalação chatbot</span>
-                          <span className="text-orange-600 font-semibold">
-                            + {formatPrice(selectedPlan.installChatbot)}
-                          </span>
                         </div>
-                      )}
-                      {selectedPlan.installChatbot === 0 && (
-                        <div className="flex justify-between">
-                          <span>Instalação chatbot</span>
-                          <div className="text-right">
-                            <span className="text-gray-400 line-through text-xs">
-                              R$300,00
-                            </span>
-                            <span className="text-green-600 font-semibold ml-2">
-                              R$0,00
+                      </div>
+
+                      {/* Benefícios inclusos */}
+                      <div className="space-y-2 text-sm">
+                        {selectedPlans.chatbot.chatbot_installation ===
+                          false && (
+                          <div className="flex justify-between items-center bg-orange-50 p-2 rounded">
+                            <span>Instalação chatbot</span>
+                            <span className="text-orange-600 font-semibold">
+                              +{" "}
+                              {formatPrice(
+                                selectedPlans.chatbot
+                                  .price_installation_separate || 0
+                              )}
                             </span>
                           </div>
-                        </div>
-                      )}
-
-                      {selectedPlan.period === "annual" && (
-                        <div className="flex flex-col space-y-1">
+                        )}
+                        {selectedPlans.chatbot.chatbot_installation ===
+                          true && (
                           <div className="flex justify-between">
                             <span>Instalação chatbot</span>
                             <div className="text-right">
@@ -1060,171 +1798,363 @@ export default function CheckoutPage() {
                               </span>
                             </div>
                           </div>
-                          {selectedPlan.id === "chatbot-anual-basic" && (
+                        )}
+
+                        {selectedPlans.chatbot.isMonthlyFee === false && (
+                          <div className="flex flex-col space-y-1">
                             <div className="flex justify-between">
-                              <span>Desenvolvimento de site</span>
+                              <span>Instalação chatbot</span>
                               <div className="text-right">
                                 <span className="text-gray-400 line-through text-xs">
-                                  R$800,00
+                                  R$300,00
                                 </span>
                                 <span className="text-green-600 font-semibold ml-2">
                                   R$0,00
                                 </span>
                               </div>
                             </div>
-                          )}
-                          {selectedPlan.id === "chatbot-anual-intermediate" && (
+                            {selectedPlans.chatbot.slug ===
+                              "chatbot-anual-basic" && (
+                              <div className="flex justify-between">
+                                <span>Desenvolvimento de site</span>
+                                <div className="text-right">
+                                  <span className="text-gray-400 line-through text-xs">
+                                    R$800,00
+                                  </span>
+                                  <span className="text-green-600 font-semibold ml-2">
+                                    R$0,00
+                                  </span>
+                                </div>
+                              </div>
+                            )}
+                            {selectedPlans.chatbot.slug ===
+                              "chatbot-anual-intermediate" && (
+                              <div className="flex justify-between">
+                                <span>Desenvolvimento de site</span>
+                                <div className="text-right">
+                                  <span className="text-gray-400 line-through text-xs">
+                                    R$1600,00
+                                  </span>
+                                  <span className="text-green-600 font-semibold ml-2">
+                                    R$0,00
+                                  </span>
+                                </div>
+                              </div>
+                            )}
+                            {selectedPlans.chatbot.slug ===
+                              "chatbot-anual-profissional" && (
+                              <div className="flex justify-between">
+                                <span>Desenvolvimento de site</span>
+                                <div className="text-right">
+                                  <span className="text-gray-400 line-through text-xs">
+                                    R$3200,00
+                                  </span>
+                                  <span className="text-green-600 font-semibold ml-2">
+                                    R$0,00
+                                  </span>
+                                </div>
+                              </div>
+                            )}
                             <div className="flex justify-between">
-                              <span>Desenvolvimento de site</span>
+                              <span>Domínio por 1 ano</span>
                               <div className="text-right">
                                 <span className="text-gray-400 line-through text-xs">
-                                  R$1600,00
+                                  R$40,99
                                 </span>
                                 <span className="text-green-600 font-semibold ml-2">
                                   R$0,00
                                 </span>
                               </div>
                             </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Impostos 
+                  <div className="flex justify-between">
+                  <span>Impostos</span>
+                  <span>-</span>
+                  </div>
+                  <p className="text-xs text-gray-500">
+                  (Calculados após as informações de faturamento)
+                  </p>
+                  */}
+
+                    <Separator />
+
+                    {/* Subtotal */}
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg font-semibold">Subtotal</span>
+                      <div className="text-right">
+                        {selectedPlans.chatbot.originalPrice && (
+                          <p className="text-sm text-gray-400 line-through">
+                            {formatPrice(
+                              selectedPlans.chatbot.originalPrice *
+                                (selectedPlans.chatbot.isMonthlyFee === false
+                                  ? Number.parseInt(period)
+                                  : 1)
+                            )}
+                          </p>
+                        )}
+                        <p className="text-xl font-bold text-[#1e90ff]">
+                          {formatPrice(calculateTotal())}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Aviso sobre taxa mensal adicional
+                    {selectedPlans.chatbot.price_installation_separate && (
+                      <div className="bg-yellow-50 border border-yellow-200 p-3 rounded-lg">
+                        <div className="flex items-center space-x-2">
+                          <Info className="h-4 w-4 text-yellow-600" />
+                          <p className="text-yellow-800 text-sm font-medium">
+                            Taxa mensal adicional:{" "}
+                            {formatPrice(selectedPlan.additionalMonthlyFee)}/mês
+                          </p>
+                        </div>
+                        <p className="text-yellow-700 text-xs mt-1">
+                          Esta taxa será cobrada mensalmente após a compra
+                        </p>
+                      </div>
+                    )}
+                    */}
+
+                    {/* Cupom de desconto 
+                  <div className="space-y-2">
+                    <button
+                      className="text-purple-600 font-semibold text-sm"
+                      onClick={() =>
+                        document.getElementById("coupon-input")?.focus()
+                        }
+                        >
+                        Tem um cupom de desconto?
+                        </button>
+                        <div className="flex space-x-2">
+                        <Input
+                        id="coupon-input"
+                        placeholder="Código do cupom"
+                        value={couponCode}
+                        onChange={(e) => setCouponCode(e.target.value)}
+                        />
+                        <Button variant="outline" onClick={applyCoupon}>
+                        Aplicar
+                        </Button>
+                        </div>
+                    {discount > 0 && (
+                      <p className="text-green-600 text-sm">
+                      Desconto de {discount}% aplicado!
+                      </p>
+                      )}
+                      </div>
+                      */}
+
+                    {/* Botão de checkout */}
+                    <Button
+                      onClick={handleCheckout}
+                      disabled={
+                        isProcessing ||
+                        !customerData.name ||
+                        !customerData.email
+                      }
+                      className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 text-lg"
+                    >
+                      {isProcessing ? "Processando..." : "Continuar"}
+                      <CreditCard className="ml-2 h-5 w-5" />
+                    </Button>
+
+                    {/* Garantia */}
+                    <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
+                      <Shield className="h-4 w-4" />
+                      <span>07 dias para pedir reembolso</span>
+                    </div>
+
+                    {/* Recursos inclusos */}
+                    <div className="space-y-2 text-sm">
+                      <h4 className="font-semibold text-[#022041]">
+                        Incluído neste plano:
+                      </h4>
+                      <ul className="space-y-1">
+                        {selectedPlans.chatbot.features.map(
+                          (feature, index) => (
+                            <li
+                              key={index}
+                              className="flex items-start space-x-2"
+                            >
+                              <Check className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                              <span>{feature}</span>
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    </div>
+                  </CardContent>
+                )}
+                {selectedPlans.site && (
+                  <CardContent className="space-y-4">
+                    {/* Itens do pedido */}
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <p className="font-semibold text-[#022041]">
+                            {selectedPlans.site.title_plan}
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          {selectedPlans.site.originalPrice && (
+                            <p className="text-sm text-gray-400 line-through">
+                              {formatPrice(selectedPlans.site.originalPrice)}
+                            </p>
                           )}
-                          {selectedPlan.id === "chatbot-anual-profissional" && (
-                            <div className="flex justify-between">
-                              <span>Desenvolvimento de site</span>
-                              <div className="text-right">
-                                <span className="text-gray-400 line-through text-xs">
-                                  R$3200,00
-                                </span>
-                                <span className="text-green-600 font-semibold ml-2">
-                                  R$0,00
-                                </span>
-                              </div>
-                            </div>
-                          )}
+                          <p className="font-bold text-[#1e90ff]">
+                            {formatPrice(selectedPlans.site.price)}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Benefícios inclusos */}
+                      <div className="space-y-2 text-sm">
+                        {selectedPlans.site.isMonthlyFee === true && (
+                          <div className="flex justify-between items-center bg-orange-50 p-2 rounded">
+                            <span>Adicional mensal</span>
+                            <span className="text-orange-600 font-semibold">
+                              +{" "}
+                              {formatPrice(
+                                selectedPlans.site.additionalMonthlyFee || 0
+                              )}
+                            </span>
+                          </div>
+                        )}
+                        {selectedPlans.site.chatbot_installation === true && (
                           <div className="flex justify-between">
-                            <span>Domínio por 1 ano</span>
+                            <span>Instalação chatbot</span>
                             <div className="text-right">
                               <span className="text-gray-400 line-through text-xs">
-                                R$40,99
+                                R$300,00
                               </span>
                               <span className="text-green-600 font-semibold ml-2">
                                 R$0,00
                               </span>
                             </div>
                           </div>
-                        </div>
-                      )}
+                        )}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Impostos 
+                    {/* Impostos 
                   <div className="flex justify-between">
-                    <span>Impostos</span>
-                    <span>-</span>
+                  <span>Impostos</span>
+                  <span>-</span>
                   </div>
                   <p className="text-xs text-gray-500">
-                    (Calculados após as informações de faturamento)
+                  (Calculados após as informações de faturamento)
                   </p>
                   */}
 
-                  <Separator />
+                    <Separator />
 
-                  {/* Subtotal */}
-                  <div className="flex justify-between items-center">
-                    <span className="text-lg font-semibold">Subtotal</span>
-                    <div className="text-right">
-                      {selectedPlan.originalPrice && (
-                        <p className="text-sm text-gray-400 line-through">
-                          {formatPrice(
-                            selectedPlan.originalPrice *
-                              (selectedPlan.period === "annual"
-                                ? Number.parseInt(period)
-                                : 1)
-                          )}
-                        </p>
-                      )}
-                      <p className="text-xl font-bold text-[#1e90ff]">
-                        {formatPrice(calculateTotal())}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Aviso sobre taxa mensal adicional */}
-                  {selectedPlan.additionalMonthlyFee && (
-                    <div className="bg-yellow-50 border border-yellow-200 p-3 rounded-lg">
-                      <div className="flex items-center space-x-2">
-                        <Info className="h-4 w-4 text-yellow-600" />
-                        <p className="text-yellow-800 text-sm font-medium">
-                          Taxa mensal adicional:{" "}
-                          {formatPrice(selectedPlan.additionalMonthlyFee)}/mês
+                    {/* Subtotal */}
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg font-semibold">Subtotal</span>
+                      <div className="text-right">
+                        {selectedPlans.site.originalPrice && (
+                          <p className="text-sm text-gray-400 line-through">
+                            {formatPrice(selectedPlans.site.originalPrice)}
+                          </p>
+                        )}
+                        <p className="text-xl font-bold text-[#1e90ff]">
+                          {formatPrice(calculateTotal())}
                         </p>
                       </div>
-                      <p className="text-yellow-700 text-xs mt-1">
-                        Esta taxa será cobrada mensalmente após a compra
-                      </p>
                     </div>
-                  )}
 
-                  {/* Cupom de desconto 
+                    {/* Aviso sobre taxa mensal adicional */}
+                    {selectedPlans.site.additionalMonthlyFee && (
+                      <div className="bg-yellow-50 border border-yellow-200 p-3 rounded-lg">
+                        <div className="flex items-center space-x-2">
+                          <Info className="h-4 w-4 text-yellow-600" />
+                          <p className="text-yellow-800 text-sm font-medium">
+                            Taxa mensal adicional:{" "}
+                            {formatPrice(
+                              selectedPlans.site.additionalMonthlyFee
+                            )}
+                            /mês
+                          </p>
+                        </div>
+                        <p className="text-yellow-700 text-xs mt-1">
+                          Esta taxa será cobrada mensalmente após a compra
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Cupom de desconto 
                   <div className="space-y-2">
                     <button
                       className="text-purple-600 font-semibold text-sm"
                       onClick={() =>
                         document.getElementById("coupon-input")?.focus()
-                      }
-                    >
-                      Tem um cupom de desconto?
-                    </button>
-                    <div className="flex space-x-2">
-                      <Input
+                        }
+                        >
+                        Tem um cupom de desconto?
+                        </button>
+                        <div className="flex space-x-2">
+                        <Input
                         id="coupon-input"
                         placeholder="Código do cupom"
                         value={couponCode}
                         onChange={(e) => setCouponCode(e.target.value)}
-                      />
-                      <Button variant="outline" onClick={applyCoupon}>
+                        />
+                        <Button variant="outline" onClick={applyCoupon}>
                         Aplicar
-                      </Button>
-                    </div>
+                        </Button>
+                        </div>
                     {discount > 0 && (
                       <p className="text-green-600 text-sm">
-                        Desconto de {discount}% aplicado!
+                      Desconto de {discount}% aplicado!
                       </p>
-                    )}
-                  </div>
-                        */}
+                      )}
+                      </div>
+                      */}
 
-                  {/* Botão de checkout */}
-                  <Button
-                    onClick={handleCheckout}
-                    disabled={
-                      isProcessing || !customerData.name || !customerData.email
-                    }
-                    className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 text-lg"
-                  >
-                    {isProcessing ? "Processando..." : "Continuar"}
-                    <CreditCard className="ml-2 h-5 w-5" />
-                  </Button>
+                    {/* Botão de checkout */}
+                    <Button
+                      onClick={handleCheckout}
+                      disabled={
+                        isProcessing ||
+                        !customerData.name ||
+                        !customerData.email
+                      }
+                      className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 text-lg"
+                    >
+                      {isProcessing ? "Processando..." : "Continuar"}
+                      <CreditCard className="ml-2 h-5 w-5" />
+                    </Button>
 
-                  {/* Garantia */}
-                  <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
-                    <Shield className="h-4 w-4" />
-                    <span>07 dias para pedir reembolso</span>
-                  </div>
+                    {/* Garantia */}
+                    <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
+                      <Shield className="h-4 w-4" />
+                      <span>07 dias para pedir reembolso</span>
+                    </div>
 
-                  {/* Recursos inclusos */}
-                  <div className="space-y-2 text-sm">
-                    <h4 className="font-semibold text-[#022041]">
-                      Incluído neste plano:
-                    </h4>
-                    <ul className="space-y-1">
-                      {selectedPlan.features.map((feature, index) => (
-                        <li key={index} className="flex items-start space-x-2">
-                          <Check className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </CardContent>
+                    {/* Recursos inclusos */}
+                    <div className="space-y-2 text-sm">
+                      <h4 className="font-semibold text-[#022041]">
+                        Incluído neste plano:
+                      </h4>
+                      <ul className="space-y-1">
+                        {selectedPlans.site.features.map((feature, index) => (
+                          <li
+                            key={index}
+                            className="flex items-start space-x-2"
+                          >
+                            <Check className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </CardContent>
+                )}
               </Card>
             </div>
           </div>

@@ -167,7 +167,7 @@ export function Footer() {
               <span className="text-sm text-gray-300">
                 Métodos de Pagamento:
               </span>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center flex-wrap gap-2 md:gap-0 space-x-2">
                 <span className="text-xs bg-gray-700 px-2 py-1 rounded">
                   PIX
                 </span>

@@ -1,35 +1,33 @@
 import { NextResponse, NextRequest } from "next/server";
 
-// Types para controle interno
-interface Customer {
-  id: string;
-  name: string;
-  email: string;
-  phone?: string;
-  document?: string;
-  planUUID: string;
-}
-
-interface Plan {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  period: "monthly" | "annual";
-}
-
 // Rota POST
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { plan, customer }: { plan: Plan; customer: Customer } = body;
+    const { plan, customer, period, discount, total } = body;
+
+    const planSite = plan.site;
+    const planChatbot = plan.chatbot;
+    const planSelected = planSite || planChatbot;
+    console.log("PlanSelected ", planSelected);
 
     // Validação básica
-    if (!plan || !customer?.email) {
+    if (!planSelected || !customer.email || !customer.name) {
       return NextResponse.json(
-        { error: "Dados incompletos." },
+        { error: "Dados obrigatórios não fornecidos" },
         { status: 400 }
       );
+    }
+
+    // Preference de CHATBOT MENSAL
+    if (planSelected.type === "chatbot") {
+      // Validação se é pagamento somente de assinatura
+      if (planSelected.isMonthlyFee === false) {
+        return NextResponse.json(
+          { error: "Este plano utiliza pagamento único. Use outra rota" },
+          { status: 400 }
+        );
+      }
     }
 
     // token do Mercado Pago
@@ -43,15 +41,15 @@ export async function POST(request: NextRequest) {
 
     // Frequência da assinatura
     const frequency_type = "months";
-    const frequency = plan.period === "annual" ? 12 : 1; // Todo mês ou ano
+    const frequency = planSelected.isMonthlyFee === false ? 12 : 1; // Todo mês ou ano
 
     // Criando objeto de assinatura
     const subscriptionData = {
-      reason: plan.name,
+      reason: planSelected.title_plan,
       auto_recurring: {
         frequency, // 12 ou 1
         frequency_type,
-        transaction_amount: plan.price,
+        transaction_amount: planSelected.price,
         currency_id: "BRL",
         start_date: new Date().toISOString(), // Começa agora
         end_date: new Date(
@@ -60,7 +58,7 @@ export async function POST(request: NextRequest) {
       },
       back_url: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/success`,
       payer_email: customer.email,
-      external_reference: `sub|${plan.id}|${customer.id}|${Date.now()}`,
+      external_reference: `sub|${planSelected.slug}|${customer.id}|${Date.now()}`,
     };
 
     //Enviar para o mercado pago
