@@ -52,7 +52,10 @@ interface UserData {
   plan_price: number | null;
   plan_description: string | null;
   plan_features: string[];
+  plan_period: string | null;
+  plan_is_monthly_fee: boolean | null;
   plan_start_date: string | null;
+  plan_already_active: boolean | null;
   plan_status: string | null;
 }
 
@@ -167,6 +170,52 @@ export default function AreaDoClientePage() {
       currency: "BRL",
     }).format(price);
   };
+
+  const handleActiveSubscription = async () => {
+    if (!userData || userData.plan_already_active === true) return;
+
+    const {
+      data: { session },
+      error: sessionError,
+    } = await supabase.auth.getSession();
+
+    if (sessionError || !session) {
+      router.push("/login?redirect=/area-do-cliente");
+      return;
+    }
+    try {
+      const response = await fetch("/api/subscription/create-subscription", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({
+          plan_title: userData.plan_name,
+        }),
+      });
+
+      const { init_point } = await response.json();
+      console.log("data response: ", init_point);
+
+      if (init_point) {
+        window.location.href = init_point;
+      }
+    } catch (error) {
+      console.error("Erro ao iniciar a assinatura: ", error);
+    }
+  };
+
+  // Calculo para 1 mês e libera o botão de ativar assinatura
+  const startDate = userData?.plan_start_date
+    ? new Date(userData.plan_start_date)
+    : null;
+  const oneMonthLater = startDate
+    ? new Date(startDate.setMonth(startDate.getMonth() + 1))
+    : null;
+  const isDisabled = oneMonthLater ? new Date() < oneMonthLater : true;
+
+  userData?.plan_start_date;
 
   if (isLoading) {
     return (
@@ -307,6 +356,11 @@ export default function AreaDoClientePage() {
                           <div className="text-start">
                             <p className="text-xl font-bold text-[#1e90ff]">
                               {formatPrice(userData.plan_price)}
+                              {userData.plan_period === "monthly" && (
+                                <span className="text-sm text-gray-500 font-normal">
+                                  /mês
+                                </span>
+                              )}
                             </p>
                             <Badge
                               className={
@@ -372,6 +426,39 @@ export default function AreaDoClientePage() {
                                 </ul>
                               </div>
                             </>
+                          )}
+                        {userData.plan_is_monthly_fee === true &&
+                          userData.plan_already_active === false && (
+                            <div className="flex flex-col items-center">
+                              <Button
+                                variant="outline"
+                                onClick={handleActiveSubscription}
+                                disabled={isDisabled}
+                                className="w-full justify-center bg-[#1e90ff] hover:bg-[#022041] text-white hover:text-white"
+                              >
+                                <ReceiptText className="h-4 w-4 mr-2" />
+                                Ativar Assinatura
+                              </Button>
+                              {isDisabled && (
+                                <span className="text-red-400 text-sm font-medium mt-2 text-center">
+                                  O botão será habilitado, quando a data da
+                                  compra do seu plano ser 1 mês.
+                                </span>
+                              )}
+                            </div>
+                          )}
+                        {userData.plan_is_monthly_fee === true &&
+                          userData.plan_already_active === true && (
+                            <div className="flex flex-col items-center">
+                              <Button
+                                variant="outline"
+                                disabled
+                                className="w-full justify-center bg-green-600 hover:bg-green-900 text-white hover:text-white"
+                              >
+                                <ReceiptText className="h-4 w-4 mr-2" />
+                                Assinatura Ativada
+                              </Button>
+                            </div>
                           )}
                       </div>
                     ) : (
@@ -519,7 +606,9 @@ export default function AreaDoClientePage() {
                           <div>
                             <p className="text-sm text-gray-600">Tipo</p>
                             <p className="font-medium text-sm text-gray-500">
-                              Mensal / Pagamento Único
+                              {userData.plan_period === "monthly"
+                                ? "Recorrente"
+                                : "Pagamento Único"}
                             </p>
                           </div>
                         </div>
@@ -530,27 +619,49 @@ export default function AreaDoClientePage() {
                               Data de compra
                             </p>
                             <p className="font-medium text-sm text-gray-500">
-                              {userData?.plan_start_date?.substring(0, 10)}
+                              {formatDate(userData?.plan_start_date)}
                             </p>
                           </div>
                         </div>
                       </div>
-                      <div className="grid grid-cols-1 gap-4">
-                        <Button
-                          variant="outline"
-                          onClick={handleExpandedDetails}
-                          className="w-full justify-center bg-[#1e90ff] hover:bg-[#022041] text-white hover:text-white"
-                        >
-                          <ReceiptText className="h-4 w-4 mr-2" />
-                          Ver Detalhes
-                        </Button>
+                      {userData.plan_already_active === true &&
+                        userData.plan_is_monthly_fee === true && (
+                          <div className="grid grid-cols-1 gap-4">
+                            <Button
+                              variant="outline"
+                              onClick={handleExpandedDetails}
+                              className="w-full justify-center bg-[#1e90ff] hover:bg-[#022041] text-white hover:text-white"
+                            >
+                              <ReceiptText className="h-4 w-4 mr-2" />
+                              Ver Detalhes
+                            </Button>
+                            <div className="grid grid-cols-2 gap-2">
+                              <Button
+                                variant="outline"
+                                className="w-full justify-center bg-transparent hover:bg-gray-300"
+                              >
+                                <RefreshCcw className="h-4 w-4 mr-2" />
+                                Cancelar Assinatura Mensal
+                              </Button>
+                              <Button
+                                variant="outline"
+                                className="w-full justify-center bg-transparent hover:bg-gray-300"
+                              >
+                                <PowerOff className="h-4 w-4 mr-2" />
+                                Solicitar Reembolso
+                              </Button>
+                            </div>
+                          </div>
+                        )}
+                      {userData.plan_already_active === false && (
                         <div className="grid grid-cols-2 gap-2">
                           <Button
                             variant="outline"
-                            className="w-full justify-center bg-transparent hover:bg-gray-300"
+                            onClick={handleExpandedDetails}
+                            className="w-full justify-center bg-[#1e90ff] hover:bg-[#022041] text-white hover:text-white"
                           >
-                            <RefreshCcw className="h-4 w-4 mr-2" />
-                            Cancelar Assinatura Mensal
+                            <ReceiptText className="h-4 w-4 mr-2" />
+                            Ver Detalhes
                           </Button>
                           <Button
                             variant="outline"
@@ -560,7 +671,7 @@ export default function AreaDoClientePage() {
                             Solicitar Reembolso
                           </Button>
                         </div>
-                      </div>
+                      )}
                       {expandedDetails && (
                         <div className="mt-4 p-4 bg-blue-100 flex flex-col  ">
                           <CardHeader>
@@ -572,6 +683,11 @@ export default function AreaDoClientePage() {
                               <span className="flex">
                                 <p className="text-xl font-bold text-[#1e90ff]">
                                   {formatPrice(userData.plan_price)}
+                                  <span className="text-sm font-normal text-gray-500">
+                                    {userData.plan_period === "monthly"
+                                      ? "/mês"
+                                      : null}
+                                  </span>
                                 </p>
                               </span>
                             </CardTitle>

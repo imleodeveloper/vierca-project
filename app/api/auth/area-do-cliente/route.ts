@@ -31,34 +31,66 @@ export async function POST(request: Request) {
     const userEmail = userData.user.email;
 
     type Plan = {
-      name: string;
-      price: number;
-      features: string[];
+      title_plan: string;
       description: string;
+      features: string[];
+      price: number;
+      is_monthly_fee: boolean;
+      conversations_per_month?: number;
+      additional_price_monthly_fee?: number;
+      chatbot_installation?: boolean;
     };
 
     type UserPlanData = {
-      plan_id: string;
-      slug: string;
-      plan_start_date: string;
+      type_plan: string;
+      slug_site: string;
+      slug_chatbot: string;
+      has_chatbot: boolean;
+      conversations_per_month: number;
+      price_plan: number;
+      has_monthly_fee: boolean;
+      price_monthly_fee: number;
       status: string;
-      plans: Plan;
+      period: string;
+      plan_start_date: string;
+      already_active_plan: boolean;
+      plans_chatbots?: Plan;
+      plans_sites?: Plan;
     };
 
     // Busca plano ativo do usuário com join na tabela plans
     const { data: userPlanData, error: planError } = await supabase
-      .from("user_plans")
+      .from("user_plan")
       .select(
         `
-        plan_id,
-        slug,
-        plan_start_date,
+        type_plan,
+        slug_site,
+        slug_chatbot,
+        has_chatbot,
+        conversations_per_month,
+        price_plan,
+        has_monthly_fee,
+        price_monthly_fee,
         status,
-        plans!user_plans_plan_id_fkey (
-          name,
-          price,
+        period,
+        plan_start_date,
+        already_active_plan,
+        plans_chatbots!user_plan_slug_chatbot_fkey (
+          title_plan,
+          description,
           features,
-          description
+          price,
+          is_monthly_fee,
+          conversations_per_month        
+        ),
+        plans_sites!user_plan_slug_site_fkey (
+          title_plan,
+          description,
+          features,
+          price,
+          is_monthly_fee,
+          additional_price_monthly_fee,
+          chatbot_installation
         )
       `
       )
@@ -77,6 +109,8 @@ export async function POST(request: Request) {
       return;
     }
 
+    console.log("UserPlanData: ", userPlanData);
+
     // Se não encontrou plano ativo, não é erro - usuário pode não ter plano
     const activePlan =
       userPlanData && userPlanData.length > 0
@@ -84,8 +118,7 @@ export async function POST(request: Request) {
         : null;
 
     // Pega o primeiro plano (caso venha como array)
-    const plan = activePlan?.plans;
-    console.log(plan);
+    const plan = activePlan?.plans_chatbots;
 
     // Busca informações do perfil do usuário se existir
     const { data: profileData } = await supabase
@@ -107,11 +140,14 @@ export async function POST(request: Request) {
           email: userEmail,
           full_name: profileData?.full_name || null,
           phone: profileData?.phone || null,
-          plan_name: plan?.name || null,
+          plan_name: plan?.title_plan || null,
           plan_price: plan?.price || null,
           plan_description: plan?.description || null,
           plan_features: plan?.features || [],
+          plan_period: activePlan?.period || null,
+          plan_is_monthly_fee: plan?.is_monthly_fee || null,
           plan_start_date: activePlan?.plan_start_date || null,
+          plan_already_active: activePlan?.already_active_plan ?? null,
           plan_status: activePlan?.status || null,
         },
       },

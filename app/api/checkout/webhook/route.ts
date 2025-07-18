@@ -147,6 +147,7 @@ async function handleApprovedPayment(paymentData: any) {
         status: "active",
         period: period,
         plan_start_date: new Date(),
+        already_active_plan: false,
       });
 
       if (error) {
@@ -196,6 +197,7 @@ async function handleApprovedPayment(paymentData: any) {
         status: "active",
         period: period,
         plan_start_date: new Date(),
+        already_active_plan: false,
       });
 
       if (error) {
@@ -285,7 +287,7 @@ async function sendEmailConfirmation({
         <p>Seu pagamento foi aprovado com sucesso.</p>
         <p><strong>Plano:</strong> ${planName}<br/>
         <strong>Valor:</strong> R$ ${amount.toFixed(2)}</p>
-        <p>Seja bem-vindo(a) à VierBarber!</p>
+        <p>Seja bem-vindo(a) à VierCa Tech!</p>
       `,
     });
 

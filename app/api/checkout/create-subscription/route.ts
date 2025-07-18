@@ -5,7 +5,6 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { plan, customer, period, discount, total } = body;
-
     const planSite = plan.site;
     const planChatbot = plan.chatbot;
     const planSelected = planSite || planChatbot;
