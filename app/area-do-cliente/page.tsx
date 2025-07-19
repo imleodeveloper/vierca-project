@@ -215,8 +215,6 @@ export default function AreaDoClientePage() {
     : null;
   const isDisabled = oneMonthLater ? new Date() < oneMonthLater : true;
 
-  userData?.plan_start_date;
-
   if (isLoading) {
     return (
       <div className="min-h-screen">
@@ -646,6 +644,7 @@ export default function AreaDoClientePage() {
                               <Button
                                 variant="outline"
                                 className="w-full justify-center bg-transparent hover:bg-gray-300"
+                                onClick={() => router.push("/contato")}
                               >
                                 <PowerOff className="h-4 w-4 mr-2" />
                                 Solicitar Reembolso
@@ -666,6 +665,7 @@ export default function AreaDoClientePage() {
                           <Button
                             variant="outline"
                             className="w-full justify-center bg-transparent hover:bg-gray-300"
+                            onClick={() => router.push("/contato")}
                           >
                             <PowerOff className="h-4 w-4 mr-2" />
                             Solicitar Reembolso

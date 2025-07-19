@@ -90,7 +90,7 @@ const plansChatbots: PlansChatbots[] = [
   {
     type: "chatbot",
     title_plan: "Chatbot Teste",
-    slug: "chatbot-teste",
+    slug: "chatbot-teste1",
     description: "Chatbot com IA para seu site - pagamento mensal",
     features: [
       "Aproximadamente 1.000 conversas no mês",
@@ -167,6 +167,30 @@ const plansChatbots: PlansChatbots[] = [
     chatbot_installation: true,
     popular: false,
     benefits: "A contratação deste plano inclui a instalação do chatbot.",
+  },
+  {
+    type: "chatbot",
+    title_plan: "Teste Básico",
+    slug: "chatbot-teste",
+    description: "Chatbot com IA e site incluso - pagamento anual",
+    features: [
+      "Aproximadamente 12.000 conversas por ano",
+      "Custo acessível para começar",
+      "Ideal para sites pessoais e pequenos negócios",
+      "Incluso desenvolvimento de site",
+      "Incluso domínio 01 ano gratuito",
+      "Incluso instalação de chatbot",
+      "Incluso suporte técnico",
+    ],
+    price: 148.14,
+    originalPrice: 2069.94 / 12,
+    isMonthlyFee: false,
+    conversationsPerMonth: 1000,
+    site_development: true,
+    chatbot_installation: true,
+    popular: false,
+    benefits:
+      "Neste plano você tem incluso: Desenvolvimento de site, instalação do chatbot, domínio gratuíto por 1 ano e suporte técnico",
   },
   {
     type: "chatbot",

@@ -17,7 +17,7 @@ export function PlansSection() {
       link: "/checkout?plan=chatbot-teste",
       subtitle:
         "Ideal para sites pessoais ou pequenos negócios em início de jornada com IA. Válido para 1 site (1 domínio)",
-      price: "R$ 91,58/mês",
+      price: "R$ 141,32/mês",
       period:
         "*Estimativa mensal para referência com pagamento à vista. O plano pode ser parcelado em até 12x com acréscimo.",
       features: [
