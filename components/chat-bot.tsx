@@ -247,11 +247,13 @@ export function ChatBot() {
                       : "bg-[#1e90ff] text-white"
                   }`}
                   dangerouslySetInnerHTML={{
-                    __html: message.text.replace(
-                      /https:\/\/wa\.me\/[^\s]+/g,
-                      (url) =>
-                        `<a href="${url}" target="_blank" rel="noopener noreferrer" class="underline hover:no-underline">WhatsApp</a>`
-                    ),
+                    __html: message.text
+                      .replace(/\n/g, "<br>")
+                      .replace(
+                        /https:\/\/wa\.me\/[^\s]+/g,
+                        (url) =>
+                          `<a href="${url}" target="_blank" rel="noopener noreferrer" class="underline hover:no-underline">WhatsApp</a>`
+                      ),
                   }}
                 />
               </div>
