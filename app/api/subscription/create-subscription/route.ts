@@ -137,6 +137,11 @@ export async function POST(request: NextRequest) {
 
     const data = await response.json();
 
+    await supabase
+      .from("user_plan")
+      .update({ subscription_id: data.id })
+      .eq("user_id", userId);
+
     if (!response.ok) {
       console.error("Erro Mercado Pago: ", data);
       return NextResponse.json(

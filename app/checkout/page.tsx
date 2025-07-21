@@ -90,7 +90,7 @@ const plansChatbots: PlansChatbots[] = [
   {
     type: "chatbot",
     title_plan: "Chatbot Teste",
-    slug: "chatbot-teste1",
+    slug: "chatbot-teste",
     description: "Chatbot com IA para seu site - pagamento mensal",
     features: [
       "Aproximadamente 1.000 conversas no mês",
@@ -171,7 +171,7 @@ const plansChatbots: PlansChatbots[] = [
   {
     type: "chatbot",
     title_plan: "Teste Básico",
-    slug: "chatbot-teste",
+    slug: "chatbot-teste2",
     description: "Chatbot com IA e site incluso - pagamento anual",
     features: [
       "Aproximadamente 12.000 conversas por ano",

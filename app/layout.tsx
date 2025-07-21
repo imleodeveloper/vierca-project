@@ -12,10 +12,10 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "VierCa - Desenvolvimento de Sites com ChatBots",
+  title: "VierCa Tech - Desenvolvimento de Sites com Chatbots e Sistemas",
   description:
     "Especialistas em desenvolvimento de sites, sistemas e chatbots. Soluções completas para sua presença digital.",
-  generator: "VierCa",
+  generator: "VierCa Tech",
 };
 
 export default function RootLayout({

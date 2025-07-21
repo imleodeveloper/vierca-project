@@ -439,8 +439,8 @@ export default function AreaDoClientePage() {
                               </Button>
                               {isDisabled && (
                                 <span className="text-red-400 text-sm font-medium mt-2 text-center">
-                                  O botão será habilitado, quando a data da
-                                  compra do seu plano ser 1 mês.
+                                  A funcionalidade será disponibilizada após 1
+                                  mês da data de contratação do plano.
                                 </span>
                               )}
                             </div>
